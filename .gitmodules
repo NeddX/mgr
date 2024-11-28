@@ -1,0 +1,6 @@
+[submodule "mgrd/vendor/Logex"]
+	path = mgrd/vendor/Logex
+	url = https://github.com/NeddX/Logex
+[submodule "mgrd/vendor/json"]
+	path = mgrd/vendor/json
+	url = https://github.com/nlohmann/json

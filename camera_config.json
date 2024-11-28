@@ -1,0 +1,118 @@
+{
+	"cameras": [
+		{
+			"camera_id": 1,
+			"concentrator_id": 1,
+			"videodev":0,
+			"resolution_width": 1920,
+			"resolution_height": 1080,
+			"fps": 30,
+			"depth": 12,
+			"buffer_count": 2,
+			"compr_format": "MJPEG",
+			"video_format": "AYVY"
+		},
+		{
+			"camera_id": 2,
+			"concentrator_id": 1,
+			"videodev":1,
+			"resolution_width": 1920,
+			"resolution_height": 1080,
+			"fps": 30,
+			"depth": 10,
+			"buffer_count": 2,
+			"compr_format": "MJPEG",
+			"video_format": "AYVY"
+		},
+		{
+			"camera_id": 3,
+			"concentrator_id": 2,
+			"videodev":1,
+			"resolution_width": 1920,
+			"resolution_height": 1080,
+			"fps": 30,
+			"depth": 10,
+			"buffer_count": 2,
+			"compr_format": "MJPEG",
+			"video_format": "AYVY"
+		},
+		{
+			"camera_id": 4,
+			"concentrator_id": 2,
+			"videodev":1,
+			"resolution_width": 1920,
+			"resolution_height": 1080,
+			"fps": 30,
+			"depth": 12,
+			"buffer_count": 2,
+			"compr_format": "MJPEG",
+			"video_format": "AYVY"
+		},
+		{
+			"camera_id": 5,
+			"concentrator_id": 2,
+			"videodev":1,
+			"resolution_width": 1920,
+			"resolution_height": 1080,
+			"fps": 30,
+			"depth": 10,
+			"buffer_count": 2,
+			"compr_format": "MJPEG",
+			"video_format": "AYVY"
+		},
+		{
+			"camera_id": 6,
+			"concentrator_id": 3,
+			"videodev":1,
+			"resolution_width": 1920,
+			"resolution_height": 1080,
+			"fps": 30,
+			"depth": 10,
+			"buffer_count": 2,
+			"compr_format": "MJPEG",
+			"video_format": "AYVY"
+		},
+		{
+			"camera_id": 7,
+			"concentrator_id": 3,
+			"videodev":1,
+			"resolution_width": 1920,
+			"resolution_height": 1080,
+			"fps": 30,
+			"depth": 10,
+			"buffer_count": 2,
+			"compr_format": "MJPEG",
+			"video_format": "AYVY"
+		},
+		{
+			"camera_id": 8,
+			"concentrator_id": 3,
+			"videodev":1,
+			"resolution_width": 1920,
+			"resolution_height": 1080,
+			"fps": 30,
+			"depth": 10,
+			"buffer_count": 2,
+			"compr_format": "MJPEG",
+			"video_format": "AYVY"
+		}
+	],
+    "crew_station" : [
+        {
+            "cr_st_id": 1,
+            "cam_ids": [1, 2]
+        },
+        {
+            "cr_st_id": 2,
+            "cam_ids": [3, 4]
+        },
+        {
+            "cr_st_id": 3,
+            "cam_ids": [5, 6, 7]
+        },
+        {
+            "cr_st_id": 4,
+            "cam_ids": [8]
+        }
+    ]
+}

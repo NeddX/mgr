@@ -1,0 +1,16 @@
+#pragma once
+
+#include <string>
+#include <string_view>
+#include <vector>
+
+namespace mgrd::utils {
+    [[nodiscard]] std::vector<std::string> StrSplit(const std::string& str, const char delim = ' ') noexcept;
+    [[nodiscard]] std::string              StrLower(const std::string_view str) noexcept;
+
+    template <typename Fn>
+    constexpr auto BindDelegate(auto* self, Fn delegate)
+    {
+        return [self, delegate](auto&&... args) { return (self->*delegate)(std::forward<decltype(args)>(args)...); };
+    }
+} // namespace mgrd::utils

@@ -1,0 +1,52 @@
+{
+    "version": 3,
+    "configurePresets": [
+        {
+            "name": "linux-base",
+            "hidden": true,
+            "generator": "Unix Makefiles",
+            "binaryDir": "${sourceDir}/builds/${presetName}",
+            "cacheVariables": {
+                "CMAKE_PRESET_NAME": "${presetName}"
+            },
+            "condition": {
+                "type": "equals",
+                "lhs": "${hostSystemName}",
+                "rhs": "Linux"
+            }
+        },
+        {
+            "name": "linux-any-debug",
+            "displayName": "any Debug",
+            "installDir": "${sourceDir}/installs/${presetName}",
+            "inherits": "linux-base",
+            "architecture": {
+                "value": "any",
+                "strategy": "external"
+            },
+            "cacheVariables": {
+                "CMAKE_BUILD_TYPE": "Debug"
+            }
+        },
+        {
+            "name": "linux-any-release",
+            "displayName": "any Release",
+            "installDir": "${sourceDir}/installs/${presetName}",
+            "inherits": "linux-any-debug",
+            "cacheVariables": {
+                "CMAKE_BUILD_TYPE": "Release",
+                "CMAKE_CXX_FLAGS": "-fsanitize=address -fno-omit-frame-pointer -fsanitize=undefined",
+                "CMAKE_C_FLAGS": "-fsanitize=address -fno-omit-frame-pointer -fsanitize=undefined"
+            }
+        },
+        {
+            "name": "linux-any-shipping",
+            "displayName": "any Shipping",
+            "installDir": "/usr/local",
+            "inherits": "linux-any-debug",
+            "cacheVariables": {
+                "CMAKE_BUILD_TYPE": "Shipping"
+            }
+        }
+    ]
+}
