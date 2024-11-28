@@ -1,6 +1,11 @@
 #+TITLE: MGR
 
 * Compilation
+Clone the repository *recursively!*
+#+begin_src bash
+git clone --recursive https://github.com/NeddX/mgr
+#+end_src
+
 ** Ubuntu
 To compile this project on Ubuntu, please follow the steps below.
 
@@ -92,7 +97,14 @@ Generate the CMake files via =CMakePresets.json= with =linux-any-debug= configur
 cmake --preset=linux-any-debug
 #+end_src
 
-You should have a =builds/linux-any-debug= directory if the above command ran successfully so now build the project.
+You should have a =builds/linux-any-debug= directory if the above command ran successfully so build the project.
 #+begin_src bash
 cmake --build builds/linux-any-debug
 #+end_src
+
+** Running the application
+The application is under =builds/linux-any-debug/mgrd= called =mgrd=.
+It supports the following options:
+- =--daemon=: Runs as a dbus daemon /(not yet developed)/.
+- =--rc=: Runs as the Root Complex.
+- =--camconf=<path>=: Loads the camera configuration file from the specified file.
