@@ -14,16 +14,10 @@ To compile this project on Ubuntu, please follow the steps below.
 - GCC /13+ (for libstdc++13 used by clang)/
 - Clang /17+/
 - GNU Makefile /(should come by default on any Unix-like machine)/
-- pkgconfig /0.29.2+/
 
 You're going to add extra repositories for APT so download the following.
 #+begin_src bash
 sudo apt install -y wget software-properties-common apt-transport-https gnupg lsb-release
-#+end_src
-
-Also download =pkg-config= and dbus development libraries.
-#+begin_src bash
-sudo apt install -y libdbus-1-dev libdbus-c++-dev pkgconfig
 #+end_src
 
 And also update your system just in case.
@@ -105,6 +99,7 @@ cmake --build builds/linux-any-debug
 ** Running the application
 The application is under =builds/linux-any-debug/mgrd= called =mgrd=.
 It supports the following options:
-- =--daemon=: Runs as a dbus daemon /(not yet developed)/.
-- =--rc=: Runs as the Root Complex.
-- =--camconf=<path>=: Loads the camera configuration file from the specified file.
+- =--daemon | -d=: Runs as a daemon /(not yet developed)/.
+- =--rc | -r=: Runs as the Root Complex.
+- =--camconf=<path> | -cf=<path>=: Loads the camera configuration from the specified file.
+- =--sendstr=<quoted str> | -s=<quoted str>=: Sends a string to the Root Complex and disconnects.
