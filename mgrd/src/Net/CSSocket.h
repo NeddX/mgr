@@ -69,6 +69,10 @@ typedef intptr_t socket_t;
 #define CS_SD_WRITE        SHUT_WR
 #endif
 
+#ifdef __cplusplus
+namespace csnet {
+#endif
+
 // Address family enum abstraction layer.
 typedef enum _cs_address_family
 {
@@ -182,8 +186,9 @@ typedef struct _cs_socket
     socket_t _native_handle;
 } Socket;
 
-// So I don't forget to initialize.
-inline static uint8_t _cs_g_initialized = false;
+// FIXME: BAD VERY BAD
+//inline static volatile uint8_t _cs_g_initialized = false;
+extern volatile uint8_t _cs_g_initialized;
 
 // WinSocks requires the user to initialize.
 inline int32_t CSSocket_Init()
@@ -447,6 +452,7 @@ inline Socket* Socket_Accept(Socket* s)
 // disconnected. If successful, return the amount of bytes received.
 inline int32_t Socket_Receive(Socket* s, uint8_t* buffer, const size_t buffer_size, const int32_t flags)
 {
+    //__builtin_debugtrap();
     if (!_cs_g_initialized)
     {
         fputs("CS_Sockets not initialized.\n", stderr);
@@ -481,5 +487,9 @@ inline int32_t Socket_Send(Socket* s, const uint8_t* buffer, const size_t buffer
     }
     return sent_bytes;
 }
+
+#ifdef __cplusplus
+} // namespace csnet
+#endif
 
 #endif // CROSSPLATFORM_SOCKETS_H

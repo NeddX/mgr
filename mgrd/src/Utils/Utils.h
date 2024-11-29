@@ -5,8 +5,9 @@
 #include <vector>
 
 namespace mgrd::utils {
-    [[nodiscard]] std::vector<std::string> StrSplit(const std::string& str, const char delim = ' ') noexcept;
-    [[nodiscard]] std::string              StrLower(const std::string_view str) noexcept;
+    [[nodiscard]] std::vector<std::string>      StrSplit(const std::string& str, const char delim = ' ') noexcept;
+    [[nodiscard]] std::vector<std::string_view> StrSplit(const std::string_view str, const char delim = ' ') noexcept;
+    [[nodiscard]] std::string                   StrLower(const std::string_view str) noexcept;
 
     template <typename Fn>
     constexpr auto BindDelegate(auto* self, Fn delegate)

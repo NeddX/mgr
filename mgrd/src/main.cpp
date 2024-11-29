@@ -7,25 +7,15 @@
 
 int main(const int argc, const char** argv)
 {
-    bool        daemon       = false;
-    bool        root_complex = false;
-    std::string camera_config_file;
-    if (argc > 1)
-    {
-        for (auto i = 0; i < argc; ++i)
-        {
-            if (std::strcmp(argv[i], "--daemon") == 0)
-                daemon = true;
-            else if (std::strcmp(argv[i], "--rc") == 0)
-                root_complex = true;
-            else if (std::strncmp(argv[i], "--camconf=", sizeof("--camconf=") - 1) == 0)
-            {
-                camera_config_file = argv[i] + sizeof("--camconf=") - 1;
-            }
-        }
-    }
+    std::vector<std::string_view> args(argc);
+    std::accumulate(args.begin(), args.end(), 0,
+                    [argv](std::size_t i, auto& e)
+                    {
+                        e = std::string_view{ argv[i] };
+                        return i + 1;
+                    });
 
-    mgrd::Application app{ daemon, root_complex, std::move(camera_config_file) };
+    mgrd::Application app{ args };
     app.Run();
     return 0;
 }
