@@ -16,16 +16,17 @@ namespace mgrd::net {
 
     enum class PacketType : u8
     {
-    Reboot,
-        String
+        NoOp,
+        Success,
+        Reboot,
+        String,
+        InvalidState
     };
-
-    [[nodiscard]] std::string_view TypeToStr(const PacketType type) noexcept;
 
     struct PacketHeader
     {
-        PacketType type;
-        u8        dataLen;
+        PacketType type    = PacketType::NoOp;
+        u32        dataLen = 0;
     };
 
     struct Packet
@@ -105,6 +106,8 @@ namespace mgrd::net {
         }
     };
 
-    std::optional<Packet> BeginReceive(csnet::Socket* socket) noexcept;
-    bool                  BeginSend(csnet::Socket* socket, Packet&& packet) noexcept;
+    std::optional<Packet>          BeginReceive(csnet::Socket* socket) noexcept;
+    bool                           BeginSend(csnet::Socket* socket, Packet&& packet) noexcept;
+    [[nodiscard]] std::string_view TypeToStr(const PacketType type) noexcept;
+    [[nodiscard]] std::string_view TypeToStr(const Packet& packet) noexcept;
 } // namespace mgrd::net

@@ -3,6 +3,7 @@
 #include <Utils/Utils.h>
 
 #include <chrono>
+#include <ranges>
 
 #include <fcntl.h>
 #include <sys/reboot.h>
@@ -14,8 +15,7 @@
 namespace mgrd {
     Application::Application(const std::vector<std::string_view>& args)
         : m_DaemonMode(false)
-        , m_RootComplex(false)
-        , m_LogFilePath("/var/log/pciemgrd.log")
+        , m_RootComplex(false) , m_LogFilePath("/var/log/pciemgrd.log") , m_ArgOrder(0)
     {
         net::CSSocket_Init();
 
@@ -38,11 +38,14 @@ namespace mgrd {
         // NOTE: DO NOT LOG BEFORE CLI ARGUMENTS HAVE BEEN PARSED!
         m_Logger = std::make_unique<lgx::Logger>(m_LoggerProperties);
 
+        m_BinName = args[0];
+
         // NOTE: Arguments are parsed in the order they were added.
         AddArgument({ "--daemon", "-d" }, &Application::Arg_DaemonHandler);
         AddArgument({ "--rc", "-r" }, &Application::Arg_RCHandler);
         AddArgument({ "--camconf", "-cf" }, &Application::Arg_CamconfHandler);
         AddArgument({ "--sendstr", "-s" }, &Application::Arg_SendStrHandler);
+        AddArgument({ "root", "rc" }, &Application::Arg_RCCommandHandler);
         DispatchArguments(args);
 
         AddNetPacket(net::PacketType::String, &Application::Net_StringHandler);
@@ -81,10 +84,11 @@ namespace mgrd {
         net::CSSocket_Dispose();
     }
 
-    void Application::DispatchArguments(std::vector<std::string_view> args) noexcept
+    void Application::DispatchArguments(const std::vector<std::string_view>& args) noexcept
     {
         // Sort the arguments according to their order.
-        std::sort(args.begin(), args.end(),
+        std::vector<std::string_view> sorted_args{ args };
+        std::sort(sorted_args.begin(), sorted_args.end(),
                   [this](const auto& s1, const auto& s2)
                   {
                       const auto a = (m_ArgOrderMap.contains(s1)) ? m_ArgOrderMap[s1] : 255;
@@ -92,12 +96,14 @@ namespace mgrd {
                       return a < b;
                   });
 
-        for (const auto& e : args)
+        for (const auto& e : sorted_args)
         {
             const auto arg = utils::StrSplit(e, '=')[0];
             if (const auto it = m_ArgMap.find(arg); it != m_ArgMap.end())
             {
-                if (!(this->*(it->second))(e))
+                // TODO: Optimize with std::ranges::subrange
+                auto sub_args = std::vector<std::string_view>{ std::find(args.begin(), args.end(), e), args.end() };
+                if (!(this->*(it->second))(std::move(sub_args)))
                     m_Logger->Log(lgx::Level::Error, "{} parsed with error(s).", arg);
             }
         }
@@ -111,14 +117,14 @@ namespace mgrd {
 
             while (!m_PacketQueue.empty())
             {
-                auto       packet = std::move(m_PacketQueue.front());
-                const auto type   = packet.header.type;
+                auto [owner, packet] = std::move(m_PacketQueue.front());
+                const auto type      = packet.header.type;
                 m_PacketQueue.pop();
 
                 m_Logger->Log(lgx::Level::Info, "Processing incoming packet: {}", net::TypeToStr(type));
                 if (const auto it = m_PacketMap.find(packet.header.type); it != m_PacketMap.end())
                 {
-                    if (!(this->*(it->second))(std::move(packet)))
+                    if (!(this->*(it->second))(owner, std::move(packet)))
                     {
                         m_Logger->Log(lgx::Level::Error, "{} packet processed with error(s).", net::TypeToStr(type));
 
@@ -141,6 +147,19 @@ namespace mgrd {
                 }
             }
         }
+    }
+
+    void Application::ConnectToRC()
+    {
+        m_Ep = IPEndPoint_New(net::IPAddress_Parse(Application::RootServerIP), net::AddressFamily_InterNetwork,
+                              Application::RootServerPort);
+
+        if (net::Socket_Connect(m_Socket, m_Ep) == CS_SOCKET_ERROR)
+        {
+            Panic("Failed to connect to ({}:{}).", m_Ep.address.str, m_Ep.port);
+        }
+
+        m_Logger->Log(lgx::Level::Info, "Connected to Root Complex.");
     }
 
     void Application::Run()
@@ -174,7 +193,7 @@ namespace mgrd {
                                          {
                                              std::scoped_lock lock{ m_PacketQueueMutex };
 
-                                             m_PacketQueue.push(std::move(*packet));
+                                             m_PacketQueue.emplace(eps, std::move(*packet));
                                          }
                                      }
                                      net::Socket_Dispose(eps);
@@ -186,45 +205,15 @@ namespace mgrd {
         }
     }
 
-    bool Application::Arg_DaemonHandler([[maybe_unused]] const std::string_view arg)
+    bool Application::Arg_DaemonHandler([[maybe_unused]] std::vector<std::string_view> args)
     {
         m_DaemonMode = true;
-
-        // Demon mode.
-        {
-            switch (fork())
-            {
-                case -1: Panic("Failed to fork for daemonisation.");
-                case 0: break;                    // Child continues.
-                default: std::exit(EXIT_SUCCESS); // Parnet terminates.
-            }
-
-            if (setsid() < 0)
-                Panic("Failed to create a new session.");
-
-            switch (fork())
-            {
-                case -1: Panic("Failed to double fork for daemonisation.");
-                case 0: break;
-                default: std::exit(EXIT_SUCCESS);
-            }
-
-            umask(0);   // Newly created files have no permission restrictions.
-            chdir("/"); // Cd to '/' because we're a daemon now.
-
-            // Redirect stdin, stdout, stderr to /dev/null.
-            freopen("/dev/null", "r", stdin);
-            freopen("/dev/null", "w", stdout);
-            freopen("/dev/null", "w", stderr);
-
-            // Set up signal handling.
-        }
 
         // Create file for logging.
         m_LogFile = std::ofstream{ m_LogFilePath, std::ios_base::out | std::ios_base::trunc };
         if (m_LogFile.is_open())
         {
-            m_Logger->SetOutputStreams({ &m_LogFile });
+            m_Logger->SetOutputStreams({ &m_LogFile, &std::cout });
             m_Logger->SetDefaultPrefix(m_Logger->GetDefaultPrefix() + 'd');
             return true;
         }
@@ -234,7 +223,7 @@ namespace mgrd {
         return true;
     }
 
-    bool Application::Arg_RCHandler([[maybe_unused]] const std::string_view arg)
+    bool Application::Arg_RCHandler([[maybe_unused]] std::vector<std::string_view> args)
     {
         m_RootComplex = true;
 
@@ -256,9 +245,9 @@ namespace mgrd {
         return true;
     }
 
-    bool Application::Arg_CamconfHandler(const std::string_view arg)
+    bool Application::Arg_CamconfHandler(std::vector<std::string_view> args)
     {
-        m_CameraConfigPath = utils::StrSplit(arg, '=')[1];
+        m_CameraConfigPath = utils::StrSplit(args[0], '=')[1];
         m_Logger->Log(lgx::Level::Info, "Loading '{}'...", m_CameraConfigPath);
         std::ifstream fs{ m_CameraConfigPath };
         if (fs.is_open())
@@ -274,19 +263,11 @@ namespace mgrd {
         return true;
     }
 
-    [[nodiscard]] bool Application::Arg_SendStrHandler(const std::string_view arg)
+    [[nodiscard]] bool Application::Arg_SendStrHandler(std::vector<std::string_view> args)
     {
-        m_Ep = IPEndPoint_New(net::IPAddress_Parse(Application::RootServerIP), net::AddressFamily_InterNetwork,
-                              Application::RootServerPort);
+        ConnectToRC();
 
-        if (net::Socket_Connect(m_Socket, m_Ep) == CS_SOCKET_ERROR)
-        {
-            Panic("Failed to connect to ({}:{}).", m_Ep.address.str, m_Ep.port);
-        }
-
-        m_Logger->Log(lgx::Level::Info, "Connected to Root Complex.");
-
-        auto        msg = utils::StrSplit(arg, '=')[1];
+        auto        msg = utils::StrSplit(args[0], '=')[1];
         net::Packet packet;
         packet.header.type = net::PacketType::String;
         packet << msg;
@@ -294,7 +275,52 @@ namespace mgrd {
         return true;
     }
 
-    [[nodiscard]] bool Application::Net_StringHandler(net::Packet&& packet) noexcept
+    [[nodiscard]] bool Application::Arg_RCCommandHandler(std::vector<std::string_view> args)
+    {
+        ConnectToRC();
+
+        // pciemgr rc reboot
+        if (args.size() > 1)
+        {
+            const auto cmd = args[1];
+            if (utils::StrLower(cmd) == "reboot")
+            {
+                // TODO: Write a command handler?
+                net::BeginSend(m_Socket, net::Packet{ { net::PacketType::Reboot } });
+                const auto reply = net::BeginReceive(m_Socket);
+                if (reply)
+                {
+                    switch (reply->header.type)
+                    {
+                        using enum net::PacketType;
+
+                        case Success: m_Logger->Info("RC rebooting..."); return true;
+                        case InvalidState:
+                            m_Logger->Error("RC failed to reboot. Error code: InvalidState");
+                            return false;
+                        default: return true;
+                    }
+                }
+                else
+                {
+                    m_Logger->Error("RC failed to acknowledge the command.");
+                    return false;
+                }
+            }
+        }
+        else
+        {
+            // TODO: Optimize sub-command handling.
+            m_Logger->Info(
+                "Usage: {} rc|root <command>\nList of available commands:\n\treboot\tReboots the Root Complex.",
+                GetBinaryName());
+            return true;
+        }
+        return false;
+    }
+
+    [[nodiscard]] bool Application::Net_StringHandler([[maybe_unused]] net::Socket* client,
+                                                      net::Packet&&                 packet) noexcept
     {
         std::string msg;
         packet >> msg;
@@ -302,7 +328,8 @@ namespace mgrd {
         return true;
     }
 
-    [[nodiscard]] bool Application::Net_RebootHandler([[maybe_unused]] net::Packet&& packet) noexcept
+    [[nodiscard]] bool Application::Net_RebootHandler(net::Socket*                   client,
+                                                      [[maybe_unused]] net::Packet&& packet) noexcept
     {
         m_Logger->Log(lgx::Level::Info, "Rebooting...");
 
@@ -319,6 +346,7 @@ namespace mgrd {
              */
             return false;
         }
+        net::BeginSend(client, net::Packet{ { net::PacketType::Success } });
 
         return true;
     }

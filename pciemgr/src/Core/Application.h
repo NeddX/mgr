@@ -20,16 +20,17 @@ namespace mgrd {
     class Application
     {
     public:
-        static constexpr auto RootServerPort       = 7777;
+        static constexpr auto RootServerPort       = 7779;
         static constexpr auto RootServerIP         = "127.0.0.1";
         static constexpr auto RootMaximumEndpoints = 10;
 
     public:
-        using ArgDelegate      = bool (Application::*)(const std::string_view);
+        using ArgDelegate      = bool (Application::*)(std::vector<std::string_view>);
         using EndpointDelegate = void (Application::*)(const Endpoint);
-        using PacketDelegate   = bool (Application::*)(net::Packet&&);
+        using PacketDelegate   = bool (Application::*)(net::Socket*, net::Packet&&);
 
     private:
+        std::string_view                                    m_BinName;
         bool                                                m_DaemonMode;
         bool                                                m_RootComplex;
         std::string                                         m_LogFilePath;
@@ -47,10 +48,10 @@ namespace mgrd {
         std::unordered_map<std::string_view, ArgDelegate>   m_ArgMap;
         std::unordered_map<std::string_view, u8>            m_ArgOrderMap;
         std::unordered_map<net::PacketType, PacketDelegate> m_PacketMap;
-        u8                      m_ArgOrder = 0; // Surely one would not need more than 255 options.
-        std::vector<Endpoint>   m_ConnectedEndpoints;
-        std::queue<net::Packet> m_PacketQueue;
-        std::mutex              m_PacketQueueMutex;
+        u8                                                  m_ArgOrder;
+        std::vector<Endpoint>                               m_ConnectedEndpoints;
+        std::queue<std::pair<net::Socket*, net::Packet>>    m_PacketQueue;
+        std::mutex                                          m_PacketQueueMutex;
 
     public:
         Application(const std::vector<std::string_view>& args);
@@ -58,10 +59,12 @@ namespace mgrd {
 
     public:
         void Run();
-        void DispatchArguments(std::vector<std::string_view> args) noexcept;
+        void DispatchArguments(const std::vector<std::string_view>& args) noexcept;
         void BeginPacketDispatch();
+        void ConnectToRC();
 
     private:
+        [[nodiscard]] constexpr std::string_view GetBinaryName() const noexcept { return m_BinName; }
         template <typename... TArgs>
         inline void Panic(const std::string_view fmt, TArgs&&... args) const noexcept
         {
@@ -89,13 +92,15 @@ namespace mgrd {
         }
 
     private:
-        [[nodiscard]] bool Arg_DaemonHandler(const std::string_view arg);
-        [[nodiscard]] bool Arg_RCHandler(const std::string_view arg);
-        [[nodiscard]] bool Arg_CamconfHandler(const std::string_view arg);
-        [[nodiscard]] bool Arg_SendStrHandler(const std::string_view arg);
+        [[nodiscard]] bool Arg_DaemonHandler(std::vector<std::string_view> args);
+        [[nodiscard]] bool Arg_RCHandler(std::vector<std::string_view> args);
+        [[nodiscard]] bool Arg_CamconfHandler(std::vector<std::string_view> args);
+        [[nodiscard]] bool Arg_SendStrHandler(std::vector<std::string_view> args);
+        [[nodiscard]] bool Arg_RCCommandHandler(std::vector<std::string_view> args);
 
     private:
-        [[nodiscard]] bool Net_StringHandler(net::Packet&& packet) noexcept;
-        [[nodiscard]] bool Net_RebootHandler(net::Packet&& packet) noexcept;
+        // TODO: Make [[maybe_unused]] attribute to both `client` and `packet`.
+        [[nodiscard]] bool Net_StringHandler(net::Socket* client, net::Packet&& packet) noexcept;
+        [[nodiscard]] bool Net_RebootHandler(net::Socket* client, net::Packet&& packet) noexcept;
     };
 } // namespace mgrd

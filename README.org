@@ -6,6 +6,9 @@ Clone the repository *recursively!*
 git clone --recursive https://github.com/NeddX/mgr
 #+end_src
 
+** Note
+Cross-compilation does not work for now.
+
 ** Ubuntu
 To compile this project on Ubuntu, please follow the steps below.
 
@@ -47,7 +50,7 @@ sudo add-apt-repository ppa:ubuntu-toolchain-r/test
 
 Install GCC-13.
 #+begin_src bash
-sudo apt install gcc-13 g++13
+sudo apt install gcc-13 g++-13
 #+end_src
 
 **** Clang
