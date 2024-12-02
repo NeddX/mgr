@@ -1,6 +1,7 @@
 #pragma once
 
 #include <CommonDef.h>
+
 #include <fstream>
 #include <iostream>
 #include <memory>
@@ -10,20 +11,15 @@
 #include <thread>
 
 #include <Logex.h>
-#include <netinet/in.h>
-#include <sys/socket.h>
-#include <unistd.h>
 
-#include "CLI/CLI.h"
-#include "Camera/Camera.h"
-#include "Endpoint/Endpoint.h"
-#include "Net/NetPacket.h"
+#include <Camera/Camera.h>
+#include <Endpoint/Endpoint.h>
+#include <Net/NetPacket.h>
 
 namespace mgrd {
     class Application
     {
     public:
-        static constexpr auto DBusInterfaceName    = "com.example.mgrd";
         static constexpr auto RootServerPort       = 7777;
         static constexpr auto RootServerIP         = "127.0.0.1";
         static constexpr auto RootMaximumEndpoints = 10;
@@ -36,6 +32,7 @@ namespace mgrd {
     private:
         bool                                                m_DaemonMode;
         bool                                                m_RootComplex;
+        std::string                                         m_LogFilePath;
         lgx::Logger::Properties                             m_LoggerProperties;
         std::unique_ptr<lgx::Logger>                        m_Logger;
         std::ofstream                                       m_LogFile;
@@ -65,6 +62,13 @@ namespace mgrd {
         void BeginPacketDispatch();
 
     private:
+        template <typename... TArgs>
+        inline void Panic(const std::string_view fmt, TArgs&&... args) const noexcept
+        {
+            if (m_Logger)
+                m_Logger->Log(lgx::Level::Fatal, fmt, std::forward<TArgs>(args)...);
+            std::exit(-1);
+        }
         inline void AddArgument(const std::string_view arg, ArgDelegate delegate) noexcept
         {
             m_ArgOrderMap[arg] = m_ArgOrder++;
@@ -75,7 +79,7 @@ namespace mgrd {
             const auto order = m_ArgOrder++;
             for (const auto& e : args)
             {
-                m_ArgOrderMap[e] = m_ArgOrder;
+                m_ArgOrderMap[e] = order;
                 m_ArgMap[e]      = delegate;
             }
         }
@@ -92,5 +96,6 @@ namespace mgrd {
 
     private:
         [[nodiscard]] bool Net_StringHandler(net::Packet&& packet) noexcept;
+        [[nodiscard]] bool Net_RebootHandler(net::Packet&& packet) noexcept;
     };
 } // namespace mgrd

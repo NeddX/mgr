@@ -11,8 +11,10 @@
 #include <stdlib.h>
 #include <string.h>
 
+#ifndef __cplusplus
 #define true        1
 #define false       0
+#endif
 #define CS_IPV4_MAX (size_t)17
 #define CS_IPV6_MAX (size_t)40
 

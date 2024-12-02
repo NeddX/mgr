@@ -1,9 +1,8 @@
-#include <cstring>
 #include <iostream>
+#include <algorithm>
+#include <cstring>
 
-#include <Logex.h>
-
-#include "Application.h"
+#include <Core/Application.h>
 
 int main(const int argc, const char** argv)
 {

@@ -1,9 +1,13 @@
 #include "Application.h"
 
-#include "Utils/Utils.h"
+#include <Utils/Utils.h>
 
 #include <chrono>
-#include <thread>
+
+#include <fcntl.h>
+#include <sys/reboot.h>
+#include <sys/stat.h>
+#include <unistd.h>
 
 #include <nlohmann/json.hpp>
 
@@ -11,6 +15,7 @@ namespace mgrd {
     Application::Application(const std::vector<std::string_view>& args)
         : m_DaemonMode(false)
         , m_RootComplex(false)
+        , m_LogFilePath("/var/log/pciemgrd.log")
     {
         net::CSSocket_Init();
 
@@ -41,6 +46,7 @@ namespace mgrd {
         DispatchArguments(args);
 
         AddNetPacket(net::PacketType::String, &Application::Net_StringHandler);
+        AddNetPacket(net::PacketType::Reboot, &Application::Net_RebootHandler);
 
         // NOTE: You can log now.
         m_Logger->Log(lgx::Level::Info, "Application init");
@@ -101,10 +107,10 @@ namespace mgrd {
     {
         while (m_Running.load())
         {
+            std::scoped_lock lock{ m_PacketQueueMutex };
+
             while (!m_PacketQueue.empty())
             {
-                std::scoped_lock lock{ m_PacketQueueMutex };
-
                 auto       packet = std::move(m_PacketQueue.front());
                 const auto type   = packet.header.type;
                 m_PacketQueue.pop();
@@ -113,7 +119,25 @@ namespace mgrd {
                 if (const auto it = m_PacketMap.find(packet.header.type); it != m_PacketMap.end())
                 {
                     if (!(this->*(it->second))(std::move(packet)))
+                    {
                         m_Logger->Log(lgx::Level::Error, "{} packet processed with error(s).", net::TypeToStr(type));
+
+                        /*
+                        ** Error Handling system purposal
+                        ** A Net delegate will return Result<T> type where T is a user defined Error Struct.
+                        ** If A Net delegate returns Result::Ok, then no errors occured, if T was returned then an error
+                        *occured.
+                        ** T can be something as basic as an int indicating a error return code or an enum or even a
+                        *struct.
+                        ** Error structs can be serialized and sent over the network like so:
+                        */
+                        /*
+                        Error err = GET;
+                        net::Packet err_packet{net::PacketType::Error};
+                        err_packet << err;
+                        net::BeginSend(m_Socket, err_packet);
+                        */
+                    }
                 }
             }
         }
@@ -125,8 +149,7 @@ namespace mgrd {
         {
             if (net::Socket_Listen(m_Socket, Application::RootMaximumEndpoints) == CS_SOCKET_ERROR)
             {
-                m_Logger->Log(lgx::Level::Fatal, "Failed to listen on ({}:{}).", m_Ep.address.str, m_Ep.port);
-                throw std::runtime_error("Failed to listen.");
+                Panic("Failed to listen.");
             }
 
             // Begin dispatching packets on a separate thread.
@@ -163,22 +186,61 @@ namespace mgrd {
         }
     }
 
-    bool Application::Arg_DaemonHandler(const std::string_view arg)
+    bool Application::Arg_DaemonHandler([[maybe_unused]] const std::string_view arg)
     {
         m_DaemonMode = true;
-        m_LogFile    = std::ofstream{ "/tmp/mgrd.log", std::ios_base::out | std::ios_base::trunc };
+
+        // Demon mode.
+        {
+            switch (fork())
+            {
+                case -1: Panic("Failed to fork for daemonisation.");
+                case 0: break;                    // Child continues.
+                default: std::exit(EXIT_SUCCESS); // Parnet terminates.
+            }
+
+            if (setsid() < 0)
+                Panic("Failed to create a new session.");
+
+            switch (fork())
+            {
+                case -1: Panic("Failed to double fork for daemonisation.");
+                case 0: break;
+                default: std::exit(EXIT_SUCCESS);
+            }
+
+            umask(0);   // Newly created files have no permission restrictions.
+            chdir("/"); // Cd to '/' because we're a daemon now.
+
+            // Redirect stdin, stdout, stderr to /dev/null.
+            freopen("/dev/null", "r", stdin);
+            freopen("/dev/null", "w", stdout);
+            freopen("/dev/null", "w", stderr);
+
+            // Set up signal handling.
+        }
+
+        // Create file for logging.
+        m_LogFile = std::ofstream{ m_LogFilePath, std::ios_base::out | std::ios_base::trunc };
         if (m_LogFile.is_open())
         {
             m_Logger->SetOutputStreams({ &m_LogFile });
             m_Logger->SetDefaultPrefix(m_Logger->GetDefaultPrefix() + 'd');
             return true;
         }
-        throw std::runtime_error("Failed to open /tmp/mgrd.log for writing...");
+        else
+            Panic("Failed to open {} for writing.", m_LogFilePath);
+
+        return true;
     }
 
-    bool Application::Arg_RCHandler(const std::string_view arg)
+    bool Application::Arg_RCHandler([[maybe_unused]] const std::string_view arg)
     {
         m_RootComplex = true;
+
+        // Check for root privileges.
+        if (getuid() != 0)
+            Panic("Root privileges are required in order to operate as the Root Complex.");
 
         const auto prefix = m_Logger->GetDefaultPrefix();
         m_Logger->SetDefaultPrefix((prefix.back() == 'd') ? "RPd" : "RP");
@@ -189,9 +251,7 @@ namespace mgrd {
         m_Logger->Log(lgx::Level::Info, "Binding to (localhost:{})...", m_Ep.port);
         if (net::Socket_Bind(m_Socket, m_Ep) == CS_SOCKET_ERROR)
         {
-            m_Logger->Log(lgx::Level::Fatal, "Failed to bind to endpoint ({}:{}).", m_Ep.address.str, m_Ep.port);
-            m_Running.store(false);
-            return false;
+            Panic("Failed to bind to endpoint ({}:{}).", m_Ep.address.str, m_Ep.port);
         }
         return true;
     }
@@ -210,6 +270,7 @@ namespace mgrd {
         }
         else
             m_Logger->Log(lgx::Level::Error, "Failed to load camera configuration file: {}", m_CameraConfigPath);
+
         return true;
     }
 
@@ -220,8 +281,7 @@ namespace mgrd {
 
         if (net::Socket_Connect(m_Socket, m_Ep) == CS_SOCKET_ERROR)
         {
-            m_Logger->Log(lgx::Level::Fatal, "Failed to connect to ({}:{}).", m_Ep.address.str, m_Ep.port);
-            return false;
+            Panic("Failed to connect to ({}:{}).", m_Ep.address.str, m_Ep.port);
         }
 
         m_Logger->Log(lgx::Level::Info, "Connected to Root Complex.");
@@ -239,6 +299,27 @@ namespace mgrd {
         std::string msg;
         packet >> msg;
         m_Logger->Log(lgx::Level::Info, "Ep sent a string: {}", msg);
+        return true;
+    }
+
+    [[nodiscard]] bool Application::Net_RebootHandler([[maybe_unused]] net::Packet&& packet) noexcept
+    {
+        m_Logger->Log(lgx::Level::Info, "Rebooting...");
+
+        // Synchronise filesystems.
+        sync();
+
+        if (reboot(RB_AUTOBOOT) != 0)
+        {
+            m_Logger->Log(lgx::Level::Error, "Failed to reboot.");
+            /*
+              -> Result<Error>
+              return Result::Ok; // If everything was fine.
+              return Error { * custom error struct * };
+             */
+            return false;
+        }
+
         return true;
     }
 } // namespace mgrd

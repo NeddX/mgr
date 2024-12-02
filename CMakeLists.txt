@@ -1,6 +1,6 @@
 cmake_minimum_required(VERSION 3.20)
 
-project("mgr")
+project("pciemgr")
 
 set(CMAKE_EXPORT_COMPILE_COMMANDS on)
 
@@ -21,5 +21,4 @@ add_custom_command(
 else()
 endif()
 
-add_subdirectory("mgrd/")
-add_subdirectory("mgrctl/")
+add_subdirectory("pciemgr/")

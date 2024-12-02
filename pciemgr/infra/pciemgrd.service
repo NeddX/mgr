@@ -1,0 +1,13 @@
+[Unit]
+Description=PCIE Multi-cast Root Complex manager daemon.
+After=network.target
+
+[Service]
+ExecStart=/usr/local/bin/pciemgr -d -rc
+WorkingDirectory=/
+User=pciemgrd
+Group=pciemgrd
+Restart=alwaysk
+
+[Install]
+WantedBy=multi-user.target
