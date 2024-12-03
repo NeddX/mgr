@@ -1,6 +1,6 @@
 #include "Endpoint.h"
 
-namespace mgrd {
+namespace pciemgr {
     Endpoint::Endpoint(const u32 id, net::Socket* const socket) noexcept
         : m_Id(id)
         , m_Socket(socket)
@@ -16,4 +16,4 @@ namespace mgrd {
         }
         m_Id = 0;
     }
-} // namespace mgrd
+} // namespace pciemgr

@@ -5,7 +5,7 @@
 #include <algorithm>
 #include <sstream>
 
-namespace mgrd::utils {
+namespace pciemgr::utils {
     [[nodiscard]] std::vector<std::string> StrSplit(const std::string& str, const char delim) noexcept
     {
         std::vector<std::string> tokens;
@@ -39,4 +39,4 @@ namespace mgrd::utils {
         std::transform(ret_str.begin(), ret_str.end(), ret_str.begin(), [](const char c) { return std::tolower(c); });
         return ret_str; // NVRO
     }
-} // namespace mgrd::utils
+} // namespace pciemgr::utils

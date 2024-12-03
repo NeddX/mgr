@@ -11,6 +11,12 @@
 #include <stdlib.h>
 #include <string.h>
 
+#ifdef DEBUG
+#define Debug(x) x;
+#else
+#define Debug(x)
+#endif
+
 #ifndef __cplusplus
 #define true        1
 #define false       0
@@ -103,18 +109,16 @@ typedef enum _cs_ip_address_type
     IPAddressType_Broadcast = INADDR_BROADCAST,
     IPAddressType_None      = INADDR_NONE,
     IPAddressType_IPv4LPStr = 0xFEEFAAF00,
-    IPAddressType_IPv6LPStr = 0xDEADFACE0
 } IPAddressType;
 
 // Holds information about the IP address such as
-// the address type (ipv4 or ipv6 although iov6 is not supported)
+// the address type (only IPv4)
 // address string and the native address handler.
 typedef struct _cs_ip_address
 {
     IPAddressType       type;
     struct sockaddr_in  ipv4_addr;
-    struct sockaddr_in6 ipv6_addr;
-    char                str[CS_IPV6_MAX];
+    char                str[CS_IPV4_MAX];
 } IPAddress;
 
 // Generic constructor for IPAddress.
@@ -134,26 +138,10 @@ inline IPAddress IPAddress_Parse(const char* addrv4_str)
     const int32_t res = inet_pton(AF_INET, addrv4_str, &(addr.ipv4_addr.sin_addr));
     if (res != 1)
     {
-        fprintf(stderr, "CS_Socket: Failed to parse %s as a valid IPv4 address.\n", addrv4_str);
+        Debug(fprintf(stderr, "CS_Socket: Failed to parse %s as a valid IPv4 address.\n", addrv4_str));
         exit(EXIT_FAILURE);
     }
     strcpy(addr.str, addrv4_str);
-    return addr;
-}
-
-// Construct IPAddress object from an IPv6.
-inline IPAddress IPAddress_ParseV6(const char* addrv6_str)
-{
-    IPAddress addr;
-    memset(&addr.ipv6_addr, 0, sizeof(addr.ipv6_addr));
-    addr.type         = IPAddressType_IPv6LPStr;
-    const int32_t res = inet_pton(AF_INET6, addrv6_str, &(addr.ipv6_addr.sin6_addr));
-    if (res != 1)
-    {
-        fprintf(stderr, "CS_Socket: Failed to parse %s as a valid IPv6 address.\n", addrv6_str);
-        exit(EXIT_FAILURE);
-    }
-    strcpy(addr.str, addrv6_str);
     return addr;
 }
 
@@ -189,7 +177,6 @@ typedef struct _cs_socket
 } Socket;
 
 // FIXME: BAD VERY BAD
-//inline static volatile uint8_t _cs_g_initialized = false;
 extern volatile uint8_t _cs_g_initialized;
 
 // WinSocks requires the user to initialize.
@@ -200,7 +187,7 @@ inline int32_t CSSocket_Init()
     int32_t res = WSAStartup(MAKEWORD(2, 2), &wsa_data);
     if (res != 0)
     {
-        fputs("CS_Sockets: Failed to initialize WinSocks v2.2.\n", stderr);
+        Debug(fputs("CS_Sockets: Failed to initialize WinSocks v2.2.\n", stderr));
         return -1;
     }
     else
@@ -238,7 +225,7 @@ inline Socket* Socket_New(const AddressFamily family, const SocketType stype, co
 {
     if (!_cs_g_initialized)
     {
-        fputs("CS_Sockets not initialized.\n", stderr);
+        Debug(fputs("CS_Sockets not initialized.\n", stderr));
         return NULL;
     }
 
@@ -253,7 +240,7 @@ inline Socket* Socket_New(const AddressFamily family, const SocketType stype, co
     s->_native_handle = socket(s->family, s->stype, s->ptype);
     if (s->_native_handle == CS_INVALID_SOCKET)
     {
-        fputs("CS_Sockets: Failed to create socket.\n", stderr);
+        Debug(fputs("CS_Sockets: Failed to create socket.\n", stderr));
         CS_CLOSE_SOCKET(s->_native_handle);
         free(s);
         return NULL;
@@ -266,7 +253,7 @@ inline int32_t Socket_From(Socket* s, const AddressFamily family, const SocketTy
 {
     if (!_cs_g_initialized)
     {
-        fputs("CS_Sockets not initialized.\n", stderr);
+        Debug(fputs("CS_Sockets not initialized.\n", stderr));
         return CS_SOCKET_ERROR;
     }
 
@@ -293,7 +280,7 @@ inline void Socket_Dispose(Socket* s)
 {
     if (!_cs_g_initialized)
     {
-        fputs("CS_Sockets not initialized.\n", stderr);
+        Debug(fputs("CS_Sockets not initialized.\n", stderr));
         return;
     }
 
@@ -308,7 +295,7 @@ inline int32_t Socket_Shutdown(Socket* s, const int32_t how)
 {
     if (!_cs_g_initialized)
     {
-        fputs("CS_Sockets not initialized.\n", stderr);
+        Debug(fputs("CS_Sockets not initialized.\n", stderr));
         return CS_SOCKET_ERROR;
     }
     return shutdown(s->_native_handle, how);
@@ -319,7 +306,7 @@ inline int32_t Socket_Close(Socket* s)
 {
     if (!_cs_g_initialized)
     {
-        fputs("CS_Sockets not initialized.\n", stderr);
+        Debug(fputs("CS_Sockets not initialized.\n", stderr));
         return CS_SOCKET_ERROR;
     }
 
@@ -334,7 +321,7 @@ inline int32_t Socket_Bind(Socket* s, IPEndPoint ep)
 {
     if (!_cs_g_initialized)
     {
-        fputs("CS_Sockets not initialized.\n", stderr);
+        Debug(fputs("CS_Sockets not initialized.\n", stderr));
         return CS_SOCKET_ERROR;
     }
 
@@ -346,19 +333,8 @@ inline int32_t Socket_Bind(Socket* s, IPEndPoint ep)
     // Resolve the endpoint.
     switch (ep.address.type)
     {
-        case IPAddressType_IPv4LPStr:
-            s->local_ep.address.ipv4_addr.sin_port   = htons(s->local_ep.port);
-            s->local_ep.address.ipv4_addr.sin_family = s->local_ep.addressFamily;
-            server_addr                              = (void*)&s->local_ep.address.ipv4_addr;
-            addr_size                                = sizeof(s->local_ep.address.ipv4_addr);
-            break;
-        case IPAddressType_IPv6LPStr:
-            s->local_ep.address.ipv6_addr.sin6_port   = htons(s->local_ep.port);
-            s->local_ep.address.ipv6_addr.sin6_family = s->local_ep.addressFamily;
-            server_addr                               = (void*)&s->local_ep.address.ipv6_addr;
-            addr_size                                 = sizeof(s->local_ep.address.ipv6_addr);
-            break;
         default:
+        case IPAddressType_IPv4LPStr:
             s->local_ep.address.ipv4_addr.sin_addr.s_addr = s->local_ep.address.type;
             s->local_ep.address.ipv4_addr.sin_port        = htons(s->local_ep.port);
             s->local_ep.address.ipv4_addr.sin_family      = s->local_ep.addressFamily;
@@ -368,11 +344,11 @@ inline int32_t Socket_Bind(Socket* s, IPEndPoint ep)
     }
 
     // Try and bind.
-    int32_t bind_res = bind(s->_native_handle, (struct sockaddr*)server_addr, addr_size);
+    const int32_t bind_res = bind(s->_native_handle, (struct sockaddr*)server_addr, addr_size);
     if (bind_res == CS_SOCKET_ERROR)
     {
-        fputs("CS_Sockets: Failed to bind socket.\n", stderr);
-        perror("native error");
+        Debug(fputs("CS_Sockets: Failed to bind socket.\n", stderr));
+        Debug(perror("native error"));
         CS_CLOSE_SOCKET(s->_native_handle);
         return CS_SOCKET_ERROR;
     }
@@ -384,13 +360,13 @@ inline int32_t Socket_Listen(Socket* s, const size_t max_clients)
 {
     if (!_cs_g_initialized)
     {
-        fputs("CS_Sockets not initialized.\n", stderr);
+        Debug(fputs("CS_Sockets not initialized.\n", stderr));
         return CS_SOCKET_ERROR;
     }
 
     if (listen(s->_native_handle, max_clients) == CS_SOCKET_ERROR)
     {
-        fputs("CS_Socket: Listening failed.\n", stderr);
+        Debug(fputs("CS_Socket: Listening failed.\n", stderr));
         CS_CLOSE_SOCKET(s->_native_handle);
         return CS_SOCKET_ERROR;
     }
@@ -403,17 +379,17 @@ inline int32_t Socket_Connect(Socket* s, IPEndPoint ep)
 {
     if (!_cs_g_initialized)
     {
-        fputs("CS_Sockets not initialized.\n", stderr);
+        Debug(fputs("CS_Sockets not initialized.\n", stderr));
         return CS_SOCKET_ERROR;
     }
 
     s->remote_ep = ep;
-    int32_t res  = connect(s->_native_handle, (struct sockaddr*)&s->remote_ep.address.ipv4_addr,
+    const int32_t res  = connect(s->_native_handle, (struct sockaddr*)&s->remote_ep.address.ipv4_addr,
                            sizeof(s->remote_ep.address.ipv4_addr));
     if (res == CS_SOCKET_ERROR)
     {
-        fputs("CS_Sockets: Connection with the remote failed.\n", stderr);
-        perror("native error");
+        Debug(fputs("CS_Sockets: Connection with the remote failed.\n", stderr));
+        Debug(perror("native error"));
         return CS_SOCKET_ERROR;
     }
     s->connected = true;
@@ -425,7 +401,7 @@ inline Socket* Socket_Accept(Socket* s)
 {
     if (!_cs_g_initialized)
     {
-        fputs("CS_Sockets not initialized.\n", stderr);
+        Debug(fputs("CS_Sockets not initialized.\n", stderr));
         return NULL;
     }
 
@@ -454,14 +430,13 @@ inline Socket* Socket_Accept(Socket* s)
 // disconnected. If successful, return the amount of bytes received.
 inline int32_t Socket_Receive(Socket* s, uint8_t* buffer, const size_t buffer_size, const int32_t flags)
 {
-    //__builtin_debugtrap();
     if (!_cs_g_initialized)
     {
-        fputs("CS_Sockets not initialized.\n", stderr);
+        Debug(fputs("CS_Sockets not initialized.\n", stderr));
         return CS_SOCKET_ERROR;
     }
 
-    int32_t received_bytes = recv(s->_native_handle, buffer, buffer_size, flags);
+    const int32_t received_bytes = recv(s->_native_handle, buffer, buffer_size, flags);
     if (received_bytes == 0 || received_bytes == CS_SOCKET_ERROR)
     {
         s->connected = false;
@@ -477,11 +452,11 @@ inline int32_t Socket_Send(Socket* s, const uint8_t* buffer, const size_t buffer
 {
     if (!_cs_g_initialized)
     {
-        fputs("CS_Sockets not initialized.\n", stderr);
+        Debug(fputs("CS_Sockets not initialized.\n", stderr));
         return CS_SOCKET_ERROR;
     }
 
-    int32_t sent_bytes = send(s->_native_handle, buffer, buffer_size, flags);
+    const int32_t sent_bytes = send(s->_native_handle, buffer, buffer_size, flags);
     if (sent_bytes == CS_SOCKET_ERROR)
     {
         s->connected = false;

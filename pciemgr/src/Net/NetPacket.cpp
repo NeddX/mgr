@@ -1,6 +1,6 @@
 #include "NetPacket.h"
 
-namespace mgrd::net {
+namespace pciemgr::net {
     static std::string_view s_PacketTypeStr[] = { "NoOp", "Success", "Reboot", "String", "InvalidState" };
 
     std::optional<Packet> BeginReceive(csnet::Socket* socket) noexcept
@@ -49,4 +49,4 @@ namespace mgrd::net {
     {
         return s_PacketTypeStr[static_cast<u8>(packet.header.type)];
     }
-} // namespace mgrd::net
+} // namespace pciemgr::net

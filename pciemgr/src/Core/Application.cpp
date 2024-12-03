@@ -12,10 +12,12 @@
 
 #include <nlohmann/json.hpp>
 
-namespace mgrd {
+namespace pciemgr {
     Application::Application(const std::vector<std::string_view>& args)
         : m_DaemonMode(false)
-        , m_RootComplex(false) , m_LogFilePath("/var/log/pciemgrd.log") , m_ArgOrder(0)
+        , m_RootComplex(false)
+        , m_LogFilePath("/var/log/pciepciemgr.log")
+        , m_ArgOrder(0)
     {
         net::CSSocket_Init();
 
@@ -27,10 +29,10 @@ namespace mgrd {
         m_LoggerProperties.flushOnLog                  = true;
         m_LoggerProperties.defaultStyle =
             lgx::Logger::DefaultStyle{ .format            = "[{datetime}] [{level}] ({prefix}): {msg}\n",
-                                       .defaultInfoStyle  = fmt::fg(fmt::color::gray),
-                                       .defaultWarnStyle  = fmt::fg(fmt::color::yellow),
-                                       .defaultErrorStyle = fmt::fg(fmt::color::red),
-                                       .defaultFatalStyle = fmt::fg(fmt::color::dark_red) };
+        .defaultInfoStyle  = fmt::fg(fmt::color::gray),
+        .defaultWarnStyle  = fmt::fg(fmt::color::yellow),
+        .defaultErrorStyle = fmt::fg(fmt::color::red),
+        .defaultFatalStyle = fmt::fg(fmt::color::dark_red) };
 
         // When not in daemon mode, default output will be stdout, m_LogFile otherwise.
         m_LoggerProperties.outputStreams = { &std::cout };
@@ -41,11 +43,11 @@ namespace mgrd {
         m_BinName = args[0];
 
         // NOTE: Arguments are parsed in the order they were added.
-        AddArgument({ "--daemon", "-d" }, &Application::Arg_DaemonHandler);
-        AddArgument({ "--rc", "-r" }, &Application::Arg_RCHandler);
-        AddArgument({ "--camconf", "-cf" }, &Application::Arg_CamconfHandler);
-        AddArgument({ "--sendstr", "-s" }, &Application::Arg_SendStrHandler);
-        AddArgument({ "root", "rc" }, &Application::Arg_RCCommandHandler);
+        AddArgument({ { "--daemon", "-d" }, "Execute as a daemon.", ArgType::Option, &Application::Arg_DaemonHandler});
+        AddArgument({ { "--rc", "-r" }, "Execute as the Root Complex.", ArgType::Option, &Application::Arg_RCHandler});
+        AddArgument({ { "--camconf", "-cf" }, "Load the specified camera configuration file.", ArgType::Option, &Application::Arg_CamconfHandler});
+        AddArgument({ { "--sendstr", "-s" }, "Send a string to the RC.", ArgType::Option, &Application::Arg_SendStrHandler});
+        AddArgument({ { "root", "rc" }, "Communicate with the RC.", ArgType::SubCommand, &Application::Arg_RCCommandHandler});
         DispatchArguments(args);
 
         AddNetPacket(net::PacketType::String, &Application::Net_StringHandler);
@@ -84,28 +86,54 @@ namespace mgrd {
         net::CSSocket_Dispose();
     }
 
-    void Application::DispatchArguments(const std::vector<std::string_view>& args) noexcept
+    void Application::DispatchArguments(const std::vector<std::string_view>& args)
     {
-        // Sort the arguments according to their order.
-        std::vector<std::string_view> sorted_args{ args };
-        std::sort(sorted_args.begin(), sorted_args.end(),
-                  [this](const auto& s1, const auto& s2)
-                  {
-                      const auto a = (m_ArgOrderMap.contains(s1)) ? m_ArgOrderMap[s1] : 255;
-                      const auto b = (m_ArgOrderMap.contains(s2)) ? m_ArgOrderMap[s2] : 255;
-                      return a < b;
-                  });
-
-        for (const auto& e : sorted_args)
+        if (args.size() > 1)
         {
-            const auto arg = utils::StrSplit(e, '=')[0];
-            if (const auto it = m_ArgMap.find(arg); it != m_ArgMap.end())
+            // Sort the arguments according to their order (skip the first argument which is the full binary path).
+            std::sort(m_ArgMap.begin(), m_ArgMap.end(), [](const CLIArg& a, const CLIArg& b)
             {
-                // TODO: Optimize with std::ranges::subrange
-                auto sub_args = std::vector<std::string_view>{ std::find(args.begin(), args.end(), e), args.end() };
-                if (!(this->*(it->second))(std::move(sub_args)))
-                    m_Logger->Log(lgx::Level::Error, "{} parsed with error(s).", arg);
+                return a.order < b.order;
+            });
+
+            for (const CLIArg& e : m_ArgMap)
+            {
+                for (const std::string_view uarg : args)
+                {
+                    const auto arg = utils::StrSplit(uarg, '=')[0];
+                    if (const auto arg_it = std::find(e.args.begin(), e.args.end(), arg); arg_it != e.args.end())
+                    {
+                        // TODO: Optimize with std::ranges::subrange
+                        auto sub_args = std::vector<std::string_view>{ std::find(args.begin(), args.end(), *arg_it), args.end() };
+                        if (auto result = (this->*(e.delegate))(std::move(sub_args)); !result)
+                        {
+                            const auto err = result.UnwrapErr();
+                            Panic("An Error occured!\n\t{}", err);
+                        }
+                        else if (e.type == ArgType::SubCommand)
+                            // If the previous argument was a sub-command then halt because the sub-command
+                            // already parsed the arguments that came after it.
+                            break;
+                    }
+                }
             }
+        }
+        else
+        {
+            fmt::println("Usage:\n\t{} <options> [command] [<args>]", GetBinaryName());
+            fmt::println("\nArguments:");
+            for (const CLIArg& e : m_ArgMap)
+            {
+                std::string arg_name;
+                for (const auto& name : e.args)
+                {
+                    arg_name += name;
+                    arg_name += " | ";
+                }
+                arg_name.resize(arg_name.size() - 3);
+                fmt::println("\t{}\t\t{}", arg_name, e.desc);
+            }
+            std::exit(EXIT_SUCCESS);
         }
     }
 
@@ -124,42 +152,33 @@ namespace mgrd {
                 m_Logger->Log(lgx::Level::Info, "Processing incoming packet: {}", net::TypeToStr(type));
                 if (const auto it = m_PacketMap.find(packet.header.type); it != m_PacketMap.end())
                 {
-                    if (!(this->*(it->second))(owner, std::move(packet)))
+                    if (const auto result = (this->*(it->second))(owner, std::move(packet)); !result)
                     {
-                        m_Logger->Log(lgx::Level::Error, "{} packet processed with error(s).", net::TypeToStr(type));
+                        const auto err = result.UnwrapErr();
+                        m_Logger->Log(lgx::Level::Error, "An Error Occured!\n\t{}", err);
 
-                        /*
-                        ** Error Handling system purposal
-                        ** A Net delegate will return Result<T> type where T is a user defined Error Struct.
-                        ** If A Net delegate returns Result::Ok, then no errors occured, if T was returned then an error
-                        *occured.
-                        ** T can be something as basic as an int indicating a error return code or an enum or even a
-                        *struct.
-                        ** Error structs can be serialized and sent over the network like so:
-                        */
-                        /*
-                        Error err = GET;
-                        net::Packet err_packet{net::PacketType::Error};
-                        err_packet << err;
-                        net::BeginSend(m_Socket, err_packet);
-                        */
+                        // Send the error to the client.
+                        net::BeginSend(owner, err);
                     }
+                    else
+                        // Tell the client that everything went well.
+                        net::BeginSend(owner, net::Packet::Ok());
                 }
             }
         }
     }
 
-    void Application::ConnectToRC()
+    Result<Err> Application::ConnectToRC() noexcept
     {
         m_Ep = IPEndPoint_New(net::IPAddress_Parse(Application::RootServerIP), net::AddressFamily_InterNetwork,
                               Application::RootServerPort);
 
         if (net::Socket_Connect(m_Socket, m_Ep) == CS_SOCKET_ERROR)
-        {
-            Panic("Failed to connect to ({}:{}).", m_Ep.address.str, m_Ep.port);
-        }
+            return Err{ ErrType::ConnectionTimeout, "Failed to connect to ({}:{}).", m_Ep.address.str, m_Ep.port };
 
         m_Logger->Log(lgx::Level::Info, "Connected to Root Complex.");
+
+        return Result<Err>::Ok();
     }
 
     void Application::Run()
@@ -185,27 +204,28 @@ namespace mgrd {
                     m_Logger->Log(lgx::Level::Info, "A connection was made by ({}:{})!",
                                   potential_ep->remote_ep.address.str, potential_ep->remote_ep.port);
                     std::thread{ [this](net::Socket* eps)
-                                 {
-                                     while (eps->connected)
-                                     {
-                                         auto packet = net::BeginReceive(eps);
-                                         if (packet)
-                                         {
-                                             std::scoped_lock lock{ m_PacketQueueMutex };
+                    {
+                        while (eps->connected)
+                        {
+                            auto packet = net::BeginReceive(eps);
+                            if (packet)
+                            {
+                                std::scoped_lock lock{ m_PacketQueueMutex };
 
-                                             m_PacketQueue.emplace(eps, std::move(*packet));
-                                         }
-                                     }
-                                     net::Socket_Dispose(eps);
-                                 },
-                                 potential_ep }
+                                m_PacketQueue.emplace(eps, std::move(*packet));
+                            }
+                        }
+                        net::Socket_Dispose(eps);
+                    },
+                            potential_ep }
                         .detach();
                 }
             }
         }
     }
 
-    bool Application::Arg_DaemonHandler([[maybe_unused]] std::vector<std::string_view> args)
+    [[nodiscard]] Result<Err> Application::Arg_DaemonHandler(
+        [[maybe_unused]] std::vector<std::string_view> args) noexcept
     {
         m_DaemonMode = true;
 
@@ -215,21 +235,22 @@ namespace mgrd {
         {
             m_Logger->SetOutputStreams({ &m_LogFile, &std::cout });
             m_Logger->SetDefaultPrefix(m_Logger->GetDefaultPrefix() + 'd');
-            return true;
+            return Result<Err>::Ok();
         }
         else
-            Panic("Failed to open {} for writing.", m_LogFilePath);
+            return Err{ ErrType::IOError, "Failed to open {} for writing.", m_LogFilePath };
 
-        return true;
+        return Result<Err>::Ok();
     }
 
-    bool Application::Arg_RCHandler([[maybe_unused]] std::vector<std::string_view> args)
+    [[nodiscard]] Result<Err> Application::Arg_RCHandler(
+        [[maybe_unused]] std::vector<std::string_view> args) noexcept
     {
         m_RootComplex = true;
 
         // Check for root privileges.
         if (getuid() != 0)
-            Panic("Root privileges are required in order to operate as the Root Complex.");
+            return Err{ "Root privileges are required in order to operate as the Root Complex." };
 
         const auto prefix = m_Logger->GetDefaultPrefix();
         m_Logger->SetDefaultPrefix((prefix.back() == 'd') ? "RPd" : "RP");
@@ -239,13 +260,13 @@ namespace mgrd {
 
         m_Logger->Log(lgx::Level::Info, "Binding to (localhost:{})...", m_Ep.port);
         if (net::Socket_Bind(m_Socket, m_Ep) == CS_SOCKET_ERROR)
-        {
-            Panic("Failed to bind to endpoint ({}:{}).", m_Ep.address.str, m_Ep.port);
-        }
-        return true;
+            return Err{ ErrType::SocketError, "Failed to bind to endpoint ({}:{}).", m_Ep.address.str, m_Ep.port };
+
+        return Result<Err>::Ok();
     }
 
-    bool Application::Arg_CamconfHandler(std::vector<std::string_view> args)
+    [[nodiscard]] Result<Err> Application::Arg_CamconfHandler(
+        std::vector<std::string_view> args) noexcept
     {
         m_CameraConfigPath = utils::StrSplit(args[0], '=')[1];
         m_Logger->Log(lgx::Level::Info, "Loading '{}'...", m_CameraConfigPath);
@@ -258,26 +279,50 @@ namespace mgrd {
             m_Logger->Log(lgx::Level::Info, "Successfully loaded {} camera configuration(s)", m_Cameras.size());
         }
         else
-            m_Logger->Log(lgx::Level::Error, "Failed to load camera configuration file: {}", m_CameraConfigPath);
+            return Err{ ErrType::JsonParseError, "Failed to load camera configuration file: {}", m_CameraConfigPath };
 
-        return true;
+        return Result<Err>::Ok();
     }
 
-    [[nodiscard]] bool Application::Arg_SendStrHandler(std::vector<std::string_view> args)
+    [[nodiscard]] Result<Err> Application::Arg_SendStrHandler(
+        std::vector<std::string_view> args) noexcept
     {
-        ConnectToRC();
+        if (auto result = ConnectToRC(); !result)
+            return std::move(result);
 
         auto        msg = utils::StrSplit(args[0], '=')[1];
         net::Packet packet;
         packet.header.type = net::PacketType::String;
         packet << msg;
         net::BeginSend(m_Socket, std::move(packet));
-        return true;
+
+        // The RC is always going to respond with a packet indicating if the operating went well or not.
+        // This is done by checking the returned packet's type field, if it is of type PacketType::Error,
+        // then an Error occured, we can then deserialize the packet to receive the Err object.
+        // Otherwise PacketType::Ok is returned.
+        auto recv_packet = net::BeginReceive(m_Socket);
+        if (recv_packet)
+        {
+            if (recv_packet->header.type == net::PacketType::Ok)
+                m_Logger->Info("Operation succeeded.");
+            else
+            {
+                Err err;
+                (*recv_packet) >> err;
+                return err;
+            }
+        }
+        else
+            return Err{ ErrType::BadPacket };
+
+        return Result<Err>::Ok();
     }
 
-    [[nodiscard]] bool Application::Arg_RCCommandHandler(std::vector<std::string_view> args)
+    [[nodiscard]] Result<Err> Application::Arg_RCCommandHandler(
+        std::vector<std::string_view> args) noexcept
     {
-        ConnectToRC();
+        if (auto result = ConnectToRC(); !result)
+            return std::move(result);
 
         // pciemgr rc reboot
         if (args.size() > 1)
@@ -287,25 +332,35 @@ namespace mgrd {
             {
                 // TODO: Write a command handler?
                 net::BeginSend(m_Socket, net::Packet{ { net::PacketType::Reboot } });
-                const auto reply = net::BeginReceive(m_Socket);
+                auto reply = net::BeginReceive(m_Socket);
                 if (reply)
                 {
                     switch (reply->header.type)
                     {
                         using enum net::PacketType;
 
-                        case Success: m_Logger->Info("RC rebooting..."); return true;
-                        case InvalidState:
-                            m_Logger->Error("RC failed to reboot. Error code: InvalidState");
-                            return false;
-                        default: return true;
+                        default:
+                        case Ok: {
+                            m_Logger->Info("RC rebooting...");
+                            break;
+                        }
+                        case Error: {
+                            // Receive error from server.
+                            Err err;
+                            (*reply) >> err;
+                            return err;
+                        }
                     }
                 }
                 else
                 {
                     m_Logger->Error("RC failed to acknowledge the command.");
-                    return false;
+                    return Err{ ErrType::Timeout };
                 }
+            }
+            else
+            {
+                return Err{ ErrType::UnknownSubCommand };
             }
         }
         else
@@ -314,40 +369,37 @@ namespace mgrd {
             m_Logger->Info(
                 "Usage: {} rc|root <command>\nList of available commands:\n\treboot\tReboots the Root Complex.",
                 GetBinaryName());
-            return true;
+            return Result<Err>::Ok();
         }
-        return false;
+        return Result<Err>::Ok();
     }
 
-    [[nodiscard]] bool Application::Net_StringHandler([[maybe_unused]] net::Socket* client,
-                                                      net::Packet&&                 packet) noexcept
+    [[nodiscard]] Result<Err> Application::Net_StringHandler([[maybe_unused]] net::Socket* client,
+                                                             net::Packet&&                 packet) noexcept
     {
         std::string msg;
         packet >> msg;
         m_Logger->Log(lgx::Level::Info, "Ep sent a string: {}", msg);
-        return true;
+        return Result<Err>::Ok();
     }
 
-    [[nodiscard]] bool Application::Net_RebootHandler(net::Socket*                   client,
-                                                      [[maybe_unused]] net::Packet&& packet) noexcept
+    [[nodiscard]] Result<Err> Application::Net_RebootHandler(net::Socket*                   client,
+                                                             [[maybe_unused]] net::Packet&& packet) noexcept
     {
         m_Logger->Log(lgx::Level::Info, "Rebooting...");
+
+        // Send a fake success packet because this method is never going to return unless the reboot fails (which is
+        // unlikely).
+        // TODO: Consider handling SIGTERM and sending a Reboot packet to the client.
+        net::BeginSend(client, net::Packet::Ok());
 
         // Synchronise filesystems.
         sync();
 
-        if (reboot(RB_AUTOBOOT) != 0)
-        {
-            m_Logger->Log(lgx::Level::Error, "Failed to reboot.");
-            /*
-              -> Result<Error>
-              return Result::Ok; // If everything was fine.
-              return Error { * custom error struct * };
-             */
-            return false;
-        }
-        net::BeginSend(client, net::Packet{ { net::PacketType::Success } });
+        // NOTE: I am commenting this so that I don't accidentally reboot the build server again.
+        // reboot(RB_AUTOBOOT);
 
-        return true;
+        // We should never reach here in theory.
+        return Result<Err>::Ok();
     }
-} // namespace mgrd
+} // namespace pciemgr

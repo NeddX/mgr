@@ -10,23 +10,25 @@
 
 #include "CSSocket.h"
 
-namespace mgrd::net {
+#include <Core/Error.h>
+
+namespace pciemgr::net {
     // Bring the CS Socket namespace here.
     using namespace csnet;
 
     enum class PacketType : u8
     {
         NoOp,
-        Success,
+        Ok,
         Reboot,
         String,
-        InvalidState
+        Error
     };
 
     struct PacketHeader
     {
         PacketType type    = PacketType::NoOp;
-        u32        dataLen = 0;
+        u8         dataLen = 0;
     };
 
     struct Packet
@@ -46,6 +48,25 @@ namespace mgrd::net {
             : header(header)
             , data(std::move(data))
         {
+        }
+        constexpr Packet(const Err& err) noexcept
+        {
+            header.type = PacketType::Error;
+
+            // Allocate space for ErrType.
+            header.dataLen = sizeof(Err);
+            data.resize(sizeof(Err));
+
+            // Write the ErrType.
+            *(reinterpret_cast<ErrType*>(data.data())) = err.Type();
+
+            // Write the message (if any).
+            if (err.HasMessage())
+            {
+                const auto msg = err.Message();
+                header.dataLen += err.Message().size();
+                data.insert(data.end(), msg.begin(), msg.end());
+            }
         }
 
     public:
@@ -104,10 +125,29 @@ namespace mgrd::net {
             this->data.clear();
             return *this;
         }
+        template <>
+        inline Packet& operator>>(Err& err) noexcept
+        {
+            err.m_Type = *reinterpret_cast<ErrType*>(data.data());
+            if (data.size() > sizeof(ErrType))
+            {
+                err.m_Message.resize(data.size() - sizeof(ErrType));
+                std::memcpy(err.m_Message.data(), data.data() + sizeof(ErrType), err.m_Message.size());
+            }
+            data.clear();
+            return *this;
+        }
+
+    public:
+        /*
+        ** @brief Short-hand method for creating a packet that says everything went well.
+        ** @return Packet of PacketType::Ok
+        */
+        [[nodiscard]] static inline Packet Ok() noexcept { return Packet{ { .type = PacketType::Ok } }; }
     };
 
     std::optional<Packet>          BeginReceive(csnet::Socket* socket) noexcept;
     bool                           BeginSend(csnet::Socket* socket, Packet&& packet) noexcept;
     [[nodiscard]] std::string_view TypeToStr(const PacketType type) noexcept;
     [[nodiscard]] std::string_view TypeToStr(const Packet& packet) noexcept;
-} // namespace mgrd::net
+} // namespace pciemgr::net
