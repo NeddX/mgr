@@ -14,7 +14,7 @@ int main(const int argc, const char** argv)
                         return i + 1;
                     });
 
-    mgrd::Application app{ args };
+    pciemgr::Application app{ args };
     app.Run();
     return 0;
 }

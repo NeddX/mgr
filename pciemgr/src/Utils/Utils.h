@@ -4,7 +4,7 @@
 #include <string_view>
 #include <vector>
 
-namespace mgrd::utils {
+namespace pciemgr::utils {
     [[nodiscard]] std::vector<std::string>      StrSplit(const std::string& str, const char delim = ' ') noexcept;
     [[nodiscard]] std::vector<std::string_view> StrSplit(const std::string_view str, const char delim = ' ') noexcept;
     [[nodiscard]] std::string                   StrLower(const std::string_view str) noexcept;
@@ -14,4 +14,4 @@ namespace mgrd::utils {
     {
         return [self, delegate](auto&&... args) { return (self->*delegate)(std::forward<decltype(args)>(args)...); };
     }
-} // namespace mgrd::utils
+} // namespace pciemgr::utils

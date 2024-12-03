@@ -7,7 +7,7 @@
 
 #include "../Net/NetPacket.h"
 
-namespace mgrd {
+namespace pciemgr {
     struct Endpoint
     {
     private:
@@ -24,4 +24,4 @@ namespace mgrd {
         [[nodiscard]] net::Socket* GetSocket() const noexcept { return m_Socket; }
         [[nodiscard]] bool         IsConnected() const noexcept { return m_Socket && m_Socket->connected; }
     };
-} // namespace mgrd
+} // namespace pciemgr

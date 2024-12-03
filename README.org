@@ -100,7 +100,7 @@ cmake --build builds/linux-any-debug
 #+end_src
 
 ** Running the application
-The application is under =builds/linux-any-debug/mgrd= called =mgrd=.
+The application is under =builds/linux-any-debug/pciemgr= called =mgrd=.
 It supports the following options:
 - =--daemon | -d=: Runs as a daemon /(not yet developed)/.
 - =--rc | -r=: Runs as the Root Complex.

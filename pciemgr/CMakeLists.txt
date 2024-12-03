@@ -1,4 +1,4 @@
-project("pciemgrd")
+project("pciepciemgr")
 
 file(GLOB_RECURSE PCIEMGR_SOURCES "src/*.cpp")
 file(GLOB_RECURSE PCIEMGR_HEADERS "src/*.h")
@@ -37,5 +37,5 @@ target_include_directories(pciemgr PRIVATE "vendor/json/include")
 install(TARGETS pciemgr DESTINATION bin)
 
 if (CMAKE_BUILD_TYPE STREQUAL "Shipping")
-  install(FILES "infra/pciemgrd.service" DESTINATION /etc/systemd/system)
+  install(FILES "infra/pciepciemgr.service" DESTINATION /etc/systemd/system)
 endif()
