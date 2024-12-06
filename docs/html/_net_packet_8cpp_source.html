@@ -5,7 +5,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=9"/>
 <meta name="generator" content="Doxygen 1.9.1"/>
 <meta name="viewport" content="width=device-width, initial-scale=1"/>
-<title>pciemgr: pciemgr/src/Net/NetPacket.cpp Source File</title>
+<title>pciemgr: pciemgrd/src/Net/NetPacket.cpp Source File</title>
 <link href="tabs.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="jquery.js"></script>
 <script type="text/javascript" src="dynsections.js"></script>
@@ -25,7 +25,7 @@
    <div id="projectname">pciemgr
    &#160;<span id="projectnumber">v0.1</span>
    </div>
-   <div id="projectbrief">PCIE Multi-cast RC Manager</div>
+   <div id="projectbrief">PCIE Multi-Cast Manager</div>
   </td>
  </tr>
  </tbody>
@@ -64,7 +64,7 @@ $(function() {
 
 <div id="nav-path" class="navpath">
   <ul>
-<li class="navelem"><a class="el" href="dir_08967f40b0be00b5c118877aacc02e20.html">pciemgr</a></li><li class="navelem"><a class="el" href="dir_a28329a0c4c93a2209232f1cd0b41846.html">src</a></li><li class="navelem"><a class="el" href="dir_e48070207a356c56791f308c4c9b85f2.html">Net</a></li>  </ul>
+<li class="navelem"><a class="el" href="dir_bfab199149dff6b14186f6a5e523754c.html">pciemgrd</a></li><li class="navelem"><a class="el" href="dir_4246afdf7d096edbfd3e66d14a7c824d.html">src</a></li><li class="navelem"><a class="el" href="dir_6b5469ed1bdebc1470e4e45cc53f5a39.html">Net</a></li>  </ul>
 </div>
 </div><!-- top -->
 <div class="header">
@@ -72,70 +72,72 @@ $(function() {
 <div class="title">NetPacket.cpp</div>  </div>
 </div><!--header-->
 <div class="contents">
-<a href="_net_packet_8cpp.html">Go to the documentation of this file.</a><div class="fragment"><div class="line"><a name="l00001"></a><span class="lineno">    1</span>&#160;<span class="preprocessor">#include &quot;<a class="code" href="_net_packet_8h.html">NetPacket.h</a>&quot;</span></div>
+<div class="fragment"><div class="line"><a name="l00001"></a><span class="lineno">    1</span>&#160;<span class="preprocessor">#</span><span class="preprocessor">include</span> <a class="code" href="_net_packet_8h.html">&quot;NetPacket.h&quot;</a></div>
 <div class="line"><a name="l00002"></a><span class="lineno">    2</span>&#160; </div>
-<div class="line"><a name="l00003"></a><span class="lineno"><a class="line" href="namespacepciemgr_1_1net.html">    3</a></span>&#160;<span class="keyword">namespace </span><a class="code" href="namespacemgrd_1_1net.html">mgrd::net</a> {</div>
-<div class="line"><a name="l00004"></a><span class="lineno"><a class="line" href="namespacemgrd_1_1net.html#a17023be0a76f29a3f863e1dc4e0ebac1">    4</a></span>&#160;    <span class="keyword">static</span> std::string_view <a class="code" href="namespacemgrd_1_1net.html#a17023be0a76f29a3f863e1dc4e0ebac1">s_PacketTypeStr</a>[] = { <span class="stringliteral">&quot;NoOp&quot;</span>, <span class="stringliteral">&quot;Success&quot;</span>, <span class="stringliteral">&quot;Reboot&quot;</span>, <span class="stringliteral">&quot;String&quot;</span>, <span class="stringliteral">&quot;InvalidState&quot;</span> };</div>
-<div class="line"><a name="l00005"></a><span class="lineno">    5</span>&#160; </div>
-<div class="line"><a name="l00006"></a><span class="lineno"><a class="line" href="namespacemgrd_1_1net.html#a103009932c54da750ead52207be13db3">    6</a></span>&#160;    std::optional&lt;Packet&gt; <a class="code" href="namespacemgrd_1_1net.html#a103009932c54da750ead52207be13db3">BeginReceive</a>(<a class="code" href="_c_s_socket_8h.html#ad0d31f716b77725cf547078ce5bef2cc">csnet::Socket</a>* socket) noexcept</div>
-<div class="line"><a name="l00007"></a><span class="lineno">    7</span>&#160;    {</div>
-<div class="line"><a name="l00008"></a><span class="lineno">    8</span>&#160;        <a class="code" href="structpciemgr_1_1net_1_1_packet.html">Packet</a> incoming_packet{};</div>
-<div class="line"><a name="l00009"></a><span class="lineno">    9</span>&#160; </div>
-<div class="line"><a name="l00010"></a><span class="lineno">   10</span>&#160;        <span class="comment">// Receive the header.</span></div>
-<div class="line"><a name="l00011"></a><span class="lineno">   11</span>&#160;        <span class="keywordflow">if</span> (<a class="code" href="_c_s_socket_8h.html#ad25ae740142e1206702c1fdec7411710">Socket_Receive</a>(socket, <span class="keyword">reinterpret_cast&lt;</span>u8*<span class="keyword">&gt;</span>(&amp;incoming_packet.header), <span class="keyword">sizeof</span>(incoming_packet.header), 0) !=</div>
-<div class="line"><a name="l00012"></a><span class="lineno">   12</span>&#160;            CS_SOCKET_ERROR)</div>
-<div class="line"><a name="l00013"></a><span class="lineno">   13</span>&#160;        {</div>
-<div class="line"><a name="l00014"></a><span class="lineno">   14</span>&#160;            <span class="comment">// Receive the payload (if any).</span></div>
-<div class="line"><a name="l00015"></a><span class="lineno">   15</span>&#160;            <span class="keywordflow">if</span> (incoming_packet.header.dataLen &gt; 0)</div>
-<div class="line"><a name="l00016"></a><span class="lineno">   16</span>&#160;            {</div>
-<div class="line"><a name="l00017"></a><span class="lineno">   17</span>&#160;                incoming_packet.<a class="code" href="structpciemgr_1_1net_1_1_packet.html#ace64c2d4752de31cb36da85833a94bc3">data</a>.resize(incoming_packet.header.dataLen);</div>
-<div class="line"><a name="l00018"></a><span class="lineno">   18</span>&#160;                <span class="keywordflow">if</span> (<a class="code" href="_c_s_socket_8h.html#ad25ae740142e1206702c1fdec7411710">Socket_Receive</a>(socket, <span class="keyword">reinterpret_cast&lt;</span>u8*<span class="keyword">&gt;</span>(incoming_packet.data.data()),</div>
-<div class="line"><a name="l00019"></a><span class="lineno">   19</span>&#160;                                   incoming_packet.header.dataLen, 0) != CS_SOCKET_ERROR)</div>
-<div class="line"><a name="l00020"></a><span class="lineno">   20</span>&#160;                    <span class="keywordflow">return</span> std::move(incoming_packet);</div>
-<div class="line"><a name="l00021"></a><span class="lineno">   21</span>&#160;            }</div>
-<div class="line"><a name="l00022"></a><span class="lineno">   22</span>&#160;            <span class="keywordflow">else</span></div>
-<div class="line"><a name="l00023"></a><span class="lineno">   23</span>&#160;                <span class="keywordflow">return</span> std::move(incoming_packet);</div>
-<div class="line"><a name="l00024"></a><span class="lineno">   24</span>&#160;        }</div>
-<div class="line"><a name="l00025"></a><span class="lineno">   25</span>&#160;        <span class="keywordflow">return</span> std::nullopt;</div>
-<div class="line"><a name="l00026"></a><span class="lineno">   26</span>&#160;    }</div>
-<div class="line"><a name="l00027"></a><span class="lineno">   27</span>&#160; </div>
-<div class="line"><a name="l00028"></a><span class="lineno"><a class="line" href="namespacemgrd_1_1net.html#ae9ab81602f337c69c1f72cef4581e01f">   28</a></span>&#160;    <span class="keywordtype">bool</span> <a class="code" href="namespacemgrd_1_1net.html#ae9ab81602f337c69c1f72cef4581e01f">BeginSend</a>(<a class="code" href="_c_s_socket_8h.html#ad0d31f716b77725cf547078ce5bef2cc">csnet::Socket</a>* socket, <a class="code" href="structmgrd_1_1net_1_1_packet.html">Packet</a>&amp;&amp; packet) noexcept</div>
-<div class="line"><a name="l00029"></a><span class="lineno">   29</span>&#160;    {</div>
-<div class="line"><a name="l00030"></a><span class="lineno">   30</span>&#160;        <span class="keywordflow">if</span> (<a class="code" href="_c_s_socket_8h.html#a51136fde305e77ce91ccc0bb1ec6126b">Socket_Send</a>(socket, <span class="keyword">reinterpret_cast&lt;</span>u8*<span class="keyword">&gt;</span>(&amp;packet.header), <span class="keyword">sizeof</span>(packet.header), 0) != CS_SOCKET_ERROR)</div>
-<div class="line"><a name="l00031"></a><span class="lineno">   31</span>&#160;        {</div>
-<div class="line"><a name="l00032"></a><span class="lineno">   32</span>&#160;            <span class="keywordflow">if</span> (packet.header.dataLen &gt; 0)</div>
-<div class="line"><a name="l00033"></a><span class="lineno">   33</span>&#160;            {</div>
-<div class="line"><a name="l00034"></a><span class="lineno">   34</span>&#160;                <span class="keywordflow">return</span> <a class="code" href="_c_s_socket_8h.html#a51136fde305e77ce91ccc0bb1ec6126b">Socket_Send</a>(socket, <span class="keyword">reinterpret_cast&lt;</span>u8*<span class="keyword">&gt;</span>(packet.data.data()), packet.data.size(), 0) !=</div>
-<div class="line"><a name="l00035"></a><span class="lineno">   35</span>&#160;                       CS_SOCKET_ERROR;</div>
-<div class="line"><a name="l00036"></a><span class="lineno">   36</span>&#160;            }</div>
-<div class="line"><a name="l00037"></a><span class="lineno">   37</span>&#160;            <span class="keywordflow">else</span></div>
-<div class="line"><a name="l00038"></a><span class="lineno">   38</span>&#160;                <span class="keywordflow">return</span> <span class="keyword">true</span>;</div>
-<div class="line"><a name="l00039"></a><span class="lineno">   39</span>&#160;        }</div>
-<div class="line"><a name="l00040"></a><span class="lineno">   40</span>&#160;        <span class="keywordflow">return</span> <span class="keyword">false</span>;</div>
-<div class="line"><a name="l00041"></a><span class="lineno">   41</span>&#160;    }</div>
-<div class="line"><a name="l00042"></a><span class="lineno">   42</span>&#160; </div>
-<div class="line"><a name="l00043"></a><span class="lineno"><a class="line" href="namespacemgrd_1_1net.html#af8e627cacf3a240c2a38bd783434c5ca">   43</a></span>&#160;    [[nodiscard]] std::string_view <a class="code" href="namespacemgrd_1_1net.html#af8e627cacf3a240c2a38bd783434c5ca">TypeToStr</a>(<span class="keyword">const</span> <a class="code" href="namespacemgrd_1_1net.html#a24a51325e5d647e6baac351d67f8c1e7">PacketType</a> type) noexcept</div>
-<div class="line"><a name="l00044"></a><span class="lineno">   44</span>&#160;    {</div>
-<div class="line"><a name="l00045"></a><span class="lineno">   45</span>&#160;        <span class="keywordflow">return</span> <a class="code" href="namespacemgrd_1_1net.html#a17023be0a76f29a3f863e1dc4e0ebac1">s_PacketTypeStr</a>[<span class="keyword">static_cast&lt;</span>u8<span class="keyword">&gt;</span>(type)];</div>
-<div class="line"><a name="l00046"></a><span class="lineno">   46</span>&#160;    }</div>
-<div class="line"><a name="l00047"></a><span class="lineno">   47</span>&#160; </div>
-<div class="line"><a name="l00048"></a><span class="lineno"><a class="line" href="namespacemgrd_1_1net.html#a8d898efdfb0b2aba95bf1d1765321298">   48</a></span>&#160;    [[nodiscard]] std::string_view <a class="code" href="namespacemgrd_1_1net.html#af8e627cacf3a240c2a38bd783434c5ca">TypeToStr</a>(<span class="keyword">const</span> <a class="code" href="structmgrd_1_1net_1_1_packet.html">Packet</a>&amp; packet) noexcept</div>
-<div class="line"><a name="l00049"></a><span class="lineno">   49</span>&#160;    {</div>
-<div class="line"><a name="l00050"></a><span class="lineno">   50</span>&#160;        <span class="keywordflow">return</span> <a class="code" href="namespacemgrd_1_1net.html#a17023be0a76f29a3f863e1dc4e0ebac1">s_PacketTypeStr</a>[<span class="keyword">static_cast&lt;</span>u8<span class="keyword">&gt;</span>(packet.header.type)];</div>
-<div class="line"><a name="l00051"></a><span class="lineno">   51</span>&#160;    }</div>
-<div class="line"><a name="l00052"></a><span class="lineno">   52</span>&#160;} <span class="comment">// namespace pciemgr::net</span></div>
-<div class="ttc" id="a_c_s_socket_8h_html_a51136fde305e77ce91ccc0bb1ec6126b"><div class="ttname"><a href="_c_s_socket_8h.html#a51136fde305e77ce91ccc0bb1ec6126b">Socket_Send</a></div><div class="ttdeci">int32_t Socket_Send(Socket *s, const uint8_t *buffer, const size_t buffer_size, const int32_t flags)</div><div class="ttdef"><b>Definition:</b> <a href="_c_s_socket_8h_source.html#l00451">CSSocket.h:451</a></div></div>
-<div class="ttc" id="a_c_s_socket_8h_html_ad0d31f716b77725cf547078ce5bef2cc"><div class="ttname"><a href="_c_s_socket_8h.html#ad0d31f716b77725cf547078ce5bef2cc">Socket</a></div><div class="ttdeci">struct _cs_socket Socket</div></div>
-<div class="ttc" id="a_c_s_socket_8h_html_ad25ae740142e1206702c1fdec7411710"><div class="ttname"><a href="_c_s_socket_8h.html#ad25ae740142e1206702c1fdec7411710">Socket_Receive</a></div><div class="ttdeci">int32_t Socket_Receive(Socket *s, uint8_t *buffer, const size_t buffer_size, const int32_t flags)</div><div class="ttdef"><b>Definition:</b> <a href="_c_s_socket_8h_source.html#l00431">CSSocket.h:431</a></div></div>
-<div class="ttc" id="a_net_packet_8h_html"><div class="ttname"><a href="_net_packet_8h.html">NetPacket.h</a></div></div>
-<div class="ttc" id="anamespacepciemgr_1_1net_html"><div class="ttname"><a href="namespacemgrd_1_1net.html">mgrd::net</a></div><div class="ttdef"><b>Definition:</b> <a href="_net_packet_8cpp_source.html#l00003">NetPacket.cpp:3</a></div></div>
-<div class="ttc" id="anamespacemgrd_1_1net_html_a103009932c54da750ead52207be13db3"><div class="ttname"><a href="namespacemgrd_1_1net.html#a103009932c54da750ead52207be13db3">mgrd::net::BeginReceive</a></div><div class="ttdeci">std::optional&lt; Packet &gt; BeginReceive(csnet::Socket *socket) noexcept</div><div class="ttdef"><b>Definition:</b> <a href="_net_packet_8cpp_source.html#l00006">NetPacket.cpp:6</a></div></div>
-<div class="ttc" id="anamespacemgrd_1_1net_html_a17023be0a76f29a3f863e1dc4e0ebac1"><div class="ttname"><a href="namespacemgrd_1_1net.html#a17023be0a76f29a3f863e1dc4e0ebac1">mgrd::net::s_PacketTypeStr</a></div><div class="ttdeci">static std::string_view s_PacketTypeStr[]</div><div class="ttdef"><b>Definition:</b> <a href="_net_packet_8cpp_source.html#l00004">NetPacket.cpp:4</a></div></div>
-<div class="ttc" id="anamespacemgrd_1_1net_html_a24a51325e5d647e6baac351d67f8c1e7"><div class="ttname"><a href="namespacemgrd_1_1net.html#a24a51325e5d647e6baac351d67f8c1e7">mgrd::net::PacketType</a></div><div class="ttdeci">PacketType</div><div class="ttdef"><b>Definition:</b> <a href="_net_packet_8h_source.html#l00017">NetPacket.h:18</a></div></div>
-<div class="ttc" id="anamespacemgrd_1_1net_html_ae9ab81602f337c69c1f72cef4581e01f"><div class="ttname"><a href="namespacemgrd_1_1net.html#ae9ab81602f337c69c1f72cef4581e01f">mgrd::net::BeginSend</a></div><div class="ttdeci">bool BeginSend(csnet::Socket *socket, Packet &amp;&amp;packet) noexcept</div><div class="ttdef"><b>Definition:</b> <a href="_net_packet_8cpp_source.html#l00028">NetPacket.cpp:28</a></div></div>
-<div class="ttc" id="anamespacemgrd_1_1net_html_af8e627cacf3a240c2a38bd783434c5ca"><div class="ttname"><a href="namespacemgrd_1_1net.html#af8e627cacf3a240c2a38bd783434c5ca">mgrd::net::TypeToStr</a></div><div class="ttdeci">std::string_view TypeToStr(const PacketType type) noexcept</div><div class="ttdef"><b>Definition:</b> <a href="_net_packet_8cpp_source.html#l00043">NetPacket.cpp:43</a></div></div>
-<div class="ttc" id="astructpciemgr_1_1net_1_1_packet_html"><div class="ttname"><a href="structmgrd_1_1net_1_1_packet.html">mgrd::net::Packet</a></div><div class="ttdef"><b>Definition:</b> <a href="_net_packet_8h_source.html#l00032">NetPacket.h:33</a></div></div>
-<div class="ttc" id="astructmgrd_1_1net_1_1_packet_html_ace64c2d4752de31cb36da85833a94bc3"><div class="ttname"><a href="structmgrd_1_1net_1_1_packet.html#ace64c2d4752de31cb36da85833a94bc3">mgrd::net::Packet::data</a></div><div class="ttdeci">std::vector&lt; u8 &gt; data</div><div class="ttdef"><b>Definition:</b> <a href="_net_packet_8h_source.html#l00036">NetPacket.h:36</a></div></div>
+<div class="line"><a name="l00003"></a><span class="lineno">    3</span>&#160;<span class="keyword">namespace</span> <a class="code" href="namespacepmgrd.html">pmgrd</a>::<a class="code" href="namespacepmgrd_1_1net.html">net</a> {</div>
+<div class="line"><a name="l00004"></a><span class="lineno">    4</span>&#160;    <span class="comment">/* clang-format off */</span></div>
+<div class="line"><a name="l00005"></a><span class="lineno">    5</span>&#160;    <span class="keyword">static</span> <a class="code" href="namespacepmgrd_1_1net.html">std</a>::<a class="code" href="namespacepmgrd_1_1net.html">string_view</a> <a class="code" href="namespacepmgrd_1_1net.html">s_PacketTypeStr</a>[] =</div>
+<div class="line"><a name="l00006"></a><span class="lineno">    6</span>&#160;    {</div>
+<div class="line"><a name="l00007"></a><span class="lineno">    7</span>&#160;    <span class="stringliteral">&quot;NoOp&quot;</span>,</div>
+<div class="line"><a name="l00008"></a><span class="lineno">    8</span>&#160;    <span class="stringliteral">&quot;InitConn&quot;</span>,</div>
+<div class="line"><a name="l00009"></a><span class="lineno">    9</span>&#160;    <span class="stringliteral">&quot;Ok&quot;</span>,</div>
+<div class="line"><a name="l00010"></a><span class="lineno">   10</span>&#160;    <span class="stringliteral">&quot;Reboot&quot;</span>,</div>
+<div class="line"><a name="l00011"></a><span class="lineno">   11</span>&#160;    <span class="stringliteral">&quot;String&quot;</span>,</div>
+<div class="line"><a name="l00012"></a><span class="lineno">   12</span>&#160;    <span class="stringliteral">&quot;Error&quot;</span>,</div>
+<div class="line"><a name="l00013"></a><span class="lineno">   13</span>&#160;    <span class="stringliteral">&quot;GetConfig&quot;</span>,</div>
+<div class="line"><a name="l00014"></a><span class="lineno">   14</span>&#160;    <span class="stringliteral">&quot;Join&quot;</span>,</div>
+<div class="line"><a name="l00015"></a><span class="lineno">   15</span>&#160;    <span class="stringliteral">&quot;Leave&quot;</span></div>
+<div class="line"><a name="l00016"></a><span class="lineno">   16</span>&#160;    };</div>
+<div class="line"><a name="l00017"></a><span class="lineno">   17</span>&#160;    <span class="comment">/* clang-format on */</span></div>
+<div class="line"><a name="l00018"></a><span class="lineno">   18</span>&#160; </div>
+<div class="line"><a name="l00019"></a><span class="lineno"><a class="line" href="namespacepmgrd_1_1net.html#a7c292e373f6093fe6a001f92ef860eaf">   19</a></span>&#160;    <a class="code" href="structpmgrd_1_1_valued_result.html">ValuedResult</a>&lt;<a class="code" href="structpmgrd_1_1net_1_1_packet.html">Packet</a>, <a class="code" href="structpmgrd_1_1_err.html">Err</a>&gt; <a class="code" href="namespacepmgrd_1_1net.html#a7c292e373f6093fe6a001f92ef860eaf">BeginReceive</a>(csnet::Socket* socket) <span class="keyword">noexcept</span></div>
+<div class="line"><a name="l00020"></a><span class="lineno">   20</span>&#160;    {</div>
+<div class="line"><a name="l00021"></a><span class="lineno">   21</span>&#160;        <a class="code" href="structpmgrd_1_1net_1_1_packet.html">Packet</a> incoming_packet{};</div>
+<div class="line"><a name="l00022"></a><span class="lineno">   22</span>&#160; </div>
+<div class="line"><a name="l00023"></a><span class="lineno">   23</span>&#160;        <span class="comment">// Receive the header.</span></div>
+<div class="line"><a name="l00024"></a><span class="lineno">   24</span>&#160;        <span class="keywordflow">if</span> (Socket_Receive(socket, <span class="keyword">reinterpret_cast</span>&lt;u8*&gt;(&amp;incoming_packet.header), <span class="keyword">sizeof</span>(incoming_packet.header), 0) !=</div>
+<div class="line"><a name="l00025"></a><span class="lineno">   25</span>&#160;            CS_SOCKET_ERROR)</div>
+<div class="line"><a name="l00026"></a><span class="lineno">   26</span>&#160;        {</div>
+<div class="line"><a name="l00027"></a><span class="lineno">   27</span>&#160;            <span class="comment">// Receive the payload (if any).</span></div>
+<div class="line"><a name="l00028"></a><span class="lineno">   28</span>&#160;            <span class="keywordflow">if</span> (incoming_packet.header.dataLen &gt; 0)</div>
+<div class="line"><a name="l00029"></a><span class="lineno">   29</span>&#160;            {</div>
+<div class="line"><a name="l00030"></a><span class="lineno">   30</span>&#160;                incoming_packet.data.resize(incoming_packet.header.dataLen);</div>
+<div class="line"><a name="l00031"></a><span class="lineno">   31</span>&#160;                <span class="keywordflow">if</span> (Socket_Receive(socket, <span class="keyword">reinterpret_cast</span>&lt;u8*&gt;(incoming_packet.data.data()),</div>
+<div class="line"><a name="l00032"></a><span class="lineno">   32</span>&#160;                                   incoming_packet.header.dataLen, 0) != CS_SOCKET_ERROR)</div>
+<div class="line"><a name="l00033"></a><span class="lineno">   33</span>&#160;                    <span class="keywordflow">return</span> std::move(incoming_packet);</div>
+<div class="line"><a name="l00034"></a><span class="lineno">   34</span>&#160;            }</div>
+<div class="line"><a name="l00035"></a><span class="lineno">   35</span>&#160;            <span class="keywordflow">else</span></div>
+<div class="line"><a name="l00036"></a><span class="lineno">   36</span>&#160;                <span class="keywordflow">return</span> std::move(incoming_packet);</div>
+<div class="line"><a name="l00037"></a><span class="lineno">   37</span>&#160;        }</div>
+<div class="line"><a name="l00038"></a><span class="lineno">   38</span>&#160;        <span class="keywordflow">return</span> <a class="code" href="structpmgrd_1_1_err.html">Err</a>{ ErrType::NetBadPacket };</div>
+<div class="line"><a name="l00039"></a><span class="lineno">   39</span>&#160;    }</div>
+<div class="line"><a name="l00040"></a><span class="lineno">   40</span>&#160; </div>
+<div class="line"><a name="l00041"></a><span class="lineno"><a class="line" href="namespacepmgrd_1_1net.html#a678c1aadb2da1eceb4f6fc82971d06bd">   41</a></span>&#160;    <a class="code" href="namespacepmgrd_1_1net.html#a678c1aadb2da1eceb4f6fc82971d06bd">Result</a>&lt;<a class="code" href="namespacepmgrd_1_1net.html#a678c1aadb2da1eceb4f6fc82971d06bd">Err</a>&gt; <a class="code" href="namespacepmgrd_1_1net.html#a678c1aadb2da1eceb4f6fc82971d06bd">BeginSend</a>(<a class="code" href="namespacepmgrd_1_1net.html#a678c1aadb2da1eceb4f6fc82971d06bd">csnet</a>::<a class="code" href="namespacepmgrd_1_1net.html#a678c1aadb2da1eceb4f6fc82971d06bd">Socket</a>* <a class="code" href="namespacepmgrd_1_1net.html#a678c1aadb2da1eceb4f6fc82971d06bd">socket</a>, <a class="code" href="namespacepmgrd_1_1net.html#a678c1aadb2da1eceb4f6fc82971d06bd">Packet</a>&amp;&amp; <a class="code" href="namespacepmgrd_1_1net.html#a678c1aadb2da1eceb4f6fc82971d06bd">packet</a>) <span class="keyword">noexcept</span></div>
+<div class="line"><a name="l00042"></a><span class="lineno">   42</span>&#160;    {</div>
+<div class="line"><a name="l00043"></a><span class="lineno">   43</span>&#160;        <span class="keywordflow">if</span> (Socket_Send(socket, <span class="keyword">reinterpret_cast</span>&lt;u8*&gt;(&amp;packet.header), <span class="keyword">sizeof</span>(packet.header), 0) != CS_SOCKET_ERROR)</div>
+<div class="line"><a name="l00044"></a><span class="lineno">   44</span>&#160;        {</div>
+<div class="line"><a name="l00045"></a><span class="lineno">   45</span>&#160;            <span class="keywordflow">if</span> (packet.header.dataLen &gt; 0)</div>
+<div class="line"><a name="l00046"></a><span class="lineno">   46</span>&#160;            {</div>
+<div class="line"><a name="l00047"></a><span class="lineno">   47</span>&#160;                <span class="keyword">const</span> <span class="keyword">auto</span> res = Socket_Send(socket, <span class="keyword">reinterpret_cast</span>&lt;u8*&gt;(packet.data.data()), packet.data.size(), 0);</div>
+<div class="line"><a name="l00048"></a><span class="lineno">   48</span>&#160;                <span class="keywordflow">if</span> (res != CS_SOCKET_ERROR)</div>
+<div class="line"><a name="l00049"></a><span class="lineno">   49</span>&#160;                    <span class="keywordflow">return</span> Ok();</div>
+<div class="line"><a name="l00050"></a><span class="lineno">   50</span>&#160;            }</div>
+<div class="line"><a name="l00051"></a><span class="lineno">   51</span>&#160;            <span class="keywordflow">else</span></div>
+<div class="line"><a name="l00052"></a><span class="lineno">   52</span>&#160;                <span class="keywordflow">return</span> Ok();</div>
+<div class="line"><a name="l00053"></a><span class="lineno">   53</span>&#160;        }</div>
+<div class="line"><a name="l00054"></a><span class="lineno">   54</span>&#160;        <span class="keywordflow">return</span> <a class="code" href="structpmgrd_1_1_err.html">Err</a>{ ErrType::NetWriteFailure };</div>
+<div class="line"><a name="l00055"></a><span class="lineno">   55</span>&#160;    }</div>
+<div class="line"><a name="l00056"></a><span class="lineno">   56</span>&#160; </div>
+<div class="line"><a name="l00057"></a><span class="lineno"><a class="line" href="namespacepmgrd_1_1net.html#a66f7b7082a21a047176be76b1a3662bc">   57</a></span>&#160;    [[<a class="code" href="namespacepmgrd_1_1net.html">nodiscard</a>]] <a class="code" href="namespacepmgrd_1_1net.html#a66f7b7082a21a047176be76b1a3662bc">std</a>::<a class="code" href="namespacepmgrd_1_1net.html#a66f7b7082a21a047176be76b1a3662bc">string_view</a> <a class="code" href="namespacepmgrd_1_1net.html#a66f7b7082a21a047176be76b1a3662bc">TypeToStr</a>(<span class="keyword">const</span> <a class="code" href="namespacepmgrd_1_1net.html#a66f7b7082a21a047176be76b1a3662bc">PacketType</a> <a class="code" href="namespacepmgrd_1_1net.html#a66f7b7082a21a047176be76b1a3662bc">type</a>) <span class="keyword">noexcept</span></div>
+<div class="line"><a name="l00058"></a><span class="lineno">   58</span>&#160;    {</div>
+<div class="line"><a name="l00059"></a><span class="lineno">   59</span>&#160;        <span class="keywordflow">return</span> s_PacketTypeStr[<span class="keyword">static_cast</span>&lt;u8&gt;(type)];</div>
+<div class="line"><a name="l00060"></a><span class="lineno">   60</span>&#160;    }</div>
+<div class="line"><a name="l00061"></a><span class="lineno">   61</span>&#160; </div>
+<div class="line"><a name="l00062"></a><span class="lineno"><a class="line" href="namespacepmgrd_1_1net.html#a9f6d7390c151bb6ea4aba7073c0da6e0">   62</a></span>&#160;    [[<a class="code" href="namespacepmgrd_1_1net.html">nodiscard</a>]] <a class="code" href="namespacepmgrd_1_1net.html#a9f6d7390c151bb6ea4aba7073c0da6e0">std</a>::<a class="code" href="namespacepmgrd_1_1net.html#a9f6d7390c151bb6ea4aba7073c0da6e0">string_view</a> <a class="code" href="namespacepmgrd_1_1net.html#a9f6d7390c151bb6ea4aba7073c0da6e0">TypeToStr</a>(<span class="keyword">const</span> <a class="code" href="namespacepmgrd_1_1net.html#a9f6d7390c151bb6ea4aba7073c0da6e0">Packet</a>&amp; <a class="code" href="namespacepmgrd_1_1net.html#a9f6d7390c151bb6ea4aba7073c0da6e0">packet</a>) <span class="keyword">noexcept</span></div>
+<div class="line"><a name="l00063"></a><span class="lineno">   63</span>&#160;    {</div>
+<div class="line"><a name="l00064"></a><span class="lineno">   64</span>&#160;        <span class="keywordflow">return</span> s_PacketTypeStr[<span class="keyword">static_cast</span>&lt;u8&gt;(packet.header.type)];</div>
+<div class="line"><a name="l00065"></a><span class="lineno">   65</span>&#160;    }</div>
+<div class="line"><a name="l00066"></a><span class="lineno">   66</span>&#160;} <span class="comment">// namespace pmgrd::net</span></div>
 </div><!-- fragment --></div><!-- contents -->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>

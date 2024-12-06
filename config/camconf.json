@@ -1,0 +1,63 @@
+{
+    "concentrators": [
+        {
+            "nodeId": 1,
+            "cameras": [
+                {
+                    "id": 1,
+                    "groupId": 0,
+
+                    "width": 1920,
+                    "height": 1080,
+                    "fps": 30,
+                    "depth": 12,
+                    "bufferCount": 2,
+                    "comprFmt": "MJPEG",
+                    "videoFmt": "AYVY"
+                },
+                {
+                    "id": 2,
+                    "groupId": 1,
+
+                    "width": 1920,
+                    "height": 1080,
+                    "fps": 30,
+                    "depth": 12,
+                    "bufferCount": 2,
+                    "comprFmt": "MJPEG",
+                    "videoFmt": "AYVY"
+                },
+                {
+                    "id": 3,
+                    "groupId": 13,
+
+                    "width": 1920,
+                    "height": 1080,
+                    "fps": 30,
+                    "depth": 12,
+                    "bufferCount": 2,
+                    "comprFmt": "MJPEG",
+                    "videoFmt": "AYVY"
+                },
+                {
+                    "id": 4,
+                    "groupId": 14,
+
+                    "width": 1920,
+                    "height": 1080,
+                    "fps": 30,
+                    "depth": 12,
+                    "bufferCount": 2,
+                    "comprFmt": "MJPEG",
+                    "videoFmt": "AYVY"
+                }
+            ]
+        }
+    ],
+    "crewStations": [
+        {
+            "nodeId": 1,
+            "groups": [ 0, 1, 2, 3, 4, 5, 13, 14, 15 ]
+        }
+    ]
+}

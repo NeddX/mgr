@@ -1,4 +1,4 @@
 var searchData=
 [
-  ['video_5fformat_154',['video_format',['../struct_camera.html#ad3d526aa577ee04efb128b9ca5cf4cf4',1,'Camera']]]
+  ['width_51',['width',['../structpmgrd_1_1_camera.html#a4de94d460472424e126e65d9cd1319f6',1,'pmgrd::Camera']]]
 ];

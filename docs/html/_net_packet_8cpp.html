@@ -5,7 +5,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=9"/>
 <meta name="generator" content="Doxygen 1.9.1"/>
 <meta name="viewport" content="width=device-width, initial-scale=1"/>
-<title>pciemgr: pciemgr/src/Net/NetPacket.cpp File Reference</title>
+<title>pciemgr: pciemgrd/src/Net/NetPacket.cpp File Reference</title>
 <link href="tabs.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="jquery.js"></script>
 <script type="text/javascript" src="dynsections.js"></script>
@@ -23,9 +23,9 @@
   <td id="projectlogo"><img alt="Logo" src="picelogo_64x64"/></td>
   <td id="projectalign" style="padding-left: 0.5em;">
    <div id="projectname">pciemgr
-   &#160;<span id="projectnumber">v0.1</span>
+   &#160;<span id="projectnumber">v0.2</span>
    </div>
-   <div id="projectbrief">PCIE Multi-cast RC Manager</div>
+   <div id="projectbrief">PCIE Multi-Cast Manager</div>
   </td>
  </tr>
  </tbody>
@@ -64,14 +64,13 @@ $(function() {
 
 <div id="nav-path" class="navpath">
   <ul>
-<li class="navelem"><a class="el" href="dir_08967f40b0be00b5c118877aacc02e20.html">pciemgr</a></li><li class="navelem"><a class="el" href="dir_a28329a0c4c93a2209232f1cd0b41846.html">src</a></li><li class="navelem"><a class="el" href="dir_e48070207a356c56791f308c4c9b85f2.html">Net</a></li>  </ul>
+<li class="navelem"><a class="el" href="dir_bfab199149dff6b14186f6a5e523754c.html">pciemgrd</a></li><li class="navelem"><a class="el" href="dir_4246afdf7d096edbfd3e66d14a7c824d.html">src</a></li><li class="navelem"><a class="el" href="dir_6b5469ed1bdebc1470e4e45cc53f5a39.html">Net</a></li>  </ul>
 </div>
 </div><!-- top -->
 <div class="header">
   <div class="summary">
 <a href="#namespaces">Namespaces</a> &#124;
-<a href="#func-members">Functions</a> &#124;
-<a href="#var-members">Variables</a>  </div>
+<a href="#func-members">Functions</a>  </div>
   <div class="headertitle">
 <div class="title">NetPacket.cpp File Reference</div>  </div>
 </div><!--header-->
@@ -80,33 +79,52 @@ $(function() {
 </div><div class="textblock"><div class="dynheader">
 Include dependency graph for NetPacket.cpp:</div>
 <div class="dyncontent">
-<div class="center"><img src="_net_packet_8cpp__incl.png" border="0" usemap="#apciemgr_2src_2_net_2_net_packet_8cpp" alt=""/></div>
+<div class="center"><img src="_net_packet_8cpp__incl.png" border="0" usemap="#apciemgrd_2src_2_net_2_net_packet_8cpp" alt=""/></div>
+<map name="apciemgrd_2src_2_net_2_net_packet_8cpp" id="apciemgrd_2src_2_net_2_net_packet_8cpp">
+<area shape="rect" title=" " alt="" coords="523,5,753,32"/>
+<area shape="rect" href="_net_packet_8h.html" title=" " alt="" coords="589,80,687,107"/>
+<area shape="rect" title=" " alt="" coords="313,229,427,256"/>
+<area shape="rect" title=" " alt="" coords="605,155,671,181"/>
+<area shape="rect" title=" " alt="" coords="695,155,770,181"/>
+<area shape="rect" title=" " alt="" coords="665,229,723,256"/>
+<area shape="rect" title=" " alt="" coords="795,155,892,181"/>
+<area shape="rect" title=" " alt="" coords="916,155,979,181"/>
+<area shape="rect" href="_c_s_socket_8h.html" title=" " alt="" coords="1003,155,1097,181"/>
+<area shape="rect" href="_error_8h.html" title=" " alt="" coords="431,155,530,181"/>
+<area shape="rect" href="_result_8h.html" title=" " alt="" coords="194,155,303,181"/>
+<area shape="rect" title=" " alt="" coords="1205,229,1279,256"/>
+<area shape="rect" title=" " alt="" coords="828,229,899,256"/>
+<area shape="rect" title=" " alt="" coords="923,229,990,256"/>
+<area shape="rect" title=" " alt="" coords="1015,229,1085,256"/>
+<area shape="rect" title=" " alt="" coords="1109,229,1180,256"/>
+<area shape="rect" title=" " alt="" coords="209,229,289,256"/>
+<area shape="rect" title=" " alt="" coords="451,229,526,256"/>
+<area shape="rect" title=" " alt="" coords="551,229,640,256"/>
+<area shape="rect" title=" " alt="" coords="5,229,92,256"/>
+<area shape="rect" title=" " alt="" coords="116,229,184,256"/>
+</map>
 </div>
 </div>
 <p><a href="_net_packet_8cpp_source.html">Go to the source code of this file.</a></p>
 <table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="namespaces"></a>
 Namespaces</h2></td></tr>
-<tr class="memitem:namespacepciemgr"><td class="memItemLeft" align="right" valign="top"> &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespacemgrd.html">mgrd</a></td></tr>
+<tr class="memitem:namespacepmgrd"><td class="memItemLeft" align="right" valign="top"> &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespacepmgrd.html">pmgrd</a></td></tr>
+<tr class="memdesc:namespacepmgrd"><td class="mdescLeft">&#160;</td><td class="mdescRight">The global daemon namespace. <br /></td></tr>
 <tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:namespacepciemgr_1_1net"><td class="memItemLeft" align="right" valign="top"> &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespacemgrd_1_1net.html">mgrd::net</a></td></tr>
+<tr class="memitem:namespacepmgrd_1_1net"><td class="memItemLeft" align="right" valign="top"> &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespacepmgrd_1_1net.html">pmgrd::net</a></td></tr>
 <tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="func-members"></a>
 Functions</h2></td></tr>
-<tr class="memitem:a103009932c54da750ead52207be13db3"><td class="memItemLeft" align="right" valign="top">std::optional&lt; Packet &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespacemgrd_1_1net.html#a103009932c54da750ead52207be13db3">mgrd::net::BeginReceive</a> (<a class="el" href="_c_s_socket_8h.html#ad0d31f716b77725cf547078ce5bef2cc">csnet::Socket</a> *socket) noexcept</td></tr>
-<tr class="separator:a103009932c54da750ead52207be13db3"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ae9ab81602f337c69c1f72cef4581e01f"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespacemgrd_1_1net.html#ae9ab81602f337c69c1f72cef4581e01f">mgrd::net::BeginSend</a> (<a class="el" href="_c_s_socket_8h.html#ad0d31f716b77725cf547078ce5bef2cc">csnet::Socket</a> *socket, Packet &amp;&amp;packet) noexcept</td></tr>
-<tr class="separator:ae9ab81602f337c69c1f72cef4581e01f"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:af8e627cacf3a240c2a38bd783434c5ca"><td class="memItemLeft" align="right" valign="top">std::string_view&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespacemgrd_1_1net.html#af8e627cacf3a240c2a38bd783434c5ca">mgrd::net::TypeToStr</a> (const PacketType type) noexcept</td></tr>
-<tr class="separator:af8e627cacf3a240c2a38bd783434c5ca"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a8d898efdfb0b2aba95bf1d1765321298"><td class="memItemLeft" align="right" valign="top">std::string_view&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespacemgrd_1_1net.html#a8d898efdfb0b2aba95bf1d1765321298">mgrd::net::TypeToStr</a> (const Packet &amp;packet) noexcept</td></tr>
-<tr class="separator:a8d898efdfb0b2aba95bf1d1765321298"><td class="memSeparator" colspan="2">&#160;</td></tr>
-</table><table class="memberdecls">
-<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="var-members"></a>
-Variables</h2></td></tr>
-<tr class="memitem:a17023be0a76f29a3f863e1dc4e0ebac1"><td class="memItemLeft" align="right" valign="top">static std::string_view&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespacemgrd_1_1net.html#a17023be0a76f29a3f863e1dc4e0ebac1">mgrd::net::s_PacketTypeStr</a> [] = { &quot;NoOp&quot;, &quot;Success&quot;, &quot;Reboot&quot;, &quot;String&quot;, &quot;InvalidState&quot; }</td></tr>
-<tr class="separator:a17023be0a76f29a3f863e1dc4e0ebac1"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a7c292e373f6093fe6a001f92ef860eaf"><td class="memItemLeft" align="right" valign="top">ValuedResult&lt; Packet, Err &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespacepmgrd_1_1net.html#a7c292e373f6093fe6a001f92ef860eaf">pmgrd::net::BeginReceive</a> (<a class="el" href="_c_s_socket_8h.html#ad0d31f716b77725cf547078ce5bef2cc">csnet::Socket</a> *socket) noexcept</td></tr>
+<tr class="separator:a7c292e373f6093fe6a001f92ef860eaf"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a678c1aadb2da1eceb4f6fc82971d06bd"><td class="memItemLeft" align="right" valign="top">Result&lt; Err &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespacepmgrd_1_1net.html#a678c1aadb2da1eceb4f6fc82971d06bd">pmgrd::net::BeginSend</a> (<a class="el" href="_c_s_socket_8h.html#ad0d31f716b77725cf547078ce5bef2cc">csnet::Socket</a> *socket, Packet &amp;&amp;packet) noexcept</td></tr>
+<tr class="separator:a678c1aadb2da1eceb4f6fc82971d06bd"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a66f7b7082a21a047176be76b1a3662bc"><td class="memItemLeft" align="right" valign="top">std::string_view&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespacepmgrd_1_1net.html#a66f7b7082a21a047176be76b1a3662bc">pmgrd::net::TypeToStr</a> (const PacketType type) noexcept</td></tr>
+<tr class="separator:a66f7b7082a21a047176be76b1a3662bc"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a9f6d7390c151bb6ea4aba7073c0da6e0"><td class="memItemLeft" align="right" valign="top">std::string_view&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespacepmgrd_1_1net.html#a9f6d7390c151bb6ea4aba7073c0da6e0">pmgrd::net::TypeToStr</a> (const Packet &amp;packet) noexcept</td></tr>
+<tr class="separator:a9f6d7390c151bb6ea4aba7073c0da6e0"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 </div><!-- contents -->
 <!-- start footer part -->

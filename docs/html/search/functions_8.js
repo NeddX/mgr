@@ -1,5 +1,4 @@
 var searchData=
 [
-  ['net_5freboothandler_205',['Net_RebootHandler',['../classpciemgr_1_1_application.html#a3719a0b09e5374d448ef510a7d1813bb',1,'mgrd::Application']]],
-  ['net_5fstringhandler_206',['Net_StringHandler',['../classpciemgr_1_1_application.html#a7e2765907e6c012f5721900ffab17f04',1,'mgrd::Application']]]
+  ['typetostr_80',['TypeToStr',['../namespacepmgrd_1_1net.html#a66f7b7082a21a047176be76b1a3662bc',1,'pmgrd::net::TypeToStr(const PacketType type) noexcept'],['../namespacepmgrd_1_1net.html#a9f6d7390c151bb6ea4aba7073c0da6e0',1,'pmgrd::net::TypeToStr(const Packet &amp;packet) noexcept']]]
 ];

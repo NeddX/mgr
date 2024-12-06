@@ -1,118 +1,119 @@
 {
 	"cameras": [
 		{
-			"camera_id": 1,
-			"concentrator_id": 1,
-			"videodev":0,
-			"resolution_width": 1920,
-			"resolution_height": 1080,
+			"id": 1,
+			"nodeId": 1,
+			"videoDev":0,
+			"width": 1920,
+			"height": 1080,
 			"fps": 30,
 			"depth": 12,
-			"buffer_count": 2,
-			"compr_format": "MJPEG",
-			"video_format": "AYVY"
+			"bufferCount": 2,
+			"comprFmt": "MJPEG",
+			"videoFmt": "AYVY"
 		},
 		{
-			"camera_id": 2,
-			"concentrator_id": 1,
-			"videodev":1,
-			"resolution_width": 1920,
-			"resolution_height": 1080,
+			"id": 2,
+			"nodeId": 1,
+			"videoDev":1,
+			"width": 1920,
+			"height": 1080,
 			"fps": 30,
 			"depth": 10,
-			"buffer_count": 2,
-			"compr_format": "MJPEG",
-			"video_format": "AYVY"
+			"bufferCount": 2,
+			"comprFmt": "MJPEG",
+			"videoFmt": "AYVY"
 		},
 		{
-			"camera_id": 3,
-			"concentrator_id": 2,
-			"videodev":1,
-			"resolution_width": 1920,
-			"resolution_height": 1080,
+			"id": 3,
+			"nodeId": 2,
+			"videoDev":1,
+			"width": 1920,
+			"height": 1080,
 			"fps": 30,
 			"depth": 10,
-			"buffer_count": 2,
-			"compr_format": "MJPEG",
-			"video_format": "AYVY"
+			"bufferCount": 2,
+			"comprFmt": "MJPEG",
+			"videoFmt": "AYVY"
 		},
 		{
-			"camera_id": 4,
-			"concentrator_id": 2,
-			"videodev":1,
-			"resolution_width": 1920,
-			"resolution_height": 1080,
+			"id": 4,
+			"nodeId": 2,
+			"videoDev":1,
+			"width": 1920,
+			"height": 1080,
 			"fps": 30,
 			"depth": 12,
-			"buffer_count": 2,
-			"compr_format": "MJPEG",
-			"video_format": "AYVY"
+			"bufferCount": 2,
+			"comprFmt": "MJPEG",
+			"videoFmt": "AYVY"
 		},
 		{
-			"camera_id": 5,
-			"concentrator_id": 2,
-			"videodev":1,
-			"resolution_width": 1920,
-			"resolution_height": 1080,
+			"id": 5,
+			"nodeId": 2,
+			"videoDev":1,
+			"width": 1920,
+			"height": 1080,
 			"fps": 30,
 			"depth": 10,
-			"buffer_count": 2,
-			"compr_format": "MJPEG",
-			"video_format": "AYVY"
+			"bufferCount": 2,
+			"comprFmt": "MJPEG",
+			"videoFmt": "AYVY"
 		},
 		{
-			"camera_id": 6,
-			"concentrator_id": 3,
-			"videodev":1,
-			"resolution_width": 1920,
-			"resolution_height": 1080,
+			"id": 6,
+			"nodeId": 3,
+			"videoDev":1,
+			"width": 1920,
+			"height": 1080,
 			"fps": 30,
 			"depth": 10,
-			"buffer_count": 2,
-			"compr_format": "MJPEG",
-			"video_format": "AYVY"
+			"bufferCount": 2,
+			"comprFmt": "MJPEG",
+			"videoFmt": "AYVY"
 		},
 		{
-			"camera_id": 7,
-			"concentrator_id": 3,
-			"videodev":1,
-			"resolution_width": 1920,
-			"resolution_height": 1080,
+			"id": 7,
+			"nodeId": 3,
+			"videoDev":1,
+			"width": 1920,
+			"height": 1080,
 			"fps": 30,
 			"depth": 10,
-			"buffer_count": 2,
-			"compr_format": "MJPEG",
-			"video_format": "AYVY"
+			"bufferCount": 2,
+			"comprFmt": "MJPEG",
+			"videoFmt": "AYVY"
 		},
 		{
-			"camera_id": 8,
-			"concentrator_id": 3,
-			"videodev":1,
-			"resolution_width": 1920,
-			"resolution_height": 1080,
+			"id": 8,
+			"nodeId": 3,
+			"videoDev":1,
+			"width": 1920,
+			"height": 1080,
 			"fps": 30,
 			"depth": 10,
-			"buffer_count": 2,
-			"compr_format": "MJPEG",
-			"video_format": "AYVY"
+			"bufferCount": 2,
+			"comprFmt": "MJPEG",
+			"videoFmt": "AYVY"
 		}
 	],
-    "crew_station" : [
+
+    "crewStations" : [
         {
-            "cr_st_id": 1,
-            "cam_ids": [1, 2]
+            "nodeId": 1,
+            "camGroupIds": [1, 2]
         },
         {
-            "cr_st_id": 2,
-            "cam_ids": [3, 4]
+            "nodeId": 2,
+            "camGroupIds": [3, 4]
         },
         {
-            "cr_st_id": 3,
-            "cam_ids": [5, 6, 7]
+            "nodeId": 3,
+            "camGroupIds": [5, 6, 7]
         },
         {
-            "cr_st_id": 4,
-            "cam_ids": [8]
+            "nodeId": 4,
+            "camGroupIds": [8]
         }
     ]
 }

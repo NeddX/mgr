@@ -1,4 +1,4 @@
 var searchData=
 [
-  ['dispatcharguments_195',['DispatchArguments',['../classpciemgr_1_1_application.html#aafa37d62c01ac2adb695f0f0115fe52a',1,'mgrd::Application']]]
+  ['init_75',['Init',['../classpmgrd_1_1_application.html#a58abe61ef45289b369393ec8f89959e9',1,'pmgrd::Application']]]
 ];

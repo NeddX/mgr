@@ -1,5 +1,4 @@
 var searchData=
 [
-  ['packet_163',['Packet',['../structpciemgr_1_1net_1_1_packet.html',1,'mgrd::net']]],
-  ['packetheader_164',['PacketHeader',['../structpciemgr_1_1net_1_1_packet_header.html',1,'mgrd::net']]]
+  ['formatter_3c_20pmgrd_3a_3aerr_20_3e_62',['formatter&lt; pmgrd::Err &gt;',['../structfmt_1_1formatter_3_01pmgrd_1_1_err_01_4.html',1,'fmt']]]
 ];

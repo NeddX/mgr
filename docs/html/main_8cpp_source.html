@@ -5,7 +5,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=9"/>
 <meta name="generator" content="Doxygen 1.9.1"/>
 <meta name="viewport" content="width=device-width, initial-scale=1"/>
-<title>pciemgr: pciemgr/src/main.cpp Source File</title>
+<title>pciemgr: pciemgrd/src/main.cpp Source File</title>
 <link href="tabs.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="jquery.js"></script>
 <script type="text/javascript" src="dynsections.js"></script>
@@ -25,7 +25,7 @@
    <div id="projectname">pciemgr
    &#160;<span id="projectnumber">v0.1</span>
    </div>
-   <div id="projectbrief">PCIE Multi-cast RC Manager</div>
+   <div id="projectbrief">PCIE Multi-Cast Manager</div>
   </td>
  </tr>
  </tbody>
@@ -64,7 +64,7 @@ $(function() {
 
 <div id="nav-path" class="navpath">
   <ul>
-<li class="navelem"><a class="el" href="dir_08967f40b0be00b5c118877aacc02e20.html">pciemgr</a></li><li class="navelem"><a class="el" href="dir_a28329a0c4c93a2209232f1cd0b41846.html">src</a></li>  </ul>
+<li class="navelem"><a class="el" href="dir_bfab199149dff6b14186f6a5e523754c.html">pciemgrd</a></li><li class="navelem"><a class="el" href="dir_4246afdf7d096edbfd3e66d14a7c824d.html">src</a></li>  </ul>
 </div>
 </div><!-- top -->
 <div class="header">
@@ -72,13 +72,13 @@ $(function() {
 <div class="title">main.cpp</div>  </div>
 </div><!--header-->
 <div class="contents">
-<a href="main_8cpp.html">Go to the documentation of this file.</a><div class="fragment"><div class="line"><a name="l00001"></a><span class="lineno">    1</span>&#160;<span class="preprocessor">#include &lt;iostream&gt;</span></div>
-<div class="line"><a name="l00002"></a><span class="lineno">    2</span>&#160;<span class="preprocessor">#include &lt;algorithm&gt;</span></div>
-<div class="line"><a name="l00003"></a><span class="lineno">    3</span>&#160;<span class="preprocessor">#include &lt;cstring&gt;</span></div>
+<div class="fragment"><div class="line"><a name="l00001"></a><span class="lineno">    1</span>&#160;<span class="preprocessor">#</span><span class="preprocessor">include</span> <span class="preprocessor">&lt;</span><span class="preprocessor">algorithm</span><span class="preprocessor">&gt;</span></div>
+<div class="line"><a name="l00002"></a><span class="lineno">    2</span>&#160;<span class="preprocessor">#</span><span class="preprocessor">include</span> <span class="preprocessor">&lt;</span><span class="preprocessor">cstring</span><span class="preprocessor">&gt;</span></div>
+<div class="line"><a name="l00003"></a><span class="lineno">    3</span>&#160;<span class="preprocessor">#</span><span class="preprocessor">include</span> <span class="preprocessor">&lt;</span><span class="preprocessor">iostream</span><span class="preprocessor">&gt;</span></div>
 <div class="line"><a name="l00004"></a><span class="lineno">    4</span>&#160; </div>
-<div class="line"><a name="l00005"></a><span class="lineno">    5</span>&#160;<span class="preprocessor">#include &lt;<a class="code" href="_core_2_application_8h.html">Core/Application.h</a>&gt;</span></div>
+<div class="line"><a name="l00005"></a><span class="lineno">    5</span>&#160;<span class="preprocessor">#</span><span class="preprocessor">include</span> <span class="preprocessor">&lt;</span><span class="preprocessor">Core</span><span class="preprocessor">/</span><span class="preprocessor">Application</span><span class="preprocessor">.</span><span class="preprocessor">h</span><span class="preprocessor">&gt;</span></div>
 <div class="line"><a name="l00006"></a><span class="lineno">    6</span>&#160; </div>
-<div class="line"><a name="l00007"></a><span class="lineno"><a class="line" href="main_8cpp.html#ac762d48b889bd832ec0d42abcbc50624">    7</a></span>&#160;<span class="keywordtype">int</span> <a class="code" href="main_8cpp.html#ac762d48b889bd832ec0d42abcbc50624">main</a>(<span class="keyword">const</span> <span class="keywordtype">int</span> argc, <span class="keyword">const</span> <span class="keywordtype">char</span>** argv)</div>
+<div class="line"><a name="l00007"></a><span class="lineno">    7</span>&#160;<span class="keywordtype">int</span> main(<span class="keyword">const</span> <span class="keywordtype">int</span> argc, <span class="keyword">const</span> <span class="keywordtype">char</span>** argv)</div>
 <div class="line"><a name="l00008"></a><span class="lineno">    8</span>&#160;{</div>
 <div class="line"><a name="l00009"></a><span class="lineno">    9</span>&#160;    std::vector&lt;std::string_view&gt; args(argc);</div>
 <div class="line"><a name="l00010"></a><span class="lineno">   10</span>&#160;    std::accumulate(args.begin(), args.end(), 0,</div>
@@ -88,14 +88,13 @@ $(function() {
 <div class="line"><a name="l00014"></a><span class="lineno">   14</span>&#160;                        <span class="keywordflow">return</span> i + 1;</div>
 <div class="line"><a name="l00015"></a><span class="lineno">   15</span>&#160;                    });</div>
 <div class="line"><a name="l00016"></a><span class="lineno">   16</span>&#160; </div>
-<div class="line"><a name="l00017"></a><span class="lineno">   17</span>&#160;    <a class="code" href="classpciemgr_1_1_application.html">mgrd::Application</a> app{ args };</div>
-<div class="line"><a name="l00018"></a><span class="lineno">   18</span>&#160;    app.<a class="code" href="classpciemgr_1_1_application.html#a6b154d5993b58e5921b8930d33188ace">Run</a>();</div>
-<div class="line"><a name="l00019"></a><span class="lineno">   19</span>&#160;    <span class="keywordflow">return</span> 0;</div>
-<div class="line"><a name="l00020"></a><span class="lineno">   20</span>&#160;}</div>
-<div class="ttc" id="a_core_2_application_8h_html"><div class="ttname"><a href="_core_2_application_8h.html">Application.h</a></div></div>
-<div class="ttc" id="aclasspciemgr_1_1_application_html"><div class="ttname"><a href="classmgrd_1_1_application.html">mgrd::Application</a></div><div class="ttdef"><b>Definition:</b> <a href="_core_2_application_8h_source.html#l00023">Application.h:24</a></div></div>
-<div class="ttc" id="aclassmgrd_1_1_application_html_a6b154d5993b58e5921b8930d33188ace"><div class="ttname"><a href="classmgrd_1_1_application.html#a6b154d5993b58e5921b8930d33188ace">mgrd::Application::Run</a></div><div class="ttdeci">void Run()</div><div class="ttdef"><b>Definition:</b> <a href="_application_8cpp_source.html#l00165">Application.cpp:165</a></div></div>
-<div class="ttc" id="amain_8cpp_html_ac762d48b889bd832ec0d42abcbc50624"><div class="ttname"><a href="main_8cpp.html#ac762d48b889bd832ec0d42abcbc50624">main</a></div><div class="ttdeci">int main(const int argc, const char **argv)</div><div class="ttdef"><b>Definition:</b> <a href="main_8cpp_source.html#l00007">main.cpp:7</a></div></div>
+<div class="line"><a name="l00017"></a><span class="lineno">   17</span>&#160;    <span class="keyword">auto</span>&amp; app = pmgrd::Application::New(args);</div>
+<div class="line"><a name="l00018"></a><span class="lineno">   18</span>&#160;    <span class="keywordflow">if</span> (<span class="keyword">const</span> <span class="keyword">auto</span> result = app.Init(); !result)</div>
+<div class="line"><a name="l00019"></a><span class="lineno">   19</span>&#160;        <span class="keywordflow">return</span> result.UnwrapErr().Code();</div>
+<div class="line"><a name="l00020"></a><span class="lineno">   20</span>&#160;    <span class="keywordflow">else</span> <span class="keywordflow">if</span> (<span class="keyword">const</span> <span class="keyword">auto</span> result = app.Run(); !result)</div>
+<div class="line"><a name="l00021"></a><span class="lineno">   21</span>&#160;        <span class="keywordflow">return</span> result.UnwrapErr().Code();</div>
+<div class="line"><a name="l00022"></a><span class="lineno">   22</span>&#160;    <span class="keywordflow">return</span> 0;</div>
+<div class="line"><a name="l00023"></a><span class="lineno">   23</span>&#160;}</div>
 </div><!-- fragment --></div><!-- contents -->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>

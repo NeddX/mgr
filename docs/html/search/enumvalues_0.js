@@ -1,4 +1,4 @@
 var searchData=
 [
-  ['addressfamily_5finternetwork_297',['AddressFamily_InterNetwork',['../_c_s_socket_8h.html#aa53d2f27518f17bfbf93721f08b6f14fa992232c6dc0edd8354f554a5277a5d8b',1,'CSSocket.h']]]
+  ['err_97',['Err',['../namespacepmgrd_1_1net.html#a6e1af2b71648acb3bf5e863392415f03ab47f6a6092c5d7e4bffec12dff309c3b',1,'pmgrd::net']]]
 ];

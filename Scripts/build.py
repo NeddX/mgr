@@ -20,6 +20,7 @@ class Action:
 
 action = Action.Build
 auxiliary_action = Action.Nope
+doc_gen = True
 preset = None
 config = None
 stdoutput = None
@@ -70,6 +71,8 @@ for i in range(0, len(args)):
     elif larg.startswith("--preset="):
         action = Action.Build
         preset = arg.split("=")[1]
+    elif larg.startswith("--docgen"):
+        doc_gen = True
     elif larg.startswith("--config"):
         action = Action.Build
         config = arg.split("=")[1]
@@ -174,6 +177,15 @@ if action == Action.Build:
         elapsed = com.Chrono.end()
         gen_launch_file()
         com.log(f"CMake installation finished. Took: " + "{:.2f}ms".format(elapsed))
+
+    com.log("Documentation generation started.");
+    com.Chrono.begin()
+    if os.path.exists("Doxyfile"):
+        res = com.run("doxygen Doxyfile", stdout=stdoutput)
+        if res.returncode != 0:
+            com.panic("Documentation generation failed.")
+    elapsed = com.Chrono.end()
+    com.log(f"Documentation generation finished. Took: " + "{:.2f}ms".format(elapsed))
 
 elif action == Action.Clear:
     if preset == None:

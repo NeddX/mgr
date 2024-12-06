@@ -1,4 +1,4 @@
 var searchData=
 [
-  ['buffer_5fcount_233',['buffer_count',['../struct_camera.html#a759127d8d5726e5a64cd8fd133fdc17c',1,'Camera']]]
+  ['depth_84',['depth',['../structpmgrd_1_1_camera.html#a680b0dbbe25d72a164a4d2fe51ac7d0f',1,'pmgrd::Camera']]]
 ];

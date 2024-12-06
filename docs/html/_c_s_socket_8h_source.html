@@ -5,7 +5,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=9"/>
 <meta name="generator" content="Doxygen 1.9.1"/>
 <meta name="viewport" content="width=device-width, initial-scale=1"/>
-<title>pciemgr: pciemgr/src/Net/CSSocket.h Source File</title>
+<title>pciemgr: pciemgrd/src/Net/CSSocket.h Source File</title>
 <link href="tabs.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="jquery.js"></script>
 <script type="text/javascript" src="dynsections.js"></script>
@@ -25,7 +25,7 @@
    <div id="projectname">pciemgr
    &#160;<span id="projectnumber">v0.1</span>
    </div>
-   <div id="projectbrief">PCIE Multi-cast RC Manager</div>
+   <div id="projectbrief">PCIE Multi-Cast Manager</div>
   </td>
  </tr>
  </tbody>
@@ -64,7 +64,7 @@ $(function() {
 
 <div id="nav-path" class="navpath">
   <ul>
-<li class="navelem"><a class="el" href="dir_08967f40b0be00b5c118877aacc02e20.html">pciemgr</a></li><li class="navelem"><a class="el" href="dir_a28329a0c4c93a2209232f1cd0b41846.html">src</a></li><li class="navelem"><a class="el" href="dir_e48070207a356c56791f308c4c9b85f2.html">Net</a></li>  </ul>
+<li class="navelem"><a class="el" href="dir_bfab199149dff6b14186f6a5e523754c.html">pciemgrd</a></li><li class="navelem"><a class="el" href="dir_4246afdf7d096edbfd3e66d14a7c824d.html">src</a></li><li class="navelem"><a class="el" href="dir_6b5469ed1bdebc1470e4e45cc53f5a39.html">Net</a></li>  </ul>
 </div>
 </div><!-- top -->
 <div class="header">
@@ -72,161 +72,161 @@ $(function() {
 <div class="title">CSSocket.h</div>  </div>
 </div><!--header-->
 <div class="contents">
-<a href="_c_s_socket_8h.html">Go to the documentation of this file.</a><div class="fragment"><div class="line"><a name="l00001"></a><span class="lineno">    1</span>&#160;<span class="preprocessor">#ifndef CROSSPLATFORM_SOCKETS_H</span></div>
-<div class="line"><a name="l00002"></a><span class="lineno">    2</span>&#160;<span class="preprocessor">#define CROSSPLATFORM_SOCKETS_H</span></div>
+<div class="fragment"><div class="line"><a name="l00001"></a><span class="lineno">    1</span>&#160;<span class="preprocessor">#</span><span class="preprocessor">ifndef</span> <span class="preprocessor">CROSSPLATFORM_SOCKETS_H</span></div>
+<div class="line"><a name="l00002"></a><span class="lineno">    2</span>&#160;<span class="preprocessor">#</span><span class="preprocessor">define</span> <span class="preprocessor">CROSSPLATFORM_SOCKETS_H</span></div>
 <div class="line"><a name="l00003"></a><span class="lineno">    3</span>&#160; </div>
 <div class="line"><a name="l00004"></a><span class="lineno">    4</span>&#160;<span class="comment">// Cross-platform wrapper for BSD sockets.</span></div>
 <div class="line"><a name="l00005"></a><span class="lineno">    5</span>&#160;<span class="comment">// Lucikly, WinSocks is based off of BSD sockets so</span></div>
 <div class="line"><a name="l00006"></a><span class="lineno">    6</span>&#160;<span class="comment">// implementing this was quite easy.</span></div>
 <div class="line"><a name="l00007"></a><span class="lineno">    7</span>&#160; </div>
-<div class="line"><a name="l00008"></a><span class="lineno">    8</span>&#160;<span class="preprocessor">#include &lt;stddef.h&gt;</span></div>
-<div class="line"><a name="l00009"></a><span class="lineno">    9</span>&#160;<span class="preprocessor">#include &lt;stdint.h&gt;</span></div>
-<div class="line"><a name="l00010"></a><span class="lineno">   10</span>&#160;<span class="preprocessor">#include &lt;stdio.h&gt;</span></div>
-<div class="line"><a name="l00011"></a><span class="lineno">   11</span>&#160;<span class="preprocessor">#include &lt;stdlib.h&gt;</span></div>
-<div class="line"><a name="l00012"></a><span class="lineno">   12</span>&#160;<span class="preprocessor">#include &lt;string.h&gt;</span></div>
+<div class="line"><a name="l00008"></a><span class="lineno">    8</span>&#160;<span class="preprocessor">#</span><span class="preprocessor">include</span> <span class="preprocessor">&lt;</span><span class="preprocessor">stddef</span><span class="preprocessor">.</span><span class="preprocessor">h</span><span class="preprocessor">&gt;</span></div>
+<div class="line"><a name="l00009"></a><span class="lineno">    9</span>&#160;<span class="preprocessor">#</span><span class="preprocessor">include</span> <span class="preprocessor">&lt;</span><span class="preprocessor">stdint</span><span class="preprocessor">.</span><span class="preprocessor">h</span><span class="preprocessor">&gt;</span></div>
+<div class="line"><a name="l00010"></a><span class="lineno">   10</span>&#160;<span class="preprocessor">#</span><span class="preprocessor">include</span> <span class="preprocessor">&lt;</span><span class="preprocessor">stdio</span><span class="preprocessor">.</span><span class="preprocessor">h</span><span class="preprocessor">&gt;</span></div>
+<div class="line"><a name="l00011"></a><span class="lineno">   11</span>&#160;<span class="preprocessor">#</span><span class="preprocessor">include</span> <span class="preprocessor">&lt;</span><span class="preprocessor">stdlib</span><span class="preprocessor">.</span><span class="preprocessor">h</span><span class="preprocessor">&gt;</span></div>
+<div class="line"><a name="l00012"></a><span class="lineno">   12</span>&#160;<span class="preprocessor">#</span><span class="preprocessor">include</span> <span class="preprocessor">&lt;</span><span class="preprocessor">string</span><span class="preprocessor">.</span><span class="preprocessor">h</span><span class="preprocessor">&gt;</span></div>
 <div class="line"><a name="l00013"></a><span class="lineno">   13</span>&#160; </div>
-<div class="line"><a name="l00014"></a><span class="lineno">   14</span>&#160;<span class="preprocessor">#ifdef DEBUG</span></div>
-<div class="line"><a name="l00015"></a><span class="lineno">   15</span>&#160;<span class="preprocessor">#define Debug(x) x;</span></div>
-<div class="line"><a name="l00016"></a><span class="lineno">   16</span>&#160;<span class="preprocessor">#else</span></div>
-<div class="line"><a name="l00017"></a><span class="lineno"><a class="line" href="_c_s_socket_8h.html#af7175a265010efbf3a5bff41e0f75135">   17</a></span>&#160;<span class="preprocessor">#define Debug(x)</span></div>
-<div class="line"><a name="l00018"></a><span class="lineno">   18</span>&#160;<span class="preprocessor">#endif</span></div>
+<div class="line"><a name="l00014"></a><span class="lineno">   14</span>&#160;<span class="preprocessor">#</span><span class="preprocessor">ifdef</span> <span class="preprocessor">DEBUG</span></div>
+<div class="line"><a name="l00015"></a><span class="lineno">   15</span>&#160;<span class="preprocessor">#</span><span class="preprocessor">define</span> <span class="preprocessor">Debug</span><span class="preprocessor">(</span><span class="preprocessor">x</span><span class="preprocessor">)</span> <span class="preprocessor">x</span><span class="preprocessor">;</span></div>
+<div class="line"><a name="l00016"></a><span class="lineno">   16</span>&#160;<span class="preprocessor">#</span><span class="preprocessor">else</span></div>
+<div class="line"><a name="l00017"></a><span class="lineno">   17</span>&#160;<span class="preprocessor">#</span><span class="preprocessor">define</span> <span class="preprocessor">Debug</span><span class="preprocessor">(</span><span class="preprocessor">x</span><span class="preprocessor">)</span></div>
+<div class="line"><a name="l00018"></a><span class="lineno">   18</span>&#160;<span class="preprocessor">#</span><span class="preprocessor">endif</span></div>
 <div class="line"><a name="l00019"></a><span class="lineno">   19</span>&#160; </div>
-<div class="line"><a name="l00020"></a><span class="lineno">   20</span>&#160;<span class="preprocessor">#ifndef __cplusplus</span></div>
-<div class="line"><a name="l00021"></a><span class="lineno"><a class="line" href="_c_s_socket_8h.html#a41f9c5fb8b08eb5dc3edce4dcb37fee7">   21</a></span>&#160;<span class="preprocessor">#define true        1</span></div>
-<div class="line"><a name="l00022"></a><span class="lineno"><a class="line" href="_c_s_socket_8h.html#a65e9886d74aaee76545e83dd09011727">   22</a></span>&#160;<span class="preprocessor">#define false       0</span></div>
-<div class="line"><a name="l00023"></a><span class="lineno">   23</span>&#160;<span class="preprocessor">#endif</span></div>
-<div class="line"><a name="l00024"></a><span class="lineno"><a class="line" href="_c_s_socket_8h.html#ad420a9f0a9ef5eab39a6f07b730cf26c">   24</a></span>&#160;<span class="preprocessor">#define CS_IPV4_MAX (size_t)17</span></div>
-<div class="line"><a name="l00025"></a><span class="lineno"><a class="line" href="_c_s_socket_8h.html#a85945ea9b380dd22b848d3ad26399701">   25</a></span>&#160;<span class="preprocessor">#define CS_IPV6_MAX (size_t)40</span></div>
+<div class="line"><a name="l00020"></a><span class="lineno">   20</span>&#160;<span class="preprocessor">#</span><span class="preprocessor">ifndef</span> __cplusplus</div>
+<div class="line"><a name="l00021"></a><span class="lineno">   21</span>&#160;<span class="preprocessor">#</span><span class="preprocessor">define</span> <span class="preprocessor">true</span>        1</div>
+<div class="line"><a name="l00022"></a><span class="lineno">   22</span>&#160;<span class="preprocessor">#</span><span class="preprocessor">define</span> <span class="preprocessor">false</span>       0</div>
+<div class="line"><a name="l00023"></a><span class="lineno">   23</span>&#160;<span class="preprocessor">#</span><span class="preprocessor">endif</span></div>
+<div class="line"><a name="l00024"></a><span class="lineno">   24</span>&#160;<span class="preprocessor">#</span><span class="preprocessor">define</span> <span class="preprocessor">CS_IPV4_MAX</span> <span class="preprocessor">(</span><span class="preprocessor">size_t</span><span class="preprocessor">)</span>17</div>
+<div class="line"><a name="l00025"></a><span class="lineno">   25</span>&#160;<span class="preprocessor">#</span><span class="preprocessor">define</span> <span class="preprocessor">CS_IPV6_MAX</span> <span class="preprocessor">(</span><span class="preprocessor">size_t</span><span class="preprocessor">)</span>40</div>
 <div class="line"><a name="l00026"></a><span class="lineno">   26</span>&#160; </div>
-<div class="line"><a name="l00027"></a><span class="lineno">   27</span>&#160;<span class="preprocessor">#ifdef _WIN32</span></div>
-<div class="line"><a name="l00028"></a><span class="lineno">   28</span>&#160;<span class="preprocessor">#define CS_PLATFORM_NT</span></div>
-<div class="line"><a name="l00029"></a><span class="lineno">   29</span>&#160;<span class="preprocessor">#define WIN32_LEAN_AND_MEAN</span></div>
+<div class="line"><a name="l00027"></a><span class="lineno">   27</span>&#160;<span class="preprocessor">#</span><span class="preprocessor">ifdef</span> <span class="preprocessor">_WIN32</span></div>
+<div class="line"><a name="l00028"></a><span class="lineno">   28</span>&#160;<span class="preprocessor">#</span><span class="preprocessor">define</span> <span class="preprocessor">CS_PLATFORM_NT</span></div>
+<div class="line"><a name="l00029"></a><span class="lineno">   29</span>&#160;<span class="preprocessor">#</span><span class="preprocessor">define</span> <span class="preprocessor">WIN32_LEAN_AND_MEAN</span></div>
 <div class="line"><a name="l00030"></a><span class="lineno">   30</span>&#160; </div>
-<div class="line"><a name="l00031"></a><span class="lineno">   31</span>&#160;<span class="preprocessor">#include &lt;iphlpapi.h&gt;</span></div>
-<div class="line"><a name="l00032"></a><span class="lineno">   32</span>&#160;<span class="preprocessor">#include &lt;windows.h&gt;</span></div>
-<div class="line"><a name="l00033"></a><span class="lineno">   33</span>&#160;<span class="preprocessor">#include &lt;winsock2.h&gt;</span></div>
-<div class="line"><a name="l00034"></a><span class="lineno">   34</span>&#160;<span class="preprocessor">#include &lt;ws2tcpip.h&gt;</span></div>
+<div class="line"><a name="l00031"></a><span class="lineno">   31</span>&#160;<span class="preprocessor">#</span><span class="preprocessor">include</span> <span class="preprocessor">&lt;</span><span class="preprocessor">iphlpapi</span><span class="preprocessor">.</span><span class="preprocessor">h</span><span class="preprocessor">&gt;</span></div>
+<div class="line"><a name="l00032"></a><span class="lineno">   32</span>&#160;<span class="preprocessor">#</span><span class="preprocessor">include</span> <span class="preprocessor">&lt;</span><span class="preprocessor">windows</span><span class="preprocessor">.</span><span class="preprocessor">h</span><span class="preprocessor">&gt;</span></div>
+<div class="line"><a name="l00033"></a><span class="lineno">   33</span>&#160;<span class="preprocessor">#</span><span class="preprocessor">include</span> <span class="preprocessor">&lt;</span><span class="preprocessor">winsock2</span><span class="preprocessor">.</span><span class="preprocessor">h</span><span class="preprocessor">&gt;</span></div>
+<div class="line"><a name="l00034"></a><span class="lineno">   34</span>&#160;<span class="preprocessor">#</span><span class="preprocessor">include</span> <span class="preprocessor">&lt;</span><span class="preprocessor">ws2tcpip</span><span class="preprocessor">.</span><span class="preprocessor">h</span><span class="preprocessor">&gt;</span></div>
 <div class="line"><a name="l00035"></a><span class="lineno">   35</span>&#160; </div>
-<div class="line"><a name="l00036"></a><span class="lineno">   36</span>&#160;<span class="preprocessor">#ifdef _MSC_VER</span></div>
+<div class="line"><a name="l00036"></a><span class="lineno">   36</span>&#160;<span class="preprocessor">#</span><span class="preprocessor">ifdef</span> <span class="preprocessor">_MSC_VER</span></div>
 <div class="line"><a name="l00037"></a><span class="lineno">   37</span>&#160;<span class="comment">// Statically link winsocks if on MSVC.</span></div>
-<div class="line"><a name="l00038"></a><span class="lineno">   38</span>&#160;<span class="preprocessor">#pragma comment(lib, &quot;Ws2_32.lib&quot;</span>)</div>
+<div class="line"><a name="l00038"></a><span class="lineno">   38</span>&#160;<span class="preprocessor">#</span><span class="preprocessor">pragma</span> <span class="preprocessor">comment</span><span class="preprocessor">(</span><span class="preprocessor">lib</span><span class="preprocessor">,</span> <span class="stringliteral">&quot;Ws2_32.lib&quot;</span><span class="preprocessor">)</span></div>
 <div class="line"><a name="l00039"></a><span class="lineno">   39</span>&#160;<span class="comment">// MSVC shenanigans...</span></div>
-<div class="line"><a name="l00040"></a><span class="lineno">   40</span>&#160;<span class="preprocessor">#define __</span></div>
-<div class="line"><a name="l00041"></a><span class="lineno">   41</span>&#160;<span class="preprocessor">#endif</span></div>
+<div class="line"><a name="l00040"></a><span class="lineno">   40</span>&#160;<span class="preprocessor">#</span><span class="preprocessor">define</span> <span class="preprocessor">__</span></div>
+<div class="line"><a name="l00041"></a><span class="lineno">   41</span>&#160;<span class="preprocessor">#</span><span class="preprocessor">endif</span></div>
 <div class="line"><a name="l00042"></a><span class="lineno">   42</span>&#160; </div>
 <div class="line"><a name="l00043"></a><span class="lineno">   43</span>&#160;<span class="comment">// A socket is an unsigned pointer in winsocks.</span></div>
 <div class="line"><a name="l00044"></a><span class="lineno">   44</span>&#160;<span class="keyword">typedef</span> uintptr_t socket_t;</div>
 <div class="line"><a name="l00045"></a><span class="lineno">   45</span>&#160; </div>
 <div class="line"><a name="l00046"></a><span class="lineno">   46</span>&#160;<span class="comment">// Functions and Error coded that differ in WinSocks and BSD sockets.</span></div>
-<div class="line"><a name="l00047"></a><span class="lineno">   47</span>&#160;<span class="preprocessor">#define CS_CLOSE_SOCKET(s) closesocket(s)</span></div>
-<div class="line"><a name="l00048"></a><span class="lineno">   48</span>&#160;<span class="preprocessor">#define CS_CLEANUP()       WSACleanup()</span></div>
-<div class="line"><a name="l00049"></a><span class="lineno">   49</span>&#160;<span class="preprocessor">#define CS_INVALID_SOCKET  INVALID_SOCKET</span></div>
-<div class="line"><a name="l00050"></a><span class="lineno">   50</span>&#160;<span class="preprocessor">#define CS_SOCKET_ERROR    SOCKET_ERROR</span></div>
-<div class="line"><a name="l00051"></a><span class="lineno">   51</span>&#160;<span class="preprocessor">#define CS_SOCKET_SUCCESS  0</span></div>
-<div class="line"><a name="l00052"></a><span class="lineno">   52</span>&#160;<span class="preprocessor">#define CS_SD_BOTH         SD_BOTH</span></div>
-<div class="line"><a name="l00053"></a><span class="lineno">   53</span>&#160;<span class="preprocessor">#define CS_SD_READ         SD_RECEIVE</span></div>
-<div class="line"><a name="l00054"></a><span class="lineno">   54</span>&#160;<span class="preprocessor">#define CS_SD_WRITE        SD_SEND</span></div>
+<div class="line"><a name="l00047"></a><span class="lineno">   47</span>&#160;<span class="preprocessor">#</span><span class="preprocessor">define</span> <span class="preprocessor">CS_CLOSE_SOCKET</span><span class="preprocessor">(</span><span class="preprocessor">s</span><span class="preprocessor">)</span> <span class="preprocessor">closesocket</span><span class="preprocessor">(</span><span class="preprocessor">s</span><span class="preprocessor">)</span></div>
+<div class="line"><a name="l00048"></a><span class="lineno">   48</span>&#160;<span class="preprocessor">#</span><span class="preprocessor">define</span> <span class="preprocessor">CS_CLEANUP</span><span class="preprocessor">(</span><span class="preprocessor">)</span>       <span class="preprocessor">WSACleanup</span><span class="preprocessor">(</span><span class="preprocessor">)</span></div>
+<div class="line"><a name="l00049"></a><span class="lineno">   49</span>&#160;<span class="preprocessor">#</span><span class="preprocessor">define</span> <span class="preprocessor">CS_INVALID_SOCKET</span>  <span class="preprocessor">INVALID_SOCKET</span></div>
+<div class="line"><a name="l00050"></a><span class="lineno">   50</span>&#160;<span class="preprocessor">#</span><span class="preprocessor">define</span> <span class="preprocessor">CS_SOCKET_ERROR</span>    <span class="preprocessor">SOCKET_ERROR</span></div>
+<div class="line"><a name="l00051"></a><span class="lineno">   51</span>&#160;<span class="preprocessor">#</span><span class="preprocessor">define</span> <span class="preprocessor">CS_SOCKET_SUCCESS</span>  0</div>
+<div class="line"><a name="l00052"></a><span class="lineno">   52</span>&#160;<span class="preprocessor">#</span><span class="preprocessor">define</span> <span class="preprocessor">CS_SD_BOTH</span>         <span class="preprocessor">SD_BOTH</span></div>
+<div class="line"><a name="l00053"></a><span class="lineno">   53</span>&#160;<span class="preprocessor">#</span><span class="preprocessor">define</span> <span class="preprocessor">CS_SD_READ</span>         <span class="preprocessor">SD_RECEIVE</span></div>
+<div class="line"><a name="l00054"></a><span class="lineno">   54</span>&#160;<span class="preprocessor">#</span><span class="preprocessor">define</span> <span class="preprocessor">CS_SD_WRITE</span>        <span class="preprocessor">SD_SEND</span></div>
 <div class="line"><a name="l00055"></a><span class="lineno">   55</span>&#160; </div>
-<div class="line"><a name="l00056"></a><span class="lineno">   56</span>&#160;<span class="preprocessor">#elif defined(__linux__) || defined(__APPLE__)</span></div>
-<div class="line"><a name="l00057"></a><span class="lineno">   57</span>&#160;<span class="preprocessor">#define CS_PLATFORM_UNIX</span></div>
+<div class="line"><a name="l00056"></a><span class="lineno">   56</span>&#160;<span class="preprocessor">#</span><span class="preprocessor">elif</span> <span class="preprocessor">defined</span><span class="preprocessor">(</span>__linux__<span class="preprocessor">)</span> <span class="preprocessor">||</span> <span class="preprocessor">defined</span><span class="preprocessor">(</span><span class="preprocessor">__APPLE__</span><span class="preprocessor">)</span></div>
+<div class="line"><a name="l00057"></a><span class="lineno">   57</span>&#160;<span class="preprocessor">#</span><span class="preprocessor">define</span> <span class="preprocessor">CS_PLATFORM_UNIX</span></div>
 <div class="line"><a name="l00058"></a><span class="lineno">   58</span>&#160; </div>
-<div class="line"><a name="l00059"></a><span class="lineno">   59</span>&#160;<span class="preprocessor">#include &lt;arpa/inet.h&gt;</span></div>
-<div class="line"><a name="l00060"></a><span class="lineno">   60</span>&#160;<span class="preprocessor">#include &lt;netdb.h&gt;</span></div>
-<div class="line"><a name="l00061"></a><span class="lineno">   61</span>&#160;<span class="preprocessor">#include &lt;netinet/in.h&gt;</span></div>
-<div class="line"><a name="l00062"></a><span class="lineno">   62</span>&#160;<span class="preprocessor">#include &lt;sys/socket.h&gt;</span></div>
-<div class="line"><a name="l00063"></a><span class="lineno">   63</span>&#160;<span class="preprocessor">#include &lt;sys/types.h&gt;</span></div>
-<div class="line"><a name="l00064"></a><span class="lineno">   64</span>&#160;<span class="preprocessor">#include &lt;unistd.h&gt;</span></div>
+<div class="line"><a name="l00059"></a><span class="lineno">   59</span>&#160;<span class="preprocessor">#</span><span class="preprocessor">include</span> <span class="preprocessor">&lt;</span><span class="preprocessor">arpa</span><span class="preprocessor">/</span><span class="preprocessor">inet</span><span class="preprocessor">.</span><span class="preprocessor">h</span><span class="preprocessor">&gt;</span></div>
+<div class="line"><a name="l00060"></a><span class="lineno">   60</span>&#160;<span class="preprocessor">#</span><span class="preprocessor">include</span> <span class="preprocessor">&lt;</span><span class="preprocessor">netdb</span><span class="preprocessor">.</span><span class="preprocessor">h</span><span class="preprocessor">&gt;</span></div>
+<div class="line"><a name="l00061"></a><span class="lineno">   61</span>&#160;<span class="preprocessor">#</span><span class="preprocessor">include</span> <span class="preprocessor">&lt;</span><span class="preprocessor">netinet</span><span class="preprocessor">/</span><span class="preprocessor">in</span><span class="preprocessor">.</span><span class="preprocessor">h</span><span class="preprocessor">&gt;</span></div>
+<div class="line"><a name="l00062"></a><span class="lineno">   62</span>&#160;<span class="preprocessor">#</span><span class="preprocessor">include</span> <span class="preprocessor">&lt;</span><span class="preprocessor">sys</span><span class="preprocessor">/</span><span class="preprocessor">socket</span><span class="preprocessor">.</span><span class="preprocessor">h</span><span class="preprocessor">&gt;</span></div>
+<div class="line"><a name="l00063"></a><span class="lineno">   63</span>&#160;<span class="preprocessor">#</span><span class="preprocessor">include</span> <span class="preprocessor">&lt;</span><span class="preprocessor">sys</span><span class="preprocessor">/</span><span class="preprocessor">types</span><span class="preprocessor">.</span><span class="preprocessor">h</span><span class="preprocessor">&gt;</span></div>
+<div class="line"><a name="l00064"></a><span class="lineno">   64</span>&#160;<span class="preprocessor">#</span><span class="preprocessor">include</span> <span class="preprocessor">&lt;</span><span class="preprocessor">unistd</span><span class="preprocessor">.</span><span class="preprocessor">h</span><span class="preprocessor">&gt;</span></div>
 <div class="line"><a name="l00065"></a><span class="lineno">   65</span>&#160; </div>
 <div class="line"><a name="l00066"></a><span class="lineno">   66</span>&#160;<span class="comment">// A socket is a signed pointer in Linux sockets.</span></div>
 <div class="line"><a name="l00067"></a><span class="lineno">   67</span>&#160;<span class="keyword">typedef</span> intptr_t socket_t;</div>
 <div class="line"><a name="l00068"></a><span class="lineno">   68</span>&#160; </div>
 <div class="line"><a name="l00069"></a><span class="lineno">   69</span>&#160;<span class="comment">// Functions and Error codes that differ in Linux sockets.</span></div>
-<div class="line"><a name="l00070"></a><span class="lineno">   70</span>&#160;<span class="preprocessor">#define CS_CLOSE_SOCKET(s) close(s)</span></div>
-<div class="line"><a name="l00071"></a><span class="lineno">   71</span>&#160;<span class="preprocessor">#define CS_CLEANUP()       ;</span></div>
-<div class="line"><a name="l00072"></a><span class="lineno">   72</span>&#160;<span class="preprocessor">#define CS_INVALID_SOCKET  -1</span></div>
-<div class="line"><a name="l00073"></a><span class="lineno">   73</span>&#160;<span class="preprocessor">#define CS_SOCKET_ERROR    -1</span></div>
-<div class="line"><a name="l00074"></a><span class="lineno">   74</span>&#160;<span class="preprocessor">#define CS_SOCKET_SUCCESS  0</span></div>
-<div class="line"><a name="l00075"></a><span class="lineno">   75</span>&#160;<span class="preprocessor">#define CS_SD_BOTH         SHUT_RDWR</span></div>
-<div class="line"><a name="l00076"></a><span class="lineno">   76</span>&#160;<span class="preprocessor">#define CS_SD_READ         SHUT_TRD</span></div>
-<div class="line"><a name="l00077"></a><span class="lineno">   77</span>&#160;<span class="preprocessor">#define CS_SD_WRITE        SHUT_WR</span></div>
-<div class="line"><a name="l00078"></a><span class="lineno">   78</span>&#160;<span class="preprocessor">#endif</span></div>
+<div class="line"><a name="l00070"></a><span class="lineno">   70</span>&#160;<span class="preprocessor">#</span><span class="preprocessor">define</span> <span class="preprocessor">CS_CLOSE_SOCKET</span><span class="preprocessor">(</span><span class="preprocessor">s</span><span class="preprocessor">)</span> <span class="preprocessor">close</span><span class="preprocessor">(</span><span class="preprocessor">s</span><span class="preprocessor">)</span></div>
+<div class="line"><a name="l00071"></a><span class="lineno">   71</span>&#160;<span class="preprocessor">#</span><span class="preprocessor">define</span> <span class="preprocessor">CS_CLEANUP</span><span class="preprocessor">(</span><span class="preprocessor">)</span>       <span class="preprocessor">;</span></div>
+<div class="line"><a name="l00072"></a><span class="lineno">   72</span>&#160;<span class="preprocessor">#</span><span class="preprocessor">define</span> <span class="preprocessor">CS_INVALID_SOCKET</span>  <span class="preprocessor">-</span>1</div>
+<div class="line"><a name="l00073"></a><span class="lineno">   73</span>&#160;<span class="preprocessor">#</span><span class="preprocessor">define</span> <span class="preprocessor">CS_SOCKET_ERROR</span>    <span class="preprocessor">-</span>1</div>
+<div class="line"><a name="l00074"></a><span class="lineno">   74</span>&#160;<span class="preprocessor">#</span><span class="preprocessor">define</span> <span class="preprocessor">CS_SOCKET_SUCCESS</span>  0</div>
+<div class="line"><a name="l00075"></a><span class="lineno">   75</span>&#160;<span class="preprocessor">#</span><span class="preprocessor">define</span> <span class="preprocessor">CS_SD_BOTH</span>         SHUT_RDWR</div>
+<div class="line"><a name="l00076"></a><span class="lineno">   76</span>&#160;<span class="preprocessor">#</span><span class="preprocessor">define</span> <span class="preprocessor">CS_SD_READ</span>         <span class="preprocessor">SHUT_TRD</span></div>
+<div class="line"><a name="l00077"></a><span class="lineno">   77</span>&#160;<span class="preprocessor">#</span><span class="preprocessor">define</span> <span class="preprocessor">CS_SD_WRITE</span>        SHUT_WR</div>
+<div class="line"><a name="l00078"></a><span class="lineno">   78</span>&#160;<span class="preprocessor">#</span><span class="preprocessor">endif</span></div>
 <div class="line"><a name="l00079"></a><span class="lineno">   79</span>&#160; </div>
-<div class="line"><a name="l00080"></a><span class="lineno">   80</span>&#160;<span class="preprocessor">#ifdef __cplusplus</span></div>
-<div class="line"><a name="l00081"></a><span class="lineno">   81</span>&#160;<span class="keyword">namespace </span>csnet {</div>
-<div class="line"><a name="l00082"></a><span class="lineno">   82</span>&#160;<span class="preprocessor">#endif</span></div>
+<div class="line"><a name="l00080"></a><span class="lineno">   80</span>&#160;<span class="preprocessor">#</span><span class="preprocessor">ifdef</span> __cplusplus</div>
+<div class="line"><a name="l00081"></a><span class="lineno">   81</span>&#160;<span class="keyword">namespace</span> csnet {</div>
+<div class="line"><a name="l00082"></a><span class="lineno">   82</span>&#160;<span class="preprocessor">#</span><span class="preprocessor">endif</span></div>
 <div class="line"><a name="l00083"></a><span class="lineno">   83</span>&#160; </div>
 <div class="line"><a name="l00084"></a><span class="lineno">   84</span>&#160;<span class="comment">// Address family enum abstraction layer.</span></div>
-<div class="line"><a name="l00085"></a><span class="lineno"><a class="line" href="_c_s_socket_8h.html#aa53d2f27518f17bfbf93721f08b6f14f">   85</a></span>&#160;<span class="keyword">typedef</span> <span class="keyword">enum</span> <a class="code" href="_c_s_socket_8h.html#aa53d2f27518f17bfbf93721f08b6f14f">_cs_address_family</a></div>
+<div class="line"><a name="l00085"></a><span class="lineno">   85</span>&#160;<span class="keyword">typedef</span> <span class="keyword">enum</span> _cs_address_family</div>
 <div class="line"><a name="l00086"></a><span class="lineno">   86</span>&#160;{</div>
-<div class="line"><a name="l00087"></a><span class="lineno">   87</span>&#160;    <a class="code" href="_c_s_socket_8h.html#aa53d2f27518f17bfbf93721f08b6f14fa992232c6dc0edd8354f554a5277a5d8b">AddressFamily_InterNetwork</a> = AF_INET</div>
-<div class="line"><a name="l00088"></a><span class="lineno"><a class="line" href="_c_s_socket_8h.html#a54545405bf29373630a51184d32e426b">   88</a></span>&#160;} <a class="code" href="_c_s_socket_8h.html#a54545405bf29373630a51184d32e426b">AddressFamily</a>;</div>
+<div class="line"><a name="l00087"></a><span class="lineno">   87</span>&#160;    AddressFamily_InterNetwork = AF_INET</div>
+<div class="line"><a name="l00088"></a><span class="lineno">   88</span>&#160;} AddressFamily;</div>
 <div class="line"><a name="l00089"></a><span class="lineno">   89</span>&#160; </div>
 <div class="line"><a name="l00090"></a><span class="lineno">   90</span>&#160;<span class="comment">// Socket type enum abstraction layer.</span></div>
-<div class="line"><a name="l00091"></a><span class="lineno"><a class="line" href="_c_s_socket_8h.html#a4e3e16fcdd0e2e477cf53e8baa51fc2c">   91</a></span>&#160;<span class="keyword">typedef</span> <span class="keyword">enum</span> <a class="code" href="_c_s_socket_8h.html#a4e3e16fcdd0e2e477cf53e8baa51fc2c">_cs_socket_type</a></div>
+<div class="line"><a name="l00091"></a><span class="lineno">   91</span>&#160;<span class="keyword">typedef</span> <span class="keyword">enum</span> _cs_socket_type</div>
 <div class="line"><a name="l00092"></a><span class="lineno">   92</span>&#160;{</div>
-<div class="line"><a name="l00093"></a><span class="lineno"><a class="line" href="_c_s_socket_8h.html#a4e3e16fcdd0e2e477cf53e8baa51fc2ca597f2d39cab41ea345ecce43c2bcfba0">   93</a></span>&#160;    <a class="code" href="_c_s_socket_8h.html#a4e3e16fcdd0e2e477cf53e8baa51fc2ca597f2d39cab41ea345ecce43c2bcfba0">SocketType_Stream</a> = SOCK_STREAM,</div>
-<div class="line"><a name="l00094"></a><span class="lineno"><a class="line" href="_c_s_socket_8h.html#a4e3e16fcdd0e2e477cf53e8baa51fc2ca4f9b2fec14dc10d0ef8f256985f346ff">   94</a></span>&#160;    <a class="code" href="_c_s_socket_8h.html#a4e3e16fcdd0e2e477cf53e8baa51fc2ca4f9b2fec14dc10d0ef8f256985f346ff">SocketType_Dgram</a>  = SOCK_DGRAM,</div>
-<div class="line"><a name="l00095"></a><span class="lineno">   95</span>&#160;    <a class="code" href="_c_s_socket_8h.html#a4e3e16fcdd0e2e477cf53e8baa51fc2cae01a73b232e60e74db435c6bafc0d8f4">SocketType_Raw</a>    = SOCK_RAW</div>
-<div class="line"><a name="l00096"></a><span class="lineno"><a class="line" href="_c_s_socket_8h.html#a30cb691850c602045c5927ffbbca60e8">   96</a></span>&#160;} <a class="code" href="_c_s_socket_8h.html#a30cb691850c602045c5927ffbbca60e8">SocketType</a>;</div>
+<div class="line"><a name="l00093"></a><span class="lineno">   93</span>&#160;    SocketType_Stream = SOCK_STREAM,</div>
+<div class="line"><a name="l00094"></a><span class="lineno">   94</span>&#160;    SocketType_Dgram  = SOCK_DGRAM,</div>
+<div class="line"><a name="l00095"></a><span class="lineno">   95</span>&#160;    SocketType_Raw    = SOCK_RAW</div>
+<div class="line"><a name="l00096"></a><span class="lineno">   96</span>&#160;} SocketType;</div>
 <div class="line"><a name="l00097"></a><span class="lineno">   97</span>&#160; </div>
 <div class="line"><a name="l00098"></a><span class="lineno">   98</span>&#160;<span class="comment">// Socket protocol type abstraction layer.</span></div>
-<div class="line"><a name="l00099"></a><span class="lineno"><a class="line" href="_c_s_socket_8h.html#ae1db2b1de1cd853eb2dfc4eaf1afb654">   99</a></span>&#160;<span class="keyword">typedef</span> <span class="keyword">enum</span> <a class="code" href="_c_s_socket_8h.html#ae1db2b1de1cd853eb2dfc4eaf1afb654">_cs_protocol_type</a></div>
+<div class="line"><a name="l00099"></a><span class="lineno">   99</span>&#160;<span class="keyword">typedef</span> <span class="keyword">enum</span> _cs_protocol_type</div>
 <div class="line"><a name="l00100"></a><span class="lineno">  100</span>&#160;{</div>
-<div class="line"><a name="l00101"></a><span class="lineno"><a class="line" href="_c_s_socket_8h.html#ae1db2b1de1cd853eb2dfc4eaf1afb654aa2a8f5ba14baa478e6e87d679e4bac7b">  101</a></span>&#160;    <a class="code" href="_c_s_socket_8h.html#ae1db2b1de1cd853eb2dfc4eaf1afb654aa2a8f5ba14baa478e6e87d679e4bac7b">ProtocolType_Tcp</a> = IPPROTO_TCP,</div>
-<div class="line"><a name="l00102"></a><span class="lineno">  102</span>&#160;    <a class="code" href="_c_s_socket_8h.html#ae1db2b1de1cd853eb2dfc4eaf1afb654a77d93cd0e4dc9a26fdae9a45a804335b">ProtocolType_Udp</a> = IPPROTO_UDP</div>
-<div class="line"><a name="l00103"></a><span class="lineno"><a class="line" href="_c_s_socket_8h.html#a5cd78e96074e475f44e04d8ee207bd2e">  103</a></span>&#160;} <a class="code" href="_c_s_socket_8h.html#a5cd78e96074e475f44e04d8ee207bd2e">ProtocolType</a>;</div>
+<div class="line"><a name="l00101"></a><span class="lineno">  101</span>&#160;    ProtocolType_Tcp = IPPROTO_TCP,</div>
+<div class="line"><a name="l00102"></a><span class="lineno">  102</span>&#160;    ProtocolType_Udp = IPPROTO_UDP</div>
+<div class="line"><a name="l00103"></a><span class="lineno">  103</span>&#160;} ProtocolType;</div>
 <div class="line"><a name="l00104"></a><span class="lineno">  104</span>&#160; </div>
 <div class="line"><a name="l00105"></a><span class="lineno">  105</span>&#160;<span class="comment">// IP address type abstraction layer.</span></div>
-<div class="line"><a name="l00106"></a><span class="lineno"><a class="line" href="_c_s_socket_8h.html#a09655043ea7059cbbbd44a50fbdd5be4">  106</a></span>&#160;<span class="keyword">typedef</span> <span class="keyword">enum</span> <a class="code" href="_c_s_socket_8h.html#a09655043ea7059cbbbd44a50fbdd5be4">_cs_ip_address_type</a></div>
+<div class="line"><a name="l00106"></a><span class="lineno">  106</span>&#160;<span class="keyword">typedef</span> <span class="keyword">enum</span> _cs_ip_address_type</div>
 <div class="line"><a name="l00107"></a><span class="lineno">  107</span>&#160;{</div>
-<div class="line"><a name="l00108"></a><span class="lineno"><a class="line" href="_c_s_socket_8h.html#a09655043ea7059cbbbd44a50fbdd5be4a812673c465170c57896a1a8adc85de89">  108</a></span>&#160;    <a class="code" href="_c_s_socket_8h.html#a09655043ea7059cbbbd44a50fbdd5be4a812673c465170c57896a1a8adc85de89">IPAddressType_Any</a>       = INADDR_ANY,</div>
-<div class="line"><a name="l00109"></a><span class="lineno"><a class="line" href="_c_s_socket_8h.html#a09655043ea7059cbbbd44a50fbdd5be4a836e81cd2f2de0fb7b5ac409d8675e3c">  109</a></span>&#160;    <a class="code" href="_c_s_socket_8h.html#a09655043ea7059cbbbd44a50fbdd5be4a836e81cd2f2de0fb7b5ac409d8675e3c">IPAddressType_Broadcast</a> = INADDR_BROADCAST,</div>
-<div class="line"><a name="l00110"></a><span class="lineno"><a class="line" href="_c_s_socket_8h.html#a09655043ea7059cbbbd44a50fbdd5be4a1a76a800e9118fe631ba64f56b59ce76">  110</a></span>&#160;    <a class="code" href="_c_s_socket_8h.html#a09655043ea7059cbbbd44a50fbdd5be4a1a76a800e9118fe631ba64f56b59ce76">IPAddressType_None</a>      = INADDR_NONE,</div>
-<div class="line"><a name="l00111"></a><span class="lineno"><a class="line" href="_c_s_socket_8h.html#a09655043ea7059cbbbd44a50fbdd5be4a41041262cfe57a20994fd20f54c45f6e">  111</a></span>&#160;    <a class="code" href="_c_s_socket_8h.html#a09655043ea7059cbbbd44a50fbdd5be4a41041262cfe57a20994fd20f54c45f6e">IPAddressType_IPv4LPStr</a> = 0xFEEFAAF00,</div>
-<div class="line"><a name="l00112"></a><span class="lineno"><a class="line" href="_c_s_socket_8h.html#a40887767ee504cf6a7eb075db44f0397">  112</a></span>&#160;} <a class="code" href="_c_s_socket_8h.html#a40887767ee504cf6a7eb075db44f0397">IPAddressType</a>;</div>
+<div class="line"><a name="l00108"></a><span class="lineno">  108</span>&#160;    IPAddressType_Any       = INADDR_ANY,</div>
+<div class="line"><a name="l00109"></a><span class="lineno">  109</span>&#160;    IPAddressType_Broadcast = INADDR_BROADCAST,</div>
+<div class="line"><a name="l00110"></a><span class="lineno">  110</span>&#160;    IPAddressType_None      = INADDR_NONE,</div>
+<div class="line"><a name="l00111"></a><span class="lineno">  111</span>&#160;    IPAddressType_IPv4LPStr = 0xFEEFAAF00,</div>
+<div class="line"><a name="l00112"></a><span class="lineno">  112</span>&#160;} IPAddressType;</div>
 <div class="line"><a name="l00113"></a><span class="lineno">  113</span>&#160; </div>
 <div class="line"><a name="l00114"></a><span class="lineno">  114</span>&#160;<span class="comment">// Holds information about the IP address such as</span></div>
 <div class="line"><a name="l00115"></a><span class="lineno">  115</span>&#160;<span class="comment">// the address type (only IPv4)</span></div>
 <div class="line"><a name="l00116"></a><span class="lineno">  116</span>&#160;<span class="comment">// address string and the native address handler.</span></div>
-<div class="line"><a name="l00117"></a><span class="lineno"><a class="line" href="struct__cs__ip__address.html">  117</a></span>&#160;<span class="keyword">typedef</span> <span class="keyword">struct </span><a class="code" href="struct__cs__ip__address.html">_cs_ip_address</a></div>
+<div class="line"><a name="l00117"></a><span class="lineno"><a class="line" href="struct__cs__ip__address.html">  117</a></span>&#160;<span class="keyword">typedef</span> <span class="keyword">struct</span> <a class="code" href="struct__cs__ip__address.html">_cs_ip_address</a></div>
 <div class="line"><a name="l00118"></a><span class="lineno">  118</span>&#160;{</div>
-<div class="line"><a name="l00119"></a><span class="lineno"><a class="line" href="struct__cs__ip__address.html#aa78ddcef3b1f0cca3f480d7ce861c6a4">  119</a></span>&#160;    <a class="code" href="_c_s_socket_8h.html#a40887767ee504cf6a7eb075db44f0397">IPAddressType</a>       type;</div>
-<div class="line"><a name="l00120"></a><span class="lineno">  120</span>&#160;    <span class="keyword">struct </span>sockaddr_in  ipv4_addr;</div>
-<div class="line"><a name="l00121"></a><span class="lineno"><a class="line" href="struct__cs__ip__address.html#aafcb68e4425f83039de271ee3b83a8c7">  121</a></span>&#160;    <span class="keywordtype">char</span>                str[<a class="code" href="_c_s_socket_8h.html#ad420a9f0a9ef5eab39a6f07b730cf26c">CS_IPV4_MAX</a>];</div>
-<div class="line"><a name="l00122"></a><span class="lineno"><a class="line" href="_c_s_socket_8h.html#a01a06d19b2c95f96db855a3603bd9a63">  122</a></span>&#160;} <a class="code" href="_c_s_socket_8h.html#a01a06d19b2c95f96db855a3603bd9a63">IPAddress</a>;</div>
+<div class="line"><a name="l00119"></a><span class="lineno">  119</span>&#160;    IPAddressType       type;</div>
+<div class="line"><a name="l00120"></a><span class="lineno">  120</span>&#160;    <span class="keyword">struct</span> sockaddr_in  ipv4_addr;</div>
+<div class="line"><a name="l00121"></a><span class="lineno">  121</span>&#160;    <span class="keywordtype">char</span>                str[<a class="code" href="_c_s_socket_8h.html#ad420a9f0a9ef5eab39a6f07b730cf26c">CS_IPV4_MAX</a>];</div>
+<div class="line"><a name="l00122"></a><span class="lineno">  122</span>&#160;} IPAddress;</div>
 <div class="line"><a name="l00123"></a><span class="lineno">  123</span>&#160; </div>
 <div class="line"><a name="l00124"></a><span class="lineno">  124</span>&#160;<span class="comment">// Generic constructor for IPAddress.</span></div>
-<div class="line"><a name="l00125"></a><span class="lineno"><a class="line" href="_c_s_socket_8h.html#afae3523015eb93c57145b6520e4ecff7">  125</a></span>&#160;<span class="keyword">inline</span> <a class="code" href="struct__cs__ip__address.html">IPAddress</a> <a class="code" href="_c_s_socket_8h.html#afae3523015eb93c57145b6520e4ecff7">IPAddress_New</a>(<span class="keyword">const</span> <a class="code" href="_c_s_socket_8h.html#a40887767ee504cf6a7eb075db44f0397">IPAddressType</a> type)</div>
+<div class="line"><a name="l00125"></a><span class="lineno">  125</span>&#160;<span class="keyword">inline</span> IPAddress IPAddress_New(<span class="keyword">const</span> IPAddressType type)</div>
 <div class="line"><a name="l00126"></a><span class="lineno">  126</span>&#160;{</div>
-<div class="line"><a name="l00127"></a><span class="lineno">  127</span>&#160;    <a class="code" href="struct__cs__ip__address.html">IPAddress</a> addr;</div>
-<div class="line"><a name="l00128"></a><span class="lineno">  128</span>&#160;    addr.<a class="code" href="struct__cs__ip__address.html#a371807f43a0aa5b450bcce33970796da">type</a> = type;</div>
+<div class="line"><a name="l00127"></a><span class="lineno">  127</span>&#160;    IPAddress addr;</div>
+<div class="line"><a name="l00128"></a><span class="lineno">  128</span>&#160;    addr.type = type;</div>
 <div class="line"><a name="l00129"></a><span class="lineno">  129</span>&#160;    <span class="keywordflow">return</span> addr;</div>
 <div class="line"><a name="l00130"></a><span class="lineno">  130</span>&#160;}</div>
 <div class="line"><a name="l00131"></a><span class="lineno">  131</span>&#160; </div>
 <div class="line"><a name="l00132"></a><span class="lineno">  132</span>&#160;<span class="comment">// Construct IPAddress from an IPv4 string.</span></div>
-<div class="line"><a name="l00133"></a><span class="lineno"><a class="line" href="_c_s_socket_8h.html#a22e190ead89a54e8e8cb956f550cd80e">  133</a></span>&#160;<span class="keyword">inline</span> <a class="code" href="struct__cs__ip__address.html">IPAddress</a> <a class="code" href="_c_s_socket_8h.html#a22e190ead89a54e8e8cb956f550cd80e">IPAddress_Parse</a>(<span class="keyword">const</span> <span class="keywordtype">char</span>* addrv4_str)</div>
+<div class="line"><a name="l00133"></a><span class="lineno">  133</span>&#160;<span class="keyword">inline</span> IPAddress IPAddress_Parse(<span class="keyword">const</span> <span class="keywordtype">char</span>* addrv4_str)</div>
 <div class="line"><a name="l00134"></a><span class="lineno">  134</span>&#160;{</div>
-<div class="line"><a name="l00135"></a><span class="lineno">  135</span>&#160;    <a class="code" href="struct__cs__ip__address.html">IPAddress</a> addr;</div>
-<div class="line"><a name="l00136"></a><span class="lineno">  136</span>&#160;    addr.<a class="code" href="struct__cs__ip__address.html#a371807f43a0aa5b450bcce33970796da">type</a> = <a class="code" href="_c_s_socket_8h.html#a09655043ea7059cbbbd44a50fbdd5be4a41041262cfe57a20994fd20f54c45f6e">IPAddressType_IPv4LPStr</a>;</div>
-<div class="line"><a name="l00137"></a><span class="lineno">  137</span>&#160;    memset(&amp;addr.<a class="code" href="struct__cs__ip__address.html#aa78ddcef3b1f0cca3f480d7ce861c6a4">ipv4_addr</a>, 0, <span class="keyword">sizeof</span>(addr.<a class="code" href="struct__cs__ip__address.html#aa78ddcef3b1f0cca3f480d7ce861c6a4">ipv4_addr</a>));</div>
-<div class="line"><a name="l00138"></a><span class="lineno">  138</span>&#160;    <span class="keyword">const</span> int32_t res = inet_pton(AF_INET, addrv4_str, &amp;(addr.<a class="code" href="struct__cs__ip__address.html#aa78ddcef3b1f0cca3f480d7ce861c6a4">ipv4_addr</a>.sin_addr));</div>
+<div class="line"><a name="l00135"></a><span class="lineno">  135</span>&#160;    IPAddress addr;</div>
+<div class="line"><a name="l00136"></a><span class="lineno">  136</span>&#160;    addr.type = IPAddressType_IPv4LPStr;</div>
+<div class="line"><a name="l00137"></a><span class="lineno">  137</span>&#160;    memset(&amp;addr.ipv4_addr, 0, <span class="keyword">sizeof</span>(addr.ipv4_addr));</div>
+<div class="line"><a name="l00138"></a><span class="lineno">  138</span>&#160;    <span class="keyword">const</span> int32_t res = inet_pton(AF_INET, addrv4_str, &amp;(addr.ipv4_addr.sin_addr));</div>
 <div class="line"><a name="l00139"></a><span class="lineno">  139</span>&#160;    <span class="keywordflow">if</span> (res != 1)</div>
 <div class="line"><a name="l00140"></a><span class="lineno">  140</span>&#160;    {</div>
 <div class="line"><a name="l00141"></a><span class="lineno">  141</span>&#160;        <a class="code" href="_c_s_socket_8h.html#af7175a265010efbf3a5bff41e0f75135">Debug</a>(fprintf(stderr, <span class="stringliteral">&quot;CS_Socket: Failed to parse %s as a valid IPv4 address.\n&quot;</span>, addrv4_str));</div>
 <div class="line"><a name="l00142"></a><span class="lineno">  142</span>&#160;        exit(EXIT_FAILURE);</div>
 <div class="line"><a name="l00143"></a><span class="lineno">  143</span>&#160;    }</div>
-<div class="line"><a name="l00144"></a><span class="lineno">  144</span>&#160;    strcpy(addr.<a class="code" href="struct__cs__ip__address.html#aafcb68e4425f83039de271ee3b83a8c7">str</a>, addrv4_str);</div>
+<div class="line"><a name="l00144"></a><span class="lineno">  144</span>&#160;    strcpy(addr.str, addrv4_str);</div>
 <div class="line"><a name="l00145"></a><span class="lineno">  145</span>&#160;    <span class="keywordflow">return</span> addr;</div>
 <div class="line"><a name="l00146"></a><span class="lineno">  146</span>&#160;}</div>
 <div class="line"><a name="l00147"></a><span class="lineno">  147</span>&#160; </div>
 <div class="line"><a name="l00148"></a><span class="lineno">  148</span>&#160;<span class="comment">// Stores information about an end-point such as</span></div>
 <div class="line"><a name="l00149"></a><span class="lineno">  149</span>&#160;<span class="comment">// the ip address, family and the port.</span></div>
-<div class="line"><a name="l00150"></a><span class="lineno"><a class="line" href="struct__cs__ip__endpoint.html">  150</a></span>&#160;<span class="keyword">typedef</span> <span class="keyword">struct </span><a class="code" href="struct__cs__ip__endpoint.html">_cs_ip_endpoint</a></div>
+<div class="line"><a name="l00150"></a><span class="lineno"><a class="line" href="struct__cs__ip__endpoint.html">  150</a></span>&#160;<span class="keyword">typedef</span> <span class="keyword">struct</span> <a class="code" href="struct__cs__ip__endpoint.html">_cs_ip_endpoint</a></div>
 <div class="line"><a name="l00151"></a><span class="lineno">  151</span>&#160;{</div>
-<div class="line"><a name="l00152"></a><span class="lineno"><a class="line" href="struct__cs__ip__endpoint.html#a8d9eaf332b84f928565d51f791192b89">  152</a></span>&#160;    <a class="code" href="struct__cs__ip__address.html">IPAddress</a>     <a class="code" href="struct__cs__ip__endpoint.html#a8d9eaf332b84f928565d51f791192b89">address</a>;</div>
-<div class="line"><a name="l00153"></a><span class="lineno"><a class="line" href="struct__cs__ip__endpoint.html#ac3a8559229c6e601c792fce104e7f2b7">  153</a></span>&#160;    <a class="code" href="_c_s_socket_8h.html#a54545405bf29373630a51184d32e426b">AddressFamily</a> <a class="code" href="struct__cs__ip__endpoint.html#ac3a8559229c6e601c792fce104e7f2b7">addressFamily</a>;</div>
-<div class="line"><a name="l00154"></a><span class="lineno"><a class="line" href="struct__cs__ip__endpoint.html#ac924b2200ef2255fd6ffb841d47134e1">  154</a></span>&#160;    uint16_t      <a class="code" href="struct__cs__ip__endpoint.html#ac924b2200ef2255fd6ffb841d47134e1">port</a>;</div>
-<div class="line"><a name="l00155"></a><span class="lineno"><a class="line" href="_c_s_socket_8h.html#af815b4b6653fa749ded52878c65b0b17">  155</a></span>&#160;} <a class="code" href="_c_s_socket_8h.html#af815b4b6653fa749ded52878c65b0b17">IPEndPoint</a>;</div>
+<div class="line"><a name="l00152"></a><span class="lineno">  152</span>&#160;    IPAddress     address;</div>
+<div class="line"><a name="l00153"></a><span class="lineno">  153</span>&#160;    AddressFamily addressFamily;</div>
+<div class="line"><a name="l00154"></a><span class="lineno">  154</span>&#160;    uint16_t      port;</div>
+<div class="line"><a name="l00155"></a><span class="lineno">  155</span>&#160;} IPEndPoint;</div>
 <div class="line"><a name="l00156"></a><span class="lineno">  156</span>&#160; </div>
 <div class="line"><a name="l00157"></a><span class="lineno">  157</span>&#160;<span class="comment">// Socket struct, holds the state of the current socket.</span></div>
 <div class="line"><a name="l00158"></a><span class="lineno">  158</span>&#160;<span class="comment">// such as the family: The network family.</span></div>
@@ -237,85 +237,85 @@ $(function() {
 <div class="line"><a name="l00163"></a><span class="lineno">  163</span>&#160;<span class="comment">// connected: If the socket is still connected to the remote.</span></div>
 <div class="line"><a name="l00164"></a><span class="lineno">  164</span>&#160;<span class="comment">// timeout: How long to wait when connecting.</span></div>
 <div class="line"><a name="l00165"></a><span class="lineno">  165</span>&#160;<span class="comment">// _native_socket: Native socket handler, the user is not supposed to interact with this field.</span></div>
-<div class="line"><a name="l00166"></a><span class="lineno"><a class="line" href="struct__cs__socket.html">  166</a></span>&#160;<span class="keyword">typedef</span> <span class="keyword">struct </span><a class="code" href="struct__cs__socket.html">_cs_socket</a></div>
+<div class="line"><a name="l00166"></a><span class="lineno"><a class="line" href="struct__cs__socket.html">  166</a></span>&#160;<span class="keyword">typedef</span> <span class="keyword">struct</span> <a class="code" href="struct__cs__socket.html">_cs_socket</a></div>
 <div class="line"><a name="l00167"></a><span class="lineno">  167</span>&#160;{</div>
-<div class="line"><a name="l00168"></a><span class="lineno"><a class="line" href="struct__cs__socket.html#a71ac7d9114af5fcdc8ff84e34d6c2ce1">  168</a></span>&#160;    <a class="code" href="_c_s_socket_8h.html#a54545405bf29373630a51184d32e426b">AddressFamily</a> <a class="code" href="struct__cs__socket.html#a71ac7d9114af5fcdc8ff84e34d6c2ce1">family</a>;</div>
-<div class="line"><a name="l00169"></a><span class="lineno"><a class="line" href="struct__cs__socket.html#aa5e96f190038ee459f085aab4f5fae9f">  169</a></span>&#160;    <a class="code" href="_c_s_socket_8h.html#a30cb691850c602045c5927ffbbca60e8">SocketType</a>    <a class="code" href="struct__cs__socket.html#aa5e96f190038ee459f085aab4f5fae9f">stype</a>;</div>
-<div class="line"><a name="l00170"></a><span class="lineno"><a class="line" href="struct__cs__socket.html#ae510de877f46e47eb3f0dd13db11e3f7">  170</a></span>&#160;    <a class="code" href="_c_s_socket_8h.html#a5cd78e96074e475f44e04d8ee207bd2e">ProtocolType</a>  <a class="code" href="struct__cs__socket.html#ae510de877f46e47eb3f0dd13db11e3f7">ptype</a>;</div>
-<div class="line"><a name="l00171"></a><span class="lineno"><a class="line" href="struct__cs__socket.html#a38477244934e6568475d4328c49be0db">  171</a></span>&#160;    <a class="code" href="struct__cs__ip__endpoint.html">IPEndPoint</a>    <a class="code" href="struct__cs__socket.html#a38477244934e6568475d4328c49be0db">local_ep</a>;</div>
-<div class="line"><a name="l00172"></a><span class="lineno"><a class="line" href="struct__cs__socket.html#ad3fb2692e6683a63cd99f23e92b974fd">  172</a></span>&#160;    <a class="code" href="struct__cs__ip__endpoint.html">IPEndPoint</a>    <a class="code" href="struct__cs__socket.html#ad3fb2692e6683a63cd99f23e92b974fd">remote_ep</a>;</div>
-<div class="line"><a name="l00173"></a><span class="lineno"><a class="line" href="struct__cs__socket.html#a934162ac9f83250797c6b0bb098f450c">  173</a></span>&#160;    uint8_t       <a class="code" href="struct__cs__socket.html#a934162ac9f83250797c6b0bb098f450c">connected</a>;</div>
-<div class="line"><a name="l00174"></a><span class="lineno"><a class="line" href="struct__cs__socket.html#a4917b11722b09edbcb0c6f631374e68b">  174</a></span>&#160;    uint16_t      <a class="code" href="struct__cs__socket.html#a4917b11722b09edbcb0c6f631374e68b">timeout</a>;</div>
+<div class="line"><a name="l00168"></a><span class="lineno">  168</span>&#160;    AddressFamily family;</div>
+<div class="line"><a name="l00169"></a><span class="lineno">  169</span>&#160;    SocketType    stype;</div>
+<div class="line"><a name="l00170"></a><span class="lineno">  170</span>&#160;    ProtocolType  ptype;</div>
+<div class="line"><a name="l00171"></a><span class="lineno">  171</span>&#160;    IPEndPoint    local_ep;</div>
+<div class="line"><a name="l00172"></a><span class="lineno">  172</span>&#160;    IPEndPoint    remote_ep;</div>
+<div class="line"><a name="l00173"></a><span class="lineno">  173</span>&#160;    uint8_t       connected;</div>
+<div class="line"><a name="l00174"></a><span class="lineno">  174</span>&#160;    uint16_t      timeout;</div>
 <div class="line"><a name="l00175"></a><span class="lineno">  175</span>&#160; </div>
-<div class="line"><a name="l00176"></a><span class="lineno"><a class="line" href="struct__cs__socket.html#a6af9dd3f6bde3068ad634cc70c59dc9b">  176</a></span>&#160;    socket_t <a class="code" href="struct__cs__socket.html#a6af9dd3f6bde3068ad634cc70c59dc9b">_native_handle</a>;</div>
-<div class="line"><a name="l00177"></a><span class="lineno"><a class="line" href="_c_s_socket_8h.html#ad0d31f716b77725cf547078ce5bef2cc">  177</a></span>&#160;} <a class="code" href="_c_s_socket_8h.html#ad0d31f716b77725cf547078ce5bef2cc">Socket</a>;</div>
+<div class="line"><a name="l00176"></a><span class="lineno">  176</span>&#160;    socket_t _native_handle;</div>
+<div class="line"><a name="l00177"></a><span class="lineno">  177</span>&#160;} Socket;</div>
 <div class="line"><a name="l00178"></a><span class="lineno">  178</span>&#160; </div>
 <div class="line"><a name="l00179"></a><span class="lineno">  179</span>&#160;<span class="comment">// FIXME: BAD VERY BAD</span></div>
-<div class="line"><a name="l00180"></a><span class="lineno">  180</span>&#160;<span class="keyword">extern</span> <span class="keyword">volatile</span> uint8_t <a class="code" href="_c_s_socket_8h.html#a705c300184955704bc5979436464fb7c">_cs_g_initialized</a>;</div>
+<div class="line"><a name="l00180"></a><span class="lineno">  180</span>&#160;<span class="keyword">extern</span> <span class="keyword">volatile</span> uint8_t _cs_g_initialized;</div>
 <div class="line"><a name="l00181"></a><span class="lineno">  181</span>&#160; </div>
 <div class="line"><a name="l00182"></a><span class="lineno">  182</span>&#160;<span class="comment">// WinSocks requires the user to initialize.</span></div>
-<div class="line"><a name="l00183"></a><span class="lineno"><a class="line" href="_c_s_socket_8h.html#a0c28c156c4b896f91b6f79c323c2b966">  183</a></span>&#160;<span class="keyword">inline</span> int32_t <a class="code" href="_c_s_socket_8h.html#a0c28c156c4b896f91b6f79c323c2b966">CSSocket_Init</a>()</div>
+<div class="line"><a name="l00183"></a><span class="lineno">  183</span>&#160;<span class="keyword">inline</span> int32_t CSSocket_Init()</div>
 <div class="line"><a name="l00184"></a><span class="lineno">  184</span>&#160;{</div>
-<div class="line"><a name="l00185"></a><span class="lineno">  185</span>&#160;<span class="preprocessor">#ifdef CS_PLATFORM_NT</span></div>
+<div class="line"><a name="l00185"></a><span class="lineno">  185</span>&#160;<span class="preprocessor">#</span><span class="preprocessor">ifdef</span> <span class="preprocessor">CS_PLATFORM_NT</span></div>
 <div class="line"><a name="l00186"></a><span class="lineno">  186</span>&#160;    WSADATA wsa_data;</div>
 <div class="line"><a name="l00187"></a><span class="lineno">  187</span>&#160;    int32_t res = WSAStartup(MAKEWORD(2, 2), &amp;wsa_data);</div>
 <div class="line"><a name="l00188"></a><span class="lineno">  188</span>&#160;    <span class="keywordflow">if</span> (res != 0)</div>
 <div class="line"><a name="l00189"></a><span class="lineno">  189</span>&#160;    {</div>
-<div class="line"><a name="l00190"></a><span class="lineno">  190</span>&#160;        <a class="code" href="_c_s_socket_8h.html#af7175a265010efbf3a5bff41e0f75135">Debug</a>(fputs(<span class="stringliteral">&quot;CS_Sockets: Failed to initialize WinSocks v2.2.\n&quot;</span>, stderr));</div>
+<div class="line"><a name="l00190"></a><span class="lineno">  190</span>&#160;        Debug(fputs(<span class="stringliteral">&quot;CS_Sockets: Failed to initialize WinSocks v2.2.\n&quot;</span>, stderr));</div>
 <div class="line"><a name="l00191"></a><span class="lineno">  191</span>&#160;        <span class="keywordflow">return</span> -1;</div>
 <div class="line"><a name="l00192"></a><span class="lineno">  192</span>&#160;    }</div>
 <div class="line"><a name="l00193"></a><span class="lineno">  193</span>&#160;    <span class="keywordflow">else</span></div>
-<div class="line"><a name="l00194"></a><span class="lineno">  194</span>&#160;        <a class="code" href="_c_s_socket_8h.html#a705c300184955704bc5979436464fb7c">_cs_g_initialized</a> = <span class="keyword">true</span>;</div>
-<div class="line"><a name="l00195"></a><span class="lineno">  195</span>&#160;<span class="preprocessor">#endif</span></div>
-<div class="line"><a name="l00196"></a><span class="lineno">  196</span>&#160;    <a class="code" href="_c_s_socket_8h.html#a705c300184955704bc5979436464fb7c">_cs_g_initialized</a> = <span class="keyword">true</span>;</div>
+<div class="line"><a name="l00194"></a><span class="lineno">  194</span>&#160;        _cs_g_initialized = <span class="keyword">true</span>;</div>
+<div class="line"><a name="l00195"></a><span class="lineno">  195</span>&#160;<span class="preprocessor">#</span><span class="preprocessor">endif</span></div>
+<div class="line"><a name="l00196"></a><span class="lineno">  196</span>&#160;    _cs_g_initialized = <span class="keyword">true</span>;</div>
 <div class="line"><a name="l00197"></a><span class="lineno">  197</span>&#160;    <span class="keywordflow">return</span> CS_SOCKET_SUCCESS;</div>
 <div class="line"><a name="l00198"></a><span class="lineno">  198</span>&#160;}</div>
 <div class="line"><a name="l00199"></a><span class="lineno">  199</span>&#160; </div>
 <div class="line"><a name="l00200"></a><span class="lineno">  200</span>&#160;<span class="comment">// WinSocks also requires deinitialization.</span></div>
-<div class="line"><a name="l00201"></a><span class="lineno"><a class="line" href="_c_s_socket_8h.html#ac7ed21ef4c6518326e2c3cea05f505e8">  201</a></span>&#160;<span class="keyword">inline</span> int32_t <a class="code" href="_c_s_socket_8h.html#ac7ed21ef4c6518326e2c3cea05f505e8">CSSocket_Dispose</a>()</div>
+<div class="line"><a name="l00201"></a><span class="lineno">  201</span>&#160;<span class="keyword">inline</span> int32_t CSSocket_Dispose()</div>
 <div class="line"><a name="l00202"></a><span class="lineno">  202</span>&#160;{</div>
-<div class="line"><a name="l00203"></a><span class="lineno">  203</span>&#160;    <a class="code" href="_c_s_socket_8h.html#a705c300184955704bc5979436464fb7c">_cs_g_initialized</a> = <span class="keyword">false</span>;</div>
-<div class="line"><a name="l00204"></a><span class="lineno">  204</span>&#160;<span class="preprocessor">#ifdef CS_PLATFORM_NT</span></div>
+<div class="line"><a name="l00203"></a><span class="lineno">  203</span>&#160;    _cs_g_initialized = <span class="keyword">false</span>;</div>
+<div class="line"><a name="l00204"></a><span class="lineno">  204</span>&#160;<span class="preprocessor">#</span><span class="preprocessor">ifdef</span> <span class="preprocessor">CS_PLATFORM_NT</span></div>
 <div class="line"><a name="l00205"></a><span class="lineno">  205</span>&#160;    <span class="keywordflow">return</span> WSACleanup();</div>
-<div class="line"><a name="l00206"></a><span class="lineno">  206</span>&#160;<span class="preprocessor">#else</span></div>
+<div class="line"><a name="l00206"></a><span class="lineno">  206</span>&#160;<span class="preprocessor">#</span><span class="preprocessor">else</span></div>
 <div class="line"><a name="l00207"></a><span class="lineno">  207</span>&#160;    <span class="keywordflow">return</span> CS_SOCKET_SUCCESS;</div>
-<div class="line"><a name="l00208"></a><span class="lineno">  208</span>&#160;<span class="preprocessor">#endif</span></div>
+<div class="line"><a name="l00208"></a><span class="lineno">  208</span>&#160;<span class="preprocessor">#</span><span class="preprocessor">endif</span></div>
 <div class="line"><a name="l00209"></a><span class="lineno">  209</span>&#160;}</div>
 <div class="line"><a name="l00210"></a><span class="lineno">  210</span>&#160; </div>
 <div class="line"><a name="l00211"></a><span class="lineno">  211</span>&#160;<span class="comment">// Constructor for IPEndPoint.</span></div>
-<div class="line"><a name="l00212"></a><span class="lineno"><a class="line" href="_c_s_socket_8h.html#aba77d2d9056a85a64187f90261e13a8c">  212</a></span>&#160;<span class="keyword">inline</span> <a class="code" href="struct__cs__ip__endpoint.html">IPEndPoint</a> <a class="code" href="_c_s_socket_8h.html#aba77d2d9056a85a64187f90261e13a8c">IPEndPoint_New</a>(<span class="keyword">const</span> <a class="code" href="struct__cs__ip__address.html">IPAddress</a> address, <span class="keyword">const</span> <a class="code" href="_c_s_socket_8h.html#a54545405bf29373630a51184d32e426b">AddressFamily</a> family, <span class="keyword">const</span> uint16_t port)</div>
+<div class="line"><a name="l00212"></a><span class="lineno">  212</span>&#160;<span class="keyword">inline</span> IPEndPoint IPEndPoint_New(<span class="keyword">const</span> IPAddress address, <span class="keyword">const</span> AddressFamily family, <span class="keyword">const</span> uint16_t port)</div>
 <div class="line"><a name="l00213"></a><span class="lineno">  213</span>&#160;{</div>
-<div class="line"><a name="l00214"></a><span class="lineno">  214</span>&#160;    <a class="code" href="struct__cs__ip__endpoint.html">IPEndPoint</a> ep;</div>
-<div class="line"><a name="l00215"></a><span class="lineno">  215</span>&#160;    ep.<a class="code" href="struct__cs__ip__endpoint.html#a8d9eaf332b84f928565d51f791192b89">address</a>                      = address;</div>
-<div class="line"><a name="l00216"></a><span class="lineno">  216</span>&#160;    ep.<a class="code" href="struct__cs__ip__endpoint.html#ac3a8559229c6e601c792fce104e7f2b7">addressFamily</a>                = family;</div>
-<div class="line"><a name="l00217"></a><span class="lineno">  217</span>&#160;    ep.<a class="code" href="struct__cs__ip__endpoint.html#ac924b2200ef2255fd6ffb841d47134e1">port</a>                         = port;</div>
-<div class="line"><a name="l00218"></a><span class="lineno">  218</span>&#160;    ep.<a class="code" href="struct__cs__ip__endpoint.html#a8d9eaf332b84f928565d51f791192b89">address</a>.<a class="code" href="struct__cs__ip__address.html#aa78ddcef3b1f0cca3f480d7ce861c6a4">ipv4_addr</a>.sin_port   = htons(port);</div>
-<div class="line"><a name="l00219"></a><span class="lineno">  219</span>&#160;    ep.<a class="code" href="struct__cs__ip__endpoint.html#a8d9eaf332b84f928565d51f791192b89">address</a>.<a class="code" href="struct__cs__ip__address.html#aa78ddcef3b1f0cca3f480d7ce861c6a4">ipv4_addr</a>.sin_family = family;</div>
+<div class="line"><a name="l00214"></a><span class="lineno">  214</span>&#160;    IPEndPoint ep;</div>
+<div class="line"><a name="l00215"></a><span class="lineno">  215</span>&#160;    ep.address                      = address;</div>
+<div class="line"><a name="l00216"></a><span class="lineno">  216</span>&#160;    ep.addressFamily                = family;</div>
+<div class="line"><a name="l00217"></a><span class="lineno">  217</span>&#160;    ep.port                         = port;</div>
+<div class="line"><a name="l00218"></a><span class="lineno">  218</span>&#160;    ep.address.ipv4_addr.sin_port   = htons(port);</div>
+<div class="line"><a name="l00219"></a><span class="lineno">  219</span>&#160;    ep.address.ipv4_addr.sin_family = family;</div>
 <div class="line"><a name="l00220"></a><span class="lineno">  220</span>&#160;    <span class="keywordflow">return</span> ep;</div>
 <div class="line"><a name="l00221"></a><span class="lineno">  221</span>&#160;}</div>
 <div class="line"><a name="l00222"></a><span class="lineno">  222</span>&#160; </div>
 <div class="line"><a name="l00223"></a><span class="lineno">  223</span>&#160;<span class="comment">// Constructor for Socket.</span></div>
-<div class="line"><a name="l00224"></a><span class="lineno"><a class="line" href="_c_s_socket_8h.html#a6d23d3fcddcc623dba59e513656fc6d5">  224</a></span>&#160;<span class="keyword">inline</span> <a class="code" href="struct__cs__socket.html">Socket</a>* <a class="code" href="_c_s_socket_8h.html#a6d23d3fcddcc623dba59e513656fc6d5">Socket_New</a>(<span class="keyword">const</span> <a class="code" href="_c_s_socket_8h.html#a54545405bf29373630a51184d32e426b">AddressFamily</a> family, <span class="keyword">const</span> <a class="code" href="_c_s_socket_8h.html#a30cb691850c602045c5927ffbbca60e8">SocketType</a> stype, <span class="keyword">const</span> <a class="code" href="_c_s_socket_8h.html#a5cd78e96074e475f44e04d8ee207bd2e">ProtocolType</a> ptype)</div>
+<div class="line"><a name="l00224"></a><span class="lineno">  224</span>&#160;<span class="keyword">inline</span> Socket* Socket_New(<span class="keyword">const</span> AddressFamily family, <span class="keyword">const</span> SocketType stype, <span class="keyword">const</span> ProtocolType ptype)</div>
 <div class="line"><a name="l00225"></a><span class="lineno">  225</span>&#160;{</div>
-<div class="line"><a name="l00226"></a><span class="lineno">  226</span>&#160;    <span class="keywordflow">if</span> (!<a class="code" href="_c_s_socket_8h.html#a705c300184955704bc5979436464fb7c">_cs_g_initialized</a>)</div>
+<div class="line"><a name="l00226"></a><span class="lineno">  226</span>&#160;    <span class="keywordflow">if</span> (!_cs_g_initialized)</div>
 <div class="line"><a name="l00227"></a><span class="lineno">  227</span>&#160;    {</div>
 <div class="line"><a name="l00228"></a><span class="lineno">  228</span>&#160;        <a class="code" href="_c_s_socket_8h.html#af7175a265010efbf3a5bff41e0f75135">Debug</a>(fputs(<span class="stringliteral">&quot;CS_Sockets not initialized.\n&quot;</span>, stderr));</div>
 <div class="line"><a name="l00229"></a><span class="lineno">  229</span>&#160;        <span class="keywordflow">return</span> NULL;</div>
 <div class="line"><a name="l00230"></a><span class="lineno">  230</span>&#160;    }</div>
 <div class="line"><a name="l00231"></a><span class="lineno">  231</span>&#160; </div>
-<div class="line"><a name="l00232"></a><span class="lineno">  232</span>&#160;    <a class="code" href="struct__cs__socket.html">Socket</a>* s    = (<a class="code" href="struct__cs__socket.html">Socket</a>*)malloc(<span class="keyword">sizeof</span>(<a class="code" href="struct__cs__socket.html">Socket</a>));</div>
-<div class="line"><a name="l00233"></a><span class="lineno">  233</span>&#160;    s-&gt;<a class="code" href="struct__cs__socket.html#a71ac7d9114af5fcdc8ff84e34d6c2ce1">family</a>    = family;</div>
-<div class="line"><a name="l00234"></a><span class="lineno">  234</span>&#160;    s-&gt;<a class="code" href="struct__cs__socket.html#aa5e96f190038ee459f085aab4f5fae9f">stype</a>     = stype;</div>
-<div class="line"><a name="l00235"></a><span class="lineno">  235</span>&#160;    s-&gt;<a class="code" href="struct__cs__socket.html#ae510de877f46e47eb3f0dd13db11e3f7">ptype</a>     = ptype;</div>
-<div class="line"><a name="l00236"></a><span class="lineno">  236</span>&#160;    s-&gt;<a class="code" href="struct__cs__socket.html#a934162ac9f83250797c6b0bb098f450c">connected</a> = <span class="keyword">false</span>;</div>
-<div class="line"><a name="l00237"></a><span class="lineno">  237</span>&#160;    s-&gt;<a class="code" href="struct__cs__socket.html#a4917b11722b09edbcb0c6f631374e68b">timeout</a>   = 5000;</div>
+<div class="line"><a name="l00232"></a><span class="lineno">  232</span>&#160;    Socket* s    = (Socket*)malloc(<span class="keyword">sizeof</span>(Socket));</div>
+<div class="line"><a name="l00233"></a><span class="lineno">  233</span>&#160;    s-&gt;family    = family;</div>
+<div class="line"><a name="l00234"></a><span class="lineno">  234</span>&#160;    s-&gt;stype     = stype;</div>
+<div class="line"><a name="l00235"></a><span class="lineno">  235</span>&#160;    s-&gt;ptype     = ptype;</div>
+<div class="line"><a name="l00236"></a><span class="lineno">  236</span>&#160;    s-&gt;connected = <span class="keyword">false</span>;</div>
+<div class="line"><a name="l00237"></a><span class="lineno">  237</span>&#160;    s-&gt;timeout   = 5000;</div>
 <div class="line"><a name="l00238"></a><span class="lineno">  238</span>&#160; </div>
-<div class="line"><a name="l00239"></a><span class="lineno">  239</span>&#160;    s-&gt;<a class="code" href="struct__cs__socket.html#a6af9dd3f6bde3068ad634cc70c59dc9b">_native_handle</a> = CS_INVALID_SOCKET;</div>
-<div class="line"><a name="l00240"></a><span class="lineno">  240</span>&#160;    s-&gt;<a class="code" href="struct__cs__socket.html#a6af9dd3f6bde3068ad634cc70c59dc9b">_native_handle</a> = socket(s-&gt;<a class="code" href="struct__cs__socket.html#a71ac7d9114af5fcdc8ff84e34d6c2ce1">family</a>, s-&gt;<a class="code" href="struct__cs__socket.html#aa5e96f190038ee459f085aab4f5fae9f">stype</a>, s-&gt;<a class="code" href="struct__cs__socket.html#ae510de877f46e47eb3f0dd13db11e3f7">ptype</a>);</div>
-<div class="line"><a name="l00241"></a><span class="lineno">  241</span>&#160;    <span class="keywordflow">if</span> (s-&gt;<a class="code" href="struct__cs__socket.html#a6af9dd3f6bde3068ad634cc70c59dc9b">_native_handle</a> == CS_INVALID_SOCKET)</div>
+<div class="line"><a name="l00239"></a><span class="lineno">  239</span>&#160;    s-&gt;_native_handle = CS_INVALID_SOCKET;</div>
+<div class="line"><a name="l00240"></a><span class="lineno">  240</span>&#160;    s-&gt;_native_handle = socket(s-&gt;family, s-&gt;stype, s-&gt;ptype);</div>
+<div class="line"><a name="l00241"></a><span class="lineno">  241</span>&#160;    <span class="keywordflow">if</span> (s-&gt;_native_handle == CS_INVALID_SOCKET)</div>
 <div class="line"><a name="l00242"></a><span class="lineno">  242</span>&#160;    {</div>
 <div class="line"><a name="l00243"></a><span class="lineno">  243</span>&#160;        <a class="code" href="_c_s_socket_8h.html#af7175a265010efbf3a5bff41e0f75135">Debug</a>(fputs(<span class="stringliteral">&quot;CS_Sockets: Failed to create socket.\n&quot;</span>, stderr));</div>
-<div class="line"><a name="l00244"></a><span class="lineno">  244</span>&#160;        CS_CLOSE_SOCKET(s-&gt;<a class="code" href="struct__cs__socket.html#a6af9dd3f6bde3068ad634cc70c59dc9b">_native_handle</a>);</div>
+<div class="line"><a name="l00244"></a><span class="lineno">  244</span>&#160;        CS_CLOSE_SOCKET(s-&gt;_native_handle);</div>
 <div class="line"><a name="l00245"></a><span class="lineno">  245</span>&#160;        free(s);</div>
 <div class="line"><a name="l00246"></a><span class="lineno">  246</span>&#160;        <span class="keywordflow">return</span> NULL;</div>
 <div class="line"><a name="l00247"></a><span class="lineno">  247</span>&#160;    }</div>
@@ -323,125 +323,125 @@ $(function() {
 <div class="line"><a name="l00249"></a><span class="lineno">  249</span>&#160;}</div>
 <div class="line"><a name="l00250"></a><span class="lineno">  250</span>&#160; </div>
 <div class="line"><a name="l00251"></a><span class="lineno">  251</span>&#160;<span class="comment">// Reinitialize a Socket object for use.</span></div>
-<div class="line"><a name="l00252"></a><span class="lineno"><a class="line" href="_c_s_socket_8h.html#a8afce96e6a388186d62e88c9fa7078e4">  252</a></span>&#160;<span class="keyword">inline</span> int32_t <a class="code" href="_c_s_socket_8h.html#a8afce96e6a388186d62e88c9fa7078e4">Socket_From</a>(<a class="code" href="struct__cs__socket.html">Socket</a>* s, <span class="keyword">const</span> <a class="code" href="_c_s_socket_8h.html#a54545405bf29373630a51184d32e426b">AddressFamily</a> family, <span class="keyword">const</span> <a class="code" href="_c_s_socket_8h.html#a30cb691850c602045c5927ffbbca60e8">SocketType</a> stype, <span class="keyword">const</span> <a class="code" href="_c_s_socket_8h.html#a5cd78e96074e475f44e04d8ee207bd2e">ProtocolType</a> ptype)</div>
+<div class="line"><a name="l00252"></a><span class="lineno">  252</span>&#160;<span class="keyword">inline</span> int32_t Socket_From(Socket* s, <span class="keyword">const</span> AddressFamily family, <span class="keyword">const</span> SocketType stype, <span class="keyword">const</span> ProtocolType ptype)</div>
 <div class="line"><a name="l00253"></a><span class="lineno">  253</span>&#160;{</div>
-<div class="line"><a name="l00254"></a><span class="lineno">  254</span>&#160;    <span class="keywordflow">if</span> (!<a class="code" href="_c_s_socket_8h.html#a705c300184955704bc5979436464fb7c">_cs_g_initialized</a>)</div>
+<div class="line"><a name="l00254"></a><span class="lineno">  254</span>&#160;    <span class="keywordflow">if</span> (!_cs_g_initialized)</div>
 <div class="line"><a name="l00255"></a><span class="lineno">  255</span>&#160;    {</div>
 <div class="line"><a name="l00256"></a><span class="lineno">  256</span>&#160;        <a class="code" href="_c_s_socket_8h.html#af7175a265010efbf3a5bff41e0f75135">Debug</a>(fputs(<span class="stringliteral">&quot;CS_Sockets not initialized.\n&quot;</span>, stderr));</div>
 <div class="line"><a name="l00257"></a><span class="lineno">  257</span>&#160;        <span class="keywordflow">return</span> CS_SOCKET_ERROR;</div>
 <div class="line"><a name="l00258"></a><span class="lineno">  258</span>&#160;    }</div>
 <div class="line"><a name="l00259"></a><span class="lineno">  259</span>&#160; </div>
-<div class="line"><a name="l00260"></a><span class="lineno">  260</span>&#160;    memset(s, 0, <span class="keyword">sizeof</span>(<a class="code" href="struct__cs__socket.html">Socket</a>));</div>
+<div class="line"><a name="l00260"></a><span class="lineno">  260</span>&#160;    memset(s, 0, <span class="keyword">sizeof</span>(Socket));</div>
 <div class="line"><a name="l00261"></a><span class="lineno">  261</span>&#160; </div>
-<div class="line"><a name="l00262"></a><span class="lineno">  262</span>&#160;    s-&gt;<a class="code" href="struct__cs__socket.html#a71ac7d9114af5fcdc8ff84e34d6c2ce1">family</a>    = family;</div>
-<div class="line"><a name="l00263"></a><span class="lineno">  263</span>&#160;    s-&gt;<a class="code" href="struct__cs__socket.html#aa5e96f190038ee459f085aab4f5fae9f">stype</a>     = stype;</div>
-<div class="line"><a name="l00264"></a><span class="lineno">  264</span>&#160;    s-&gt;<a class="code" href="struct__cs__socket.html#ae510de877f46e47eb3f0dd13db11e3f7">ptype</a>     = ptype;</div>
-<div class="line"><a name="l00265"></a><span class="lineno">  265</span>&#160;    s-&gt;<a class="code" href="struct__cs__socket.html#a934162ac9f83250797c6b0bb098f450c">connected</a> = <span class="keyword">false</span>;</div>
-<div class="line"><a name="l00266"></a><span class="lineno">  266</span>&#160;    s-&gt;<a class="code" href="struct__cs__socket.html#a4917b11722b09edbcb0c6f631374e68b">timeout</a>   = 5000;</div>
+<div class="line"><a name="l00262"></a><span class="lineno">  262</span>&#160;    s-&gt;family    = family;</div>
+<div class="line"><a name="l00263"></a><span class="lineno">  263</span>&#160;    s-&gt;stype     = stype;</div>
+<div class="line"><a name="l00264"></a><span class="lineno">  264</span>&#160;    s-&gt;ptype     = ptype;</div>
+<div class="line"><a name="l00265"></a><span class="lineno">  265</span>&#160;    s-&gt;connected = <span class="keyword">false</span>;</div>
+<div class="line"><a name="l00266"></a><span class="lineno">  266</span>&#160;    s-&gt;timeout   = 5000;</div>
 <div class="line"><a name="l00267"></a><span class="lineno">  267</span>&#160; </div>
-<div class="line"><a name="l00268"></a><span class="lineno">  268</span>&#160;    s-&gt;<a class="code" href="struct__cs__socket.html#a6af9dd3f6bde3068ad634cc70c59dc9b">_native_handle</a> = CS_INVALID_SOCKET;</div>
-<div class="line"><a name="l00269"></a><span class="lineno">  269</span>&#160;    s-&gt;<a class="code" href="struct__cs__socket.html#a6af9dd3f6bde3068ad634cc70c59dc9b">_native_handle</a> = socket(s-&gt;<a class="code" href="struct__cs__socket.html#a71ac7d9114af5fcdc8ff84e34d6c2ce1">family</a>, s-&gt;<a class="code" href="struct__cs__socket.html#aa5e96f190038ee459f085aab4f5fae9f">stype</a>, s-&gt;<a class="code" href="struct__cs__socket.html#ae510de877f46e47eb3f0dd13db11e3f7">ptype</a>);</div>
-<div class="line"><a name="l00270"></a><span class="lineno">  270</span>&#160;    <span class="keywordflow">if</span> (s-&gt;<a class="code" href="struct__cs__socket.html#a6af9dd3f6bde3068ad634cc70c59dc9b">_native_handle</a> == CS_INVALID_SOCKET)</div>
+<div class="line"><a name="l00268"></a><span class="lineno">  268</span>&#160;    s-&gt;_native_handle = CS_INVALID_SOCKET;</div>
+<div class="line"><a name="l00269"></a><span class="lineno">  269</span>&#160;    s-&gt;_native_handle = socket(s-&gt;family, s-&gt;stype, s-&gt;ptype);</div>
+<div class="line"><a name="l00270"></a><span class="lineno">  270</span>&#160;    <span class="keywordflow">if</span> (s-&gt;_native_handle == CS_INVALID_SOCKET)</div>
 <div class="line"><a name="l00271"></a><span class="lineno">  271</span>&#160;    {</div>
-<div class="line"><a name="l00272"></a><span class="lineno">  272</span>&#160;        CS_CLOSE_SOCKET(s-&gt;<a class="code" href="struct__cs__socket.html#a6af9dd3f6bde3068ad634cc70c59dc9b">_native_handle</a>);</div>
+<div class="line"><a name="l00272"></a><span class="lineno">  272</span>&#160;        CS_CLOSE_SOCKET(s-&gt;_native_handle);</div>
 <div class="line"><a name="l00273"></a><span class="lineno">  273</span>&#160;        <span class="keywordflow">return</span> CS_SOCKET_ERROR;</div>
 <div class="line"><a name="l00274"></a><span class="lineno">  274</span>&#160;    }</div>
 <div class="line"><a name="l00275"></a><span class="lineno">  275</span>&#160;    <span class="keywordflow">return</span> CS_SOCKET_SUCCESS;</div>
 <div class="line"><a name="l00276"></a><span class="lineno">  276</span>&#160;}</div>
 <div class="line"><a name="l00277"></a><span class="lineno">  277</span>&#160; </div>
 <div class="line"><a name="l00278"></a><span class="lineno">  278</span>&#160;<span class="comment">// Destructor for Socket.</span></div>
-<div class="line"><a name="l00279"></a><span class="lineno"><a class="line" href="_c_s_socket_8h.html#a78b548d31f2434454ee2ceaeefcc9264">  279</a></span>&#160;<span class="keyword">inline</span> <span class="keywordtype">void</span> <a class="code" href="_c_s_socket_8h.html#a78b548d31f2434454ee2ceaeefcc9264">Socket_Dispose</a>(<a class="code" href="struct__cs__socket.html">Socket</a>* s)</div>
+<div class="line"><a name="l00279"></a><span class="lineno">  279</span>&#160;<span class="keyword">inline</span> <span class="keywordtype">void</span> Socket_Dispose(Socket* s)</div>
 <div class="line"><a name="l00280"></a><span class="lineno">  280</span>&#160;{</div>
-<div class="line"><a name="l00281"></a><span class="lineno">  281</span>&#160;    <span class="keywordflow">if</span> (!<a class="code" href="_c_s_socket_8h.html#a705c300184955704bc5979436464fb7c">_cs_g_initialized</a>)</div>
+<div class="line"><a name="l00281"></a><span class="lineno">  281</span>&#160;    <span class="keywordflow">if</span> (!_cs_g_initialized)</div>
 <div class="line"><a name="l00282"></a><span class="lineno">  282</span>&#160;    {</div>
 <div class="line"><a name="l00283"></a><span class="lineno">  283</span>&#160;        <a class="code" href="_c_s_socket_8h.html#af7175a265010efbf3a5bff41e0f75135">Debug</a>(fputs(<span class="stringliteral">&quot;CS_Sockets not initialized.\n&quot;</span>, stderr));</div>
 <div class="line"><a name="l00284"></a><span class="lineno">  284</span>&#160;        <span class="keywordflow">return</span>;</div>
 <div class="line"><a name="l00285"></a><span class="lineno">  285</span>&#160;    }</div>
 <div class="line"><a name="l00286"></a><span class="lineno">  286</span>&#160; </div>
-<div class="line"><a name="l00287"></a><span class="lineno">  287</span>&#160;    shutdown(s-&gt;<a class="code" href="struct__cs__socket.html#a6af9dd3f6bde3068ad634cc70c59dc9b">_native_handle</a>, CS_SD_BOTH);</div>
-<div class="line"><a name="l00288"></a><span class="lineno">  288</span>&#160;    CS_CLOSE_SOCKET(s-&gt;<a class="code" href="struct__cs__socket.html#a6af9dd3f6bde3068ad634cc70c59dc9b">_native_handle</a>);</div>
-<div class="line"><a name="l00289"></a><span class="lineno">  289</span>&#160;    memset(s, 0, <span class="keyword">sizeof</span>(<a class="code" href="struct__cs__socket.html">Socket</a>));</div>
+<div class="line"><a name="l00287"></a><span class="lineno">  287</span>&#160;    shutdown(s-&gt;_native_handle, CS_SD_BOTH);</div>
+<div class="line"><a name="l00288"></a><span class="lineno">  288</span>&#160;    CS_CLOSE_SOCKET(s-&gt;_native_handle);</div>
+<div class="line"><a name="l00289"></a><span class="lineno">  289</span>&#160;    memset(s, 0, <span class="keyword">sizeof</span>(Socket));</div>
 <div class="line"><a name="l00290"></a><span class="lineno">  290</span>&#160;    free(s);</div>
 <div class="line"><a name="l00291"></a><span class="lineno">  291</span>&#160;}</div>
 <div class="line"><a name="l00292"></a><span class="lineno">  292</span>&#160; </div>
 <div class="line"><a name="l00293"></a><span class="lineno">  293</span>&#160;<span class="comment">// Shutdown read and write operations on the socket.</span></div>
-<div class="line"><a name="l00294"></a><span class="lineno"><a class="line" href="_c_s_socket_8h.html#af53b41884e3089e4f91b377b904d6164">  294</a></span>&#160;<span class="keyword">inline</span> int32_t <a class="code" href="_c_s_socket_8h.html#af53b41884e3089e4f91b377b904d6164">Socket_Shutdown</a>(<a class="code" href="struct__cs__socket.html">Socket</a>* s, <span class="keyword">const</span> int32_t how)</div>
+<div class="line"><a name="l00294"></a><span class="lineno">  294</span>&#160;<span class="keyword">inline</span> int32_t Socket_Shutdown(Socket* s, <span class="keyword">const</span> int32_t how)</div>
 <div class="line"><a name="l00295"></a><span class="lineno">  295</span>&#160;{</div>
-<div class="line"><a name="l00296"></a><span class="lineno">  296</span>&#160;    <span class="keywordflow">if</span> (!<a class="code" href="_c_s_socket_8h.html#a705c300184955704bc5979436464fb7c">_cs_g_initialized</a>)</div>
+<div class="line"><a name="l00296"></a><span class="lineno">  296</span>&#160;    <span class="keywordflow">if</span> (!_cs_g_initialized)</div>
 <div class="line"><a name="l00297"></a><span class="lineno">  297</span>&#160;    {</div>
 <div class="line"><a name="l00298"></a><span class="lineno">  298</span>&#160;        <a class="code" href="_c_s_socket_8h.html#af7175a265010efbf3a5bff41e0f75135">Debug</a>(fputs(<span class="stringliteral">&quot;CS_Sockets not initialized.\n&quot;</span>, stderr));</div>
 <div class="line"><a name="l00299"></a><span class="lineno">  299</span>&#160;        <span class="keywordflow">return</span> CS_SOCKET_ERROR;</div>
 <div class="line"><a name="l00300"></a><span class="lineno">  300</span>&#160;    }</div>
-<div class="line"><a name="l00301"></a><span class="lineno">  301</span>&#160;    <span class="keywordflow">return</span> shutdown(s-&gt;<a class="code" href="struct__cs__socket.html#a6af9dd3f6bde3068ad634cc70c59dc9b">_native_handle</a>, how);</div>
+<div class="line"><a name="l00301"></a><span class="lineno">  301</span>&#160;    <span class="keywordflow">return</span> shutdown(s-&gt;_native_handle, how);</div>
 <div class="line"><a name="l00302"></a><span class="lineno">  302</span>&#160;}</div>
 <div class="line"><a name="l00303"></a><span class="lineno">  303</span>&#160; </div>
 <div class="line"><a name="l00304"></a><span class="lineno">  304</span>&#160;<span class="comment">// Close the socket but keep the object.</span></div>
-<div class="line"><a name="l00305"></a><span class="lineno"><a class="line" href="_c_s_socket_8h.html#aa8056f23c18bc43be2282b6d3a2c8122">  305</a></span>&#160;<span class="keyword">inline</span> int32_t <a class="code" href="_c_s_socket_8h.html#aa8056f23c18bc43be2282b6d3a2c8122">Socket_Close</a>(<a class="code" href="struct__cs__socket.html">Socket</a>* s)</div>
+<div class="line"><a name="l00305"></a><span class="lineno">  305</span>&#160;<span class="keyword">inline</span> int32_t Socket_Close(Socket* s)</div>
 <div class="line"><a name="l00306"></a><span class="lineno">  306</span>&#160;{</div>
-<div class="line"><a name="l00307"></a><span class="lineno">  307</span>&#160;    <span class="keywordflow">if</span> (!<a class="code" href="_c_s_socket_8h.html#a705c300184955704bc5979436464fb7c">_cs_g_initialized</a>)</div>
+<div class="line"><a name="l00307"></a><span class="lineno">  307</span>&#160;    <span class="keywordflow">if</span> (!_cs_g_initialized)</div>
 <div class="line"><a name="l00308"></a><span class="lineno">  308</span>&#160;    {</div>
 <div class="line"><a name="l00309"></a><span class="lineno">  309</span>&#160;        <a class="code" href="_c_s_socket_8h.html#af7175a265010efbf3a5bff41e0f75135">Debug</a>(fputs(<span class="stringliteral">&quot;CS_Sockets not initialized.\n&quot;</span>, stderr));</div>
 <div class="line"><a name="l00310"></a><span class="lineno">  310</span>&#160;        <span class="keywordflow">return</span> CS_SOCKET_ERROR;</div>
 <div class="line"><a name="l00311"></a><span class="lineno">  311</span>&#160;    }</div>
 <div class="line"><a name="l00312"></a><span class="lineno">  312</span>&#160; </div>
-<div class="line"><a name="l00313"></a><span class="lineno">  313</span>&#160;    <span class="keywordflow">if</span> (CS_CLOSE_SOCKET(s-&gt;<a class="code" href="struct__cs__socket.html#a6af9dd3f6bde3068ad634cc70c59dc9b">_native_handle</a>) == CS_SOCKET_ERROR)</div>
+<div class="line"><a name="l00313"></a><span class="lineno">  313</span>&#160;    <span class="keywordflow">if</span> (CS_CLOSE_SOCKET(s-&gt;_native_handle) == CS_SOCKET_ERROR)</div>
 <div class="line"><a name="l00314"></a><span class="lineno">  314</span>&#160;        <span class="keywordflow">return</span> CS_SOCKET_ERROR;</div>
-<div class="line"><a name="l00315"></a><span class="lineno">  315</span>&#160;    s-&gt;<a class="code" href="struct__cs__socket.html#a934162ac9f83250797c6b0bb098f450c">connected</a> = <span class="keyword">false</span>;</div>
+<div class="line"><a name="l00315"></a><span class="lineno">  315</span>&#160;    s-&gt;connected = <span class="keyword">false</span>;</div>
 <div class="line"><a name="l00316"></a><span class="lineno">  316</span>&#160;    <span class="keywordflow">return</span> CS_SOCKET_SUCCESS;</div>
 <div class="line"><a name="l00317"></a><span class="lineno">  317</span>&#160;}</div>
 <div class="line"><a name="l00318"></a><span class="lineno">  318</span>&#160; </div>
 <div class="line"><a name="l00319"></a><span class="lineno">  319</span>&#160;<span class="comment">// Try and bind our socket to the provided endpoint.</span></div>
-<div class="line"><a name="l00320"></a><span class="lineno"><a class="line" href="_c_s_socket_8h.html#a9b54c8d01c2031ec04123c4fd7ed9799">  320</a></span>&#160;<span class="keyword">inline</span> int32_t <a class="code" href="_c_s_socket_8h.html#a9b54c8d01c2031ec04123c4fd7ed9799">Socket_Bind</a>(<a class="code" href="struct__cs__socket.html">Socket</a>* s, <a class="code" href="struct__cs__ip__endpoint.html">IPEndPoint</a> ep)</div>
+<div class="line"><a name="l00320"></a><span class="lineno">  320</span>&#160;<span class="keyword">inline</span> int32_t Socket_Bind(Socket* s, IPEndPoint ep)</div>
 <div class="line"><a name="l00321"></a><span class="lineno">  321</span>&#160;{</div>
-<div class="line"><a name="l00322"></a><span class="lineno">  322</span>&#160;    <span class="keywordflow">if</span> (!<a class="code" href="_c_s_socket_8h.html#a705c300184955704bc5979436464fb7c">_cs_g_initialized</a>)</div>
+<div class="line"><a name="l00322"></a><span class="lineno">  322</span>&#160;    <span class="keywordflow">if</span> (!_cs_g_initialized)</div>
 <div class="line"><a name="l00323"></a><span class="lineno">  323</span>&#160;    {</div>
 <div class="line"><a name="l00324"></a><span class="lineno">  324</span>&#160;        <a class="code" href="_c_s_socket_8h.html#af7175a265010efbf3a5bff41e0f75135">Debug</a>(fputs(<span class="stringliteral">&quot;CS_Sockets not initialized.\n&quot;</span>, stderr));</div>
 <div class="line"><a name="l00325"></a><span class="lineno">  325</span>&#160;        <span class="keywordflow">return</span> CS_SOCKET_ERROR;</div>
 <div class="line"><a name="l00326"></a><span class="lineno">  326</span>&#160;    }</div>
 <div class="line"><a name="l00327"></a><span class="lineno">  327</span>&#160; </div>
-<div class="line"><a name="l00328"></a><span class="lineno">  328</span>&#160;    s-&gt;<a class="code" href="struct__cs__socket.html#a38477244934e6568475d4328c49be0db">local_ep</a> = ep;</div>
+<div class="line"><a name="l00328"></a><span class="lineno">  328</span>&#160;    s-&gt;local_ep = ep;</div>
 <div class="line"><a name="l00329"></a><span class="lineno">  329</span>&#160; </div>
 <div class="line"><a name="l00330"></a><span class="lineno">  330</span>&#160;    <span class="keywordtype">void</span>*  server_addr = NULL;</div>
-<div class="line"><a name="l00331"></a><span class="lineno">  331</span>&#160;    <span class="keywordtype">size_t</span> addr_size   = 0;</div>
+<div class="line"><a name="l00331"></a><span class="lineno">  331</span>&#160;    size_t addr_size   = 0;</div>
 <div class="line"><a name="l00332"></a><span class="lineno">  332</span>&#160; </div>
 <div class="line"><a name="l00333"></a><span class="lineno">  333</span>&#160;    <span class="comment">// Resolve the endpoint.</span></div>
-<div class="line"><a name="l00334"></a><span class="lineno">  334</span>&#160;    <span class="keywordflow">switch</span> (ep.<a class="code" href="struct__cs__ip__endpoint.html#a8d9eaf332b84f928565d51f791192b89">address</a>.<a class="code" href="struct__cs__ip__address.html#a371807f43a0aa5b450bcce33970796da">type</a>)</div>
+<div class="line"><a name="l00334"></a><span class="lineno">  334</span>&#160;    <span class="keywordflow">switch</span> (ep.address.type)</div>
 <div class="line"><a name="l00335"></a><span class="lineno">  335</span>&#160;    {</div>
 <div class="line"><a name="l00336"></a><span class="lineno">  336</span>&#160;        <span class="keywordflow">default</span>:</div>
-<div class="line"><a name="l00337"></a><span class="lineno">  337</span>&#160;        <span class="keywordflow">case</span> <a class="code" href="_c_s_socket_8h.html#a09655043ea7059cbbbd44a50fbdd5be4a41041262cfe57a20994fd20f54c45f6e">IPAddressType_IPv4LPStr</a>:</div>
-<div class="line"><a name="l00338"></a><span class="lineno">  338</span>&#160;            s-&gt;<a class="code" href="struct__cs__socket.html#a38477244934e6568475d4328c49be0db">local_ep</a>.<a class="code" href="struct__cs__ip__endpoint.html#a8d9eaf332b84f928565d51f791192b89">address</a>.<a class="code" href="struct__cs__ip__address.html#aa78ddcef3b1f0cca3f480d7ce861c6a4">ipv4_addr</a>.sin_addr.s_addr = s-&gt;<a class="code" href="struct__cs__socket.html#a38477244934e6568475d4328c49be0db">local_ep</a>.<a class="code" href="struct__cs__ip__endpoint.html#a8d9eaf332b84f928565d51f791192b89">address</a>.<a class="code" href="struct__cs__ip__address.html#a371807f43a0aa5b450bcce33970796da">type</a>;</div>
-<div class="line"><a name="l00339"></a><span class="lineno">  339</span>&#160;            s-&gt;<a class="code" href="struct__cs__socket.html#a38477244934e6568475d4328c49be0db">local_ep</a>.<a class="code" href="struct__cs__ip__endpoint.html#a8d9eaf332b84f928565d51f791192b89">address</a>.<a class="code" href="struct__cs__ip__address.html#aa78ddcef3b1f0cca3f480d7ce861c6a4">ipv4_addr</a>.sin_port        = htons(s-&gt;<a class="code" href="struct__cs__socket.html#a38477244934e6568475d4328c49be0db">local_ep</a>.<a class="code" href="struct__cs__ip__endpoint.html#ac924b2200ef2255fd6ffb841d47134e1">port</a>);</div>
-<div class="line"><a name="l00340"></a><span class="lineno">  340</span>&#160;            s-&gt;<a class="code" href="struct__cs__socket.html#a38477244934e6568475d4328c49be0db">local_ep</a>.<a class="code" href="struct__cs__ip__endpoint.html#a8d9eaf332b84f928565d51f791192b89">address</a>.<a class="code" href="struct__cs__ip__address.html#aa78ddcef3b1f0cca3f480d7ce861c6a4">ipv4_addr</a>.sin_family      = s-&gt;<a class="code" href="struct__cs__socket.html#a38477244934e6568475d4328c49be0db">local_ep</a>.<a class="code" href="struct__cs__ip__endpoint.html#ac3a8559229c6e601c792fce104e7f2b7">addressFamily</a>;</div>
-<div class="line"><a name="l00341"></a><span class="lineno">  341</span>&#160;            server_addr                                   = (<span class="keywordtype">void</span>*)&amp;s-&gt;<a class="code" href="struct__cs__socket.html#a38477244934e6568475d4328c49be0db">local_ep</a>.<a class="code" href="struct__cs__ip__endpoint.html#a8d9eaf332b84f928565d51f791192b89">address</a>.<a class="code" href="struct__cs__ip__address.html#aa78ddcef3b1f0cca3f480d7ce861c6a4">ipv4_addr</a>;</div>
-<div class="line"><a name="l00342"></a><span class="lineno">  342</span>&#160;            addr_size                                     = <span class="keyword">sizeof</span>(s-&gt;<a class="code" href="struct__cs__socket.html#a38477244934e6568475d4328c49be0db">local_ep</a>.<a class="code" href="struct__cs__ip__endpoint.html#a8d9eaf332b84f928565d51f791192b89">address</a>.<a class="code" href="struct__cs__ip__address.html#aa78ddcef3b1f0cca3f480d7ce861c6a4">ipv4_addr</a>);</div>
+<div class="line"><a name="l00337"></a><span class="lineno">  337</span>&#160;        <span class="keywordflow">case</span> IPAddressType_IPv4LPStr:</div>
+<div class="line"><a name="l00338"></a><span class="lineno">  338</span>&#160;            s-&gt;local_ep.address.ipv4_addr.sin_addr.s_addr = s-&gt;local_ep.address.type;</div>
+<div class="line"><a name="l00339"></a><span class="lineno">  339</span>&#160;            s-&gt;local_ep.address.ipv4_addr.sin_port        = htons(s-&gt;local_ep.port);</div>
+<div class="line"><a name="l00340"></a><span class="lineno">  340</span>&#160;            s-&gt;local_ep.address.ipv4_addr.sin_family      = s-&gt;local_ep.addressFamily;</div>
+<div class="line"><a name="l00341"></a><span class="lineno">  341</span>&#160;            server_addr                                   = (<span class="keywordtype">void</span>*)&amp;s-&gt;local_ep.address.ipv4_addr;</div>
+<div class="line"><a name="l00342"></a><span class="lineno">  342</span>&#160;            addr_size                                     = <span class="keyword">sizeof</span>(s-&gt;local_ep.address.ipv4_addr);</div>
 <div class="line"><a name="l00343"></a><span class="lineno">  343</span>&#160;            <span class="keywordflow">break</span>;</div>
 <div class="line"><a name="l00344"></a><span class="lineno">  344</span>&#160;    }</div>
 <div class="line"><a name="l00345"></a><span class="lineno">  345</span>&#160; </div>
 <div class="line"><a name="l00346"></a><span class="lineno">  346</span>&#160;    <span class="comment">// Try and bind.</span></div>
-<div class="line"><a name="l00347"></a><span class="lineno">  347</span>&#160;    <span class="keyword">const</span> int32_t bind_res = bind(s-&gt;<a class="code" href="struct__cs__socket.html#a6af9dd3f6bde3068ad634cc70c59dc9b">_native_handle</a>, (<span class="keyword">struct</span> sockaddr*)server_addr, addr_size);</div>
+<div class="line"><a name="l00347"></a><span class="lineno">  347</span>&#160;    <span class="keyword">const</span> int32_t bind_res = bind(s-&gt;_native_handle, (<span class="keyword">struct</span> sockaddr*)server_addr, addr_size);</div>
 <div class="line"><a name="l00348"></a><span class="lineno">  348</span>&#160;    <span class="keywordflow">if</span> (bind_res == CS_SOCKET_ERROR)</div>
 <div class="line"><a name="l00349"></a><span class="lineno">  349</span>&#160;    {</div>
 <div class="line"><a name="l00350"></a><span class="lineno">  350</span>&#160;        <a class="code" href="_c_s_socket_8h.html#af7175a265010efbf3a5bff41e0f75135">Debug</a>(fputs(<span class="stringliteral">&quot;CS_Sockets: Failed to bind socket.\n&quot;</span>, stderr));</div>
 <div class="line"><a name="l00351"></a><span class="lineno">  351</span>&#160;        <a class="code" href="_c_s_socket_8h.html#af7175a265010efbf3a5bff41e0f75135">Debug</a>(perror(<span class="stringliteral">&quot;native error&quot;</span>));</div>
-<div class="line"><a name="l00352"></a><span class="lineno">  352</span>&#160;        CS_CLOSE_SOCKET(s-&gt;<a class="code" href="struct__cs__socket.html#a6af9dd3f6bde3068ad634cc70c59dc9b">_native_handle</a>);</div>
+<div class="line"><a name="l00352"></a><span class="lineno">  352</span>&#160;        CS_CLOSE_SOCKET(s-&gt;_native_handle);</div>
 <div class="line"><a name="l00353"></a><span class="lineno">  353</span>&#160;        <span class="keywordflow">return</span> CS_SOCKET_ERROR;</div>
 <div class="line"><a name="l00354"></a><span class="lineno">  354</span>&#160;    }</div>
 <div class="line"><a name="l00355"></a><span class="lineno">  355</span>&#160;    <span class="keywordflow">return</span> CS_SOCKET_SUCCESS;</div>
 <div class="line"><a name="l00356"></a><span class="lineno">  356</span>&#160;}</div>
 <div class="line"><a name="l00357"></a><span class="lineno">  357</span>&#160; </div>
 <div class="line"><a name="l00358"></a><span class="lineno">  358</span>&#160;<span class="comment">// Try and listen on the bound endpoint.</span></div>
-<div class="line"><a name="l00359"></a><span class="lineno"><a class="line" href="_c_s_socket_8h.html#a6cf5f12c7215445bb6d42ea859108d72">  359</a></span>&#160;<span class="keyword">inline</span> int32_t <a class="code" href="_c_s_socket_8h.html#a6cf5f12c7215445bb6d42ea859108d72">Socket_Listen</a>(<a class="code" href="struct__cs__socket.html">Socket</a>* s, <span class="keyword">const</span> <span class="keywordtype">size_t</span> max_clients)</div>
+<div class="line"><a name="l00359"></a><span class="lineno">  359</span>&#160;<span class="keyword">inline</span> int32_t Socket_Listen(Socket* s, <span class="keyword">const</span> size_t max_clients)</div>
 <div class="line"><a name="l00360"></a><span class="lineno">  360</span>&#160;{</div>
-<div class="line"><a name="l00361"></a><span class="lineno">  361</span>&#160;    <span class="keywordflow">if</span> (!<a class="code" href="_c_s_socket_8h.html#a705c300184955704bc5979436464fb7c">_cs_g_initialized</a>)</div>
+<div class="line"><a name="l00361"></a><span class="lineno">  361</span>&#160;    <span class="keywordflow">if</span> (!_cs_g_initialized)</div>
 <div class="line"><a name="l00362"></a><span class="lineno">  362</span>&#160;    {</div>
 <div class="line"><a name="l00363"></a><span class="lineno">  363</span>&#160;        <a class="code" href="_c_s_socket_8h.html#af7175a265010efbf3a5bff41e0f75135">Debug</a>(fputs(<span class="stringliteral">&quot;CS_Sockets not initialized.\n&quot;</span>, stderr));</div>
 <div class="line"><a name="l00364"></a><span class="lineno">  364</span>&#160;        <span class="keywordflow">return</span> CS_SOCKET_ERROR;</div>
 <div class="line"><a name="l00365"></a><span class="lineno">  365</span>&#160;    }</div>
 <div class="line"><a name="l00366"></a><span class="lineno">  366</span>&#160; </div>
-<div class="line"><a name="l00367"></a><span class="lineno">  367</span>&#160;    <span class="keywordflow">if</span> (listen(s-&gt;<a class="code" href="struct__cs__socket.html#a6af9dd3f6bde3068ad634cc70c59dc9b">_native_handle</a>, max_clients) == CS_SOCKET_ERROR)</div>
+<div class="line"><a name="l00367"></a><span class="lineno">  367</span>&#160;    <span class="keywordflow">if</span> (listen(s-&gt;_native_handle, max_clients) == CS_SOCKET_ERROR)</div>
 <div class="line"><a name="l00368"></a><span class="lineno">  368</span>&#160;    {</div>
 <div class="line"><a name="l00369"></a><span class="lineno">  369</span>&#160;        <a class="code" href="_c_s_socket_8h.html#af7175a265010efbf3a5bff41e0f75135">Debug</a>(fputs(<span class="stringliteral">&quot;CS_Socket: Listening failed.\n&quot;</span>, stderr));</div>
-<div class="line"><a name="l00370"></a><span class="lineno">  370</span>&#160;        CS_CLOSE_SOCKET(s-&gt;<a class="code" href="struct__cs__socket.html#a6af9dd3f6bde3068ad634cc70c59dc9b">_native_handle</a>);</div>
+<div class="line"><a name="l00370"></a><span class="lineno">  370</span>&#160;        CS_CLOSE_SOCKET(s-&gt;_native_handle);</div>
 <div class="line"><a name="l00371"></a><span class="lineno">  371</span>&#160;        <span class="keywordflow">return</span> CS_SOCKET_ERROR;</div>
 <div class="line"><a name="l00372"></a><span class="lineno">  372</span>&#160;    }</div>
 <div class="line"><a name="l00373"></a><span class="lineno">  373</span>&#160;    <span class="keywordflow">return</span> CS_SOCKET_SUCCESS;</div>
@@ -449,72 +449,72 @@ $(function() {
 <div class="line"><a name="l00375"></a><span class="lineno">  375</span>&#160; </div>
 <div class="line"><a name="l00376"></a><span class="lineno">  376</span>&#160;<span class="comment">// Try to connection to an endpoint.</span></div>
 <div class="line"><a name="l00377"></a><span class="lineno">  377</span>&#160;<span class="comment">// TODO: Implement timeout system.</span></div>
-<div class="line"><a name="l00378"></a><span class="lineno"><a class="line" href="_c_s_socket_8h.html#a23a8cae162db8e985292c8fc5f47d517">  378</a></span>&#160;<span class="keyword">inline</span> int32_t <a class="code" href="_c_s_socket_8h.html#a23a8cae162db8e985292c8fc5f47d517">Socket_Connect</a>(<a class="code" href="struct__cs__socket.html">Socket</a>* s, <a class="code" href="struct__cs__ip__endpoint.html">IPEndPoint</a> ep)</div>
+<div class="line"><a name="l00378"></a><span class="lineno">  378</span>&#160;<span class="keyword">inline</span> int32_t Socket_Connect(Socket* s, IPEndPoint ep)</div>
 <div class="line"><a name="l00379"></a><span class="lineno">  379</span>&#160;{</div>
-<div class="line"><a name="l00380"></a><span class="lineno">  380</span>&#160;    <span class="keywordflow">if</span> (!<a class="code" href="_c_s_socket_8h.html#a705c300184955704bc5979436464fb7c">_cs_g_initialized</a>)</div>
+<div class="line"><a name="l00380"></a><span class="lineno">  380</span>&#160;    <span class="keywordflow">if</span> (!_cs_g_initialized)</div>
 <div class="line"><a name="l00381"></a><span class="lineno">  381</span>&#160;    {</div>
 <div class="line"><a name="l00382"></a><span class="lineno">  382</span>&#160;        <a class="code" href="_c_s_socket_8h.html#af7175a265010efbf3a5bff41e0f75135">Debug</a>(fputs(<span class="stringliteral">&quot;CS_Sockets not initialized.\n&quot;</span>, stderr));</div>
 <div class="line"><a name="l00383"></a><span class="lineno">  383</span>&#160;        <span class="keywordflow">return</span> CS_SOCKET_ERROR;</div>
 <div class="line"><a name="l00384"></a><span class="lineno">  384</span>&#160;    }</div>
 <div class="line"><a name="l00385"></a><span class="lineno">  385</span>&#160; </div>
-<div class="line"><a name="l00386"></a><span class="lineno">  386</span>&#160;    s-&gt;<a class="code" href="struct__cs__socket.html#ad3fb2692e6683a63cd99f23e92b974fd">remote_ep</a> = ep;</div>
-<div class="line"><a name="l00387"></a><span class="lineno">  387</span>&#160;    <span class="keyword">const</span> int32_t res  = connect(s-&gt;<a class="code" href="struct__cs__socket.html#a6af9dd3f6bde3068ad634cc70c59dc9b">_native_handle</a>, (<span class="keyword">struct</span> sockaddr*)&amp;s-&gt;<a class="code" href="struct__cs__socket.html#ad3fb2692e6683a63cd99f23e92b974fd">remote_ep</a>.<a class="code" href="struct__cs__ip__endpoint.html#a8d9eaf332b84f928565d51f791192b89">address</a>.<a class="code" href="struct__cs__ip__address.html#aa78ddcef3b1f0cca3f480d7ce861c6a4">ipv4_addr</a>,</div>
-<div class="line"><a name="l00388"></a><span class="lineno">  388</span>&#160;                           <span class="keyword">sizeof</span>(s-&gt;<a class="code" href="struct__cs__socket.html#ad3fb2692e6683a63cd99f23e92b974fd">remote_ep</a>.<a class="code" href="struct__cs__ip__endpoint.html#a8d9eaf332b84f928565d51f791192b89">address</a>.<a class="code" href="struct__cs__ip__address.html#aa78ddcef3b1f0cca3f480d7ce861c6a4">ipv4_addr</a>));</div>
+<div class="line"><a name="l00386"></a><span class="lineno">  386</span>&#160;    s-&gt;remote_ep = ep;</div>
+<div class="line"><a name="l00387"></a><span class="lineno">  387</span>&#160;    <span class="keyword">const</span> int32_t res  = connect(s-&gt;_native_handle, (<span class="keyword">struct</span> sockaddr*)&amp;s-&gt;remote_ep.address.ipv4_addr,</div>
+<div class="line"><a name="l00388"></a><span class="lineno">  388</span>&#160;                           <span class="keyword">sizeof</span>(s-&gt;remote_ep.address.ipv4_addr));</div>
 <div class="line"><a name="l00389"></a><span class="lineno">  389</span>&#160;    <span class="keywordflow">if</span> (res == CS_SOCKET_ERROR)</div>
 <div class="line"><a name="l00390"></a><span class="lineno">  390</span>&#160;    {</div>
 <div class="line"><a name="l00391"></a><span class="lineno">  391</span>&#160;        <a class="code" href="_c_s_socket_8h.html#af7175a265010efbf3a5bff41e0f75135">Debug</a>(fputs(<span class="stringliteral">&quot;CS_Sockets: Connection with the remote failed.\n&quot;</span>, stderr));</div>
 <div class="line"><a name="l00392"></a><span class="lineno">  392</span>&#160;        <a class="code" href="_c_s_socket_8h.html#af7175a265010efbf3a5bff41e0f75135">Debug</a>(perror(<span class="stringliteral">&quot;native error&quot;</span>));</div>
 <div class="line"><a name="l00393"></a><span class="lineno">  393</span>&#160;        <span class="keywordflow">return</span> CS_SOCKET_ERROR;</div>
 <div class="line"><a name="l00394"></a><span class="lineno">  394</span>&#160;    }</div>
-<div class="line"><a name="l00395"></a><span class="lineno">  395</span>&#160;    s-&gt;<a class="code" href="struct__cs__socket.html#a934162ac9f83250797c6b0bb098f450c">connected</a> = <span class="keyword">true</span>;</div>
+<div class="line"><a name="l00395"></a><span class="lineno">  395</span>&#160;    s-&gt;connected = <span class="keyword">true</span>;</div>
 <div class="line"><a name="l00396"></a><span class="lineno">  396</span>&#160;    <span class="keywordflow">return</span> CS_SOCKET_SUCCESS;</div>
 <div class="line"><a name="l00397"></a><span class="lineno">  397</span>&#160;}</div>
 <div class="line"><a name="l00398"></a><span class="lineno">  398</span>&#160; </div>
 <div class="line"><a name="l00399"></a><span class="lineno">  399</span>&#160;<span class="comment">// Accept a incoming connection and construct a new Socket object representing the newly connected client.</span></div>
-<div class="line"><a name="l00400"></a><span class="lineno"><a class="line" href="_c_s_socket_8h.html#a9f174cc864995a4e298227459cd9fbdc">  400</a></span>&#160;<span class="keyword">inline</span> <a class="code" href="struct__cs__socket.html">Socket</a>* <a class="code" href="_c_s_socket_8h.html#a9f174cc864995a4e298227459cd9fbdc">Socket_Accept</a>(<a class="code" href="struct__cs__socket.html">Socket</a>* s)</div>
+<div class="line"><a name="l00400"></a><span class="lineno">  400</span>&#160;<span class="keyword">inline</span> Socket* Socket_Accept(Socket* s)</div>
 <div class="line"><a name="l00401"></a><span class="lineno">  401</span>&#160;{</div>
-<div class="line"><a name="l00402"></a><span class="lineno">  402</span>&#160;    <span class="keywordflow">if</span> (!<a class="code" href="_c_s_socket_8h.html#a705c300184955704bc5979436464fb7c">_cs_g_initialized</a>)</div>
+<div class="line"><a name="l00402"></a><span class="lineno">  402</span>&#160;    <span class="keywordflow">if</span> (!_cs_g_initialized)</div>
 <div class="line"><a name="l00403"></a><span class="lineno">  403</span>&#160;    {</div>
 <div class="line"><a name="l00404"></a><span class="lineno">  404</span>&#160;        <a class="code" href="_c_s_socket_8h.html#af7175a265010efbf3a5bff41e0f75135">Debug</a>(fputs(<span class="stringliteral">&quot;CS_Sockets not initialized.\n&quot;</span>, stderr));</div>
 <div class="line"><a name="l00405"></a><span class="lineno">  405</span>&#160;        <span class="keywordflow">return</span> NULL;</div>
 <div class="line"><a name="l00406"></a><span class="lineno">  406</span>&#160;    }</div>
 <div class="line"><a name="l00407"></a><span class="lineno">  407</span>&#160; </div>
-<div class="line"><a name="l00408"></a><span class="lineno">  408</span>&#160;    <a class="code" href="struct__cs__socket.html">Socket</a>* client = (<a class="code" href="struct__cs__socket.html">Socket</a>*)malloc(<span class="keyword">sizeof</span>(<a class="code" href="struct__cs__socket.html">Socket</a>));</div>
-<div class="line"><a name="l00409"></a><span class="lineno">  409</span>&#160;    memcpy(client, s, <span class="keyword">sizeof</span>(<a class="code" href="struct__cs__socket.html">Socket</a>));</div>
+<div class="line"><a name="l00408"></a><span class="lineno">  408</span>&#160;    Socket* client = (Socket*)malloc(<span class="keyword">sizeof</span>(Socket));</div>
+<div class="line"><a name="l00409"></a><span class="lineno">  409</span>&#160;    memcpy(client, s, <span class="keyword">sizeof</span>(Socket));</div>
 <div class="line"><a name="l00410"></a><span class="lineno">  410</span>&#160; </div>
-<div class="line"><a name="l00411"></a><span class="lineno">  411</span>&#160;    socklen_t addr_len = <span class="keyword">sizeof</span>(client-&gt;<a class="code" href="struct__cs__socket.html#ad3fb2692e6683a63cd99f23e92b974fd">remote_ep</a>.<a class="code" href="struct__cs__ip__endpoint.html#a8d9eaf332b84f928565d51f791192b89">address</a>.<a class="code" href="struct__cs__ip__address.html#aa78ddcef3b1f0cca3f480d7ce861c6a4">ipv4_addr</a>);</div>
-<div class="line"><a name="l00412"></a><span class="lineno">  412</span>&#160;    client-&gt;<a class="code" href="struct__cs__socket.html#a6af9dd3f6bde3068ad634cc70c59dc9b">_native_handle</a> =</div>
-<div class="line"><a name="l00413"></a><span class="lineno">  413</span>&#160;        accept(s-&gt;<a class="code" href="struct__cs__socket.html#a6af9dd3f6bde3068ad634cc70c59dc9b">_native_handle</a>, (<span class="keyword">struct</span> sockaddr*)&amp;client-&gt;<a class="code" href="struct__cs__socket.html#ad3fb2692e6683a63cd99f23e92b974fd">remote_ep</a>.<a class="code" href="struct__cs__ip__endpoint.html#a8d9eaf332b84f928565d51f791192b89">address</a>.<a class="code" href="struct__cs__ip__address.html#aa78ddcef3b1f0cca3f480d7ce861c6a4">ipv4_addr</a>, &amp;addr_len);</div>
+<div class="line"><a name="l00411"></a><span class="lineno">  411</span>&#160;    socklen_t addr_len = <span class="keyword">sizeof</span>(client-&gt;remote_ep.address.ipv4_addr);</div>
+<div class="line"><a name="l00412"></a><span class="lineno">  412</span>&#160;    client-&gt;_native_handle =</div>
+<div class="line"><a name="l00413"></a><span class="lineno">  413</span>&#160;        accept(s-&gt;_native_handle, (<span class="keyword">struct</span> sockaddr*)&amp;client-&gt;remote_ep.address.ipv4_addr, &amp;addr_len);</div>
 <div class="line"><a name="l00414"></a><span class="lineno">  414</span>&#160; </div>
-<div class="line"><a name="l00415"></a><span class="lineno">  415</span>&#160;    <span class="keywordflow">if</span> (client-&gt;<a class="code" href="struct__cs__socket.html#a6af9dd3f6bde3068ad634cc70c59dc9b">_native_handle</a> == CS_INVALID_SOCKET)</div>
+<div class="line"><a name="l00415"></a><span class="lineno">  415</span>&#160;    <span class="keywordflow">if</span> (client-&gt;_native_handle == CS_INVALID_SOCKET)</div>
 <div class="line"><a name="l00416"></a><span class="lineno">  416</span>&#160;    {</div>
 <div class="line"><a name="l00417"></a><span class="lineno">  417</span>&#160;        free(client);</div>
 <div class="line"><a name="l00418"></a><span class="lineno">  418</span>&#160;        <span class="keywordflow">return</span> NULL;</div>
 <div class="line"><a name="l00419"></a><span class="lineno">  419</span>&#160;    }</div>
 <div class="line"><a name="l00420"></a><span class="lineno">  420</span>&#160; </div>
 <div class="line"><a name="l00421"></a><span class="lineno">  421</span>&#160;    <span class="comment">// Resolve the client endpoint.</span></div>
-<div class="line"><a name="l00422"></a><span class="lineno">  422</span>&#160;    client-&gt;<a class="code" href="struct__cs__socket.html#a934162ac9f83250797c6b0bb098f450c">connected</a>               = <span class="keyword">true</span>;</div>
-<div class="line"><a name="l00423"></a><span class="lineno">  423</span>&#160;    client-&gt;<a class="code" href="struct__cs__socket.html#ad3fb2692e6683a63cd99f23e92b974fd">remote_ep</a>.<a class="code" href="struct__cs__ip__endpoint.html#ac3a8559229c6e601c792fce104e7f2b7">addressFamily</a> = (<a class="code" href="_c_s_socket_8h.html#a54545405bf29373630a51184d32e426b">AddressFamily</a>)client-&gt;<a class="code" href="struct__cs__socket.html#ad3fb2692e6683a63cd99f23e92b974fd">remote_ep</a>.<a class="code" href="struct__cs__ip__endpoint.html#a8d9eaf332b84f928565d51f791192b89">address</a>.<a class="code" href="struct__cs__ip__address.html#aa78ddcef3b1f0cca3f480d7ce861c6a4">ipv4_addr</a>.sin_family;</div>
-<div class="line"><a name="l00424"></a><span class="lineno">  424</span>&#160;    client-&gt;<a class="code" href="struct__cs__socket.html#ad3fb2692e6683a63cd99f23e92b974fd">remote_ep</a>.<a class="code" href="struct__cs__ip__endpoint.html#ac924b2200ef2255fd6ffb841d47134e1">port</a>          = client-&gt;<a class="code" href="struct__cs__socket.html#ad3fb2692e6683a63cd99f23e92b974fd">remote_ep</a>.<a class="code" href="struct__cs__ip__endpoint.html#a8d9eaf332b84f928565d51f791192b89">address</a>.<a class="code" href="struct__cs__ip__address.html#aa78ddcef3b1f0cca3f480d7ce861c6a4">ipv4_addr</a>.sin_port;</div>
-<div class="line"><a name="l00425"></a><span class="lineno">  425</span>&#160;    strcpy(client-&gt;<a class="code" href="struct__cs__socket.html#ad3fb2692e6683a63cd99f23e92b974fd">remote_ep</a>.<a class="code" href="struct__cs__ip__endpoint.html#a8d9eaf332b84f928565d51f791192b89">address</a>.<a class="code" href="struct__cs__ip__address.html#aafcb68e4425f83039de271ee3b83a8c7">str</a>, inet_ntoa(client-&gt;<a class="code" href="struct__cs__socket.html#ad3fb2692e6683a63cd99f23e92b974fd">remote_ep</a>.<a class="code" href="struct__cs__ip__endpoint.html#a8d9eaf332b84f928565d51f791192b89">address</a>.<a class="code" href="struct__cs__ip__address.html#aa78ddcef3b1f0cca3f480d7ce861c6a4">ipv4_addr</a>.sin_addr));</div>
+<div class="line"><a name="l00422"></a><span class="lineno">  422</span>&#160;    client-&gt;connected               = <span class="keyword">true</span>;</div>
+<div class="line"><a name="l00423"></a><span class="lineno">  423</span>&#160;    client-&gt;remote_ep.addressFamily = (AddressFamily)client-&gt;remote_ep.address.ipv4_addr.sin_family;</div>
+<div class="line"><a name="l00424"></a><span class="lineno">  424</span>&#160;    client-&gt;remote_ep.port          = client-&gt;remote_ep.address.ipv4_addr.sin_port;</div>
+<div class="line"><a name="l00425"></a><span class="lineno">  425</span>&#160;    strcpy(client-&gt;remote_ep.address.str, inet_ntoa(client-&gt;remote_ep.address.ipv4_addr.sin_addr));</div>
 <div class="line"><a name="l00426"></a><span class="lineno">  426</span>&#160;    <span class="keywordflow">return</span> client;</div>
 <div class="line"><a name="l00427"></a><span class="lineno">  427</span>&#160;}</div>
 <div class="line"><a name="l00428"></a><span class="lineno">  428</span>&#160; </div>
 <div class="line"><a name="l00429"></a><span class="lineno">  429</span>&#160;<span class="comment">// Try and receive data from the Socket, shut the socket down if receive fails indicating that the client has</span></div>
 <div class="line"><a name="l00430"></a><span class="lineno">  430</span>&#160;<span class="comment">// disconnected. If successful, return the amount of bytes received.</span></div>
-<div class="line"><a name="l00431"></a><span class="lineno"><a class="line" href="_c_s_socket_8h.html#ad25ae740142e1206702c1fdec7411710">  431</a></span>&#160;<span class="keyword">inline</span> int32_t <a class="code" href="_c_s_socket_8h.html#ad25ae740142e1206702c1fdec7411710">Socket_Receive</a>(<a class="code" href="struct__cs__socket.html">Socket</a>* s, uint8_t* buffer, <span class="keyword">const</span> <span class="keywordtype">size_t</span> buffer_size, <span class="keyword">const</span> int32_t flags)</div>
+<div class="line"><a name="l00431"></a><span class="lineno">  431</span>&#160;<span class="keyword">inline</span> int32_t Socket_Receive(Socket* s, uint8_t* buffer, <span class="keyword">const</span> size_t buffer_size, <span class="keyword">const</span> int32_t flags)</div>
 <div class="line"><a name="l00432"></a><span class="lineno">  432</span>&#160;{</div>
-<div class="line"><a name="l00433"></a><span class="lineno">  433</span>&#160;    <span class="keywordflow">if</span> (!<a class="code" href="_c_s_socket_8h.html#a705c300184955704bc5979436464fb7c">_cs_g_initialized</a>)</div>
+<div class="line"><a name="l00433"></a><span class="lineno">  433</span>&#160;    <span class="keywordflow">if</span> (!_cs_g_initialized)</div>
 <div class="line"><a name="l00434"></a><span class="lineno">  434</span>&#160;    {</div>
 <div class="line"><a name="l00435"></a><span class="lineno">  435</span>&#160;        <a class="code" href="_c_s_socket_8h.html#af7175a265010efbf3a5bff41e0f75135">Debug</a>(fputs(<span class="stringliteral">&quot;CS_Sockets not initialized.\n&quot;</span>, stderr));</div>
 <div class="line"><a name="l00436"></a><span class="lineno">  436</span>&#160;        <span class="keywordflow">return</span> CS_SOCKET_ERROR;</div>
 <div class="line"><a name="l00437"></a><span class="lineno">  437</span>&#160;    }</div>
 <div class="line"><a name="l00438"></a><span class="lineno">  438</span>&#160; </div>
-<div class="line"><a name="l00439"></a><span class="lineno">  439</span>&#160;    <span class="keyword">const</span> int32_t received_bytes = recv(s-&gt;<a class="code" href="struct__cs__socket.html#a6af9dd3f6bde3068ad634cc70c59dc9b">_native_handle</a>, buffer, buffer_size, flags);</div>
+<div class="line"><a name="l00439"></a><span class="lineno">  439</span>&#160;    <span class="keyword">const</span> int32_t received_bytes = recv(s-&gt;_native_handle, buffer, buffer_size, flags);</div>
 <div class="line"><a name="l00440"></a><span class="lineno">  440</span>&#160;    <span class="keywordflow">if</span> (received_bytes == 0 || received_bytes == CS_SOCKET_ERROR)</div>
 <div class="line"><a name="l00441"></a><span class="lineno">  441</span>&#160;    {</div>
-<div class="line"><a name="l00442"></a><span class="lineno">  442</span>&#160;        s-&gt;<a class="code" href="struct__cs__socket.html#a934162ac9f83250797c6b0bb098f450c">connected</a> = <span class="keyword">false</span>;</div>
-<div class="line"><a name="l00443"></a><span class="lineno">  443</span>&#160;        CS_CLOSE_SOCKET(s-&gt;<a class="code" href="struct__cs__socket.html#a6af9dd3f6bde3068ad634cc70c59dc9b">_native_handle</a>);</div>
+<div class="line"><a name="l00442"></a><span class="lineno">  442</span>&#160;        s-&gt;connected = <span class="keyword">false</span>;</div>
+<div class="line"><a name="l00443"></a><span class="lineno">  443</span>&#160;        CS_CLOSE_SOCKET(s-&gt;_native_handle);</div>
 <div class="line"><a name="l00444"></a><span class="lineno">  444</span>&#160;        <span class="keywordflow">return</span> CS_SOCKET_ERROR;</div>
 <div class="line"><a name="l00445"></a><span class="lineno">  445</span>&#160;    }</div>
 <div class="line"><a name="l00446"></a><span class="lineno">  446</span>&#160;    <span class="keywordflow">return</span> received_bytes;</div>
@@ -522,85 +522,28 @@ $(function() {
 <div class="line"><a name="l00448"></a><span class="lineno">  448</span>&#160; </div>
 <div class="line"><a name="l00449"></a><span class="lineno">  449</span>&#160;<span class="comment">// Try and send data from the Socket, shut the socket down if receive fails indicating that the client has disconnected.</span></div>
 <div class="line"><a name="l00450"></a><span class="lineno">  450</span>&#160;<span class="comment">// If successful, return the amount of bytes sent.</span></div>
-<div class="line"><a name="l00451"></a><span class="lineno"><a class="line" href="_c_s_socket_8h.html#a51136fde305e77ce91ccc0bb1ec6126b">  451</a></span>&#160;<span class="keyword">inline</span> int32_t <a class="code" href="_c_s_socket_8h.html#a51136fde305e77ce91ccc0bb1ec6126b">Socket_Send</a>(<a class="code" href="struct__cs__socket.html">Socket</a>* s, <span class="keyword">const</span> uint8_t* buffer, <span class="keyword">const</span> <span class="keywordtype">size_t</span> buffer_size, <span class="keyword">const</span> int32_t flags)</div>
+<div class="line"><a name="l00451"></a><span class="lineno">  451</span>&#160;<span class="keyword">inline</span> int32_t Socket_Send(Socket* s, <span class="keyword">const</span> uint8_t* buffer, <span class="keyword">const</span> size_t buffer_size, <span class="keyword">const</span> int32_t flags)</div>
 <div class="line"><a name="l00452"></a><span class="lineno">  452</span>&#160;{</div>
-<div class="line"><a name="l00453"></a><span class="lineno">  453</span>&#160;    <span class="keywordflow">if</span> (!<a class="code" href="_c_s_socket_8h.html#a705c300184955704bc5979436464fb7c">_cs_g_initialized</a>)</div>
+<div class="line"><a name="l00453"></a><span class="lineno">  453</span>&#160;    <span class="keywordflow">if</span> (!_cs_g_initialized)</div>
 <div class="line"><a name="l00454"></a><span class="lineno">  454</span>&#160;    {</div>
 <div class="line"><a name="l00455"></a><span class="lineno">  455</span>&#160;        <a class="code" href="_c_s_socket_8h.html#af7175a265010efbf3a5bff41e0f75135">Debug</a>(fputs(<span class="stringliteral">&quot;CS_Sockets not initialized.\n&quot;</span>, stderr));</div>
 <div class="line"><a name="l00456"></a><span class="lineno">  456</span>&#160;        <span class="keywordflow">return</span> CS_SOCKET_ERROR;</div>
 <div class="line"><a name="l00457"></a><span class="lineno">  457</span>&#160;    }</div>
 <div class="line"><a name="l00458"></a><span class="lineno">  458</span>&#160; </div>
-<div class="line"><a name="l00459"></a><span class="lineno">  459</span>&#160;    <span class="keyword">const</span> int32_t sent_bytes = send(s-&gt;<a class="code" href="struct__cs__socket.html#a6af9dd3f6bde3068ad634cc70c59dc9b">_native_handle</a>, buffer, buffer_size, flags);</div>
+<div class="line"><a name="l00459"></a><span class="lineno">  459</span>&#160;    <span class="keyword">const</span> int32_t sent_bytes = send(s-&gt;_native_handle, buffer, buffer_size, flags);</div>
 <div class="line"><a name="l00460"></a><span class="lineno">  460</span>&#160;    <span class="keywordflow">if</span> (sent_bytes == CS_SOCKET_ERROR)</div>
 <div class="line"><a name="l00461"></a><span class="lineno">  461</span>&#160;    {</div>
-<div class="line"><a name="l00462"></a><span class="lineno">  462</span>&#160;        s-&gt;<a class="code" href="struct__cs__socket.html#a934162ac9f83250797c6b0bb098f450c">connected</a> = <span class="keyword">false</span>;</div>
-<div class="line"><a name="l00463"></a><span class="lineno">  463</span>&#160;        CS_CLOSE_SOCKET(s-&gt;<a class="code" href="struct__cs__socket.html#a6af9dd3f6bde3068ad634cc70c59dc9b">_native_handle</a>);</div>
+<div class="line"><a name="l00462"></a><span class="lineno">  462</span>&#160;        s-&gt;connected = <span class="keyword">false</span>;</div>
+<div class="line"><a name="l00463"></a><span class="lineno">  463</span>&#160;        CS_CLOSE_SOCKET(s-&gt;_native_handle);</div>
 <div class="line"><a name="l00464"></a><span class="lineno">  464</span>&#160;    }</div>
 <div class="line"><a name="l00465"></a><span class="lineno">  465</span>&#160;    <span class="keywordflow">return</span> sent_bytes;</div>
 <div class="line"><a name="l00466"></a><span class="lineno">  466</span>&#160;}</div>
 <div class="line"><a name="l00467"></a><span class="lineno">  467</span>&#160; </div>
-<div class="line"><a name="l00468"></a><span class="lineno">  468</span>&#160;<span class="preprocessor">#ifdef __cplusplus</span></div>
+<div class="line"><a name="l00468"></a><span class="lineno">  468</span>&#160;<span class="preprocessor">#</span><span class="preprocessor">ifdef</span> __cplusplus</div>
 <div class="line"><a name="l00469"></a><span class="lineno">  469</span>&#160;} <span class="comment">// namespace csnet</span></div>
-<div class="line"><a name="l00470"></a><span class="lineno">  470</span>&#160;<span class="preprocessor">#endif</span></div>
+<div class="line"><a name="l00470"></a><span class="lineno">  470</span>&#160;<span class="preprocessor">#</span><span class="preprocessor">endif</span></div>
 <div class="line"><a name="l00471"></a><span class="lineno">  471</span>&#160; </div>
-<div class="line"><a name="l00472"></a><span class="lineno">  472</span>&#160;<span class="preprocessor">#endif </span><span class="comment">// CROSSPLATFORM_SOCKETS_H</span></div>
-<div class="ttc" id="a_c_s_socket_8h_html_a01a06d19b2c95f96db855a3603bd9a63"><div class="ttname"><a href="_c_s_socket_8h.html#a01a06d19b2c95f96db855a3603bd9a63">IPAddress</a></div><div class="ttdeci">struct _cs_ip_address IPAddress</div></div>
-<div class="ttc" id="a_c_s_socket_8h_html_a09655043ea7059cbbbd44a50fbdd5be4"><div class="ttname"><a href="_c_s_socket_8h.html#a09655043ea7059cbbbd44a50fbdd5be4">_cs_ip_address_type</a></div><div class="ttdeci">_cs_ip_address_type</div><div class="ttdef"><b>Definition:</b> <a href="_c_s_socket_8h_source.html#l00106">CSSocket.h:107</a></div></div>
-<div class="ttc" id="a_c_s_socket_8h_html_a09655043ea7059cbbbd44a50fbdd5be4a1a76a800e9118fe631ba64f56b59ce76"><div class="ttname"><a href="_c_s_socket_8h.html#a09655043ea7059cbbbd44a50fbdd5be4a1a76a800e9118fe631ba64f56b59ce76">IPAddressType_None</a></div><div class="ttdeci">@ IPAddressType_None</div><div class="ttdef"><b>Definition:</b> <a href="_c_s_socket_8h_source.html#l00110">CSSocket.h:110</a></div></div>
-<div class="ttc" id="a_c_s_socket_8h_html_a09655043ea7059cbbbd44a50fbdd5be4a41041262cfe57a20994fd20f54c45f6e"><div class="ttname"><a href="_c_s_socket_8h.html#a09655043ea7059cbbbd44a50fbdd5be4a41041262cfe57a20994fd20f54c45f6e">IPAddressType_IPv4LPStr</a></div><div class="ttdeci">@ IPAddressType_IPv4LPStr</div><div class="ttdef"><b>Definition:</b> <a href="_c_s_socket_8h_source.html#l00111">CSSocket.h:111</a></div></div>
-<div class="ttc" id="a_c_s_socket_8h_html_a09655043ea7059cbbbd44a50fbdd5be4a812673c465170c57896a1a8adc85de89"><div class="ttname"><a href="_c_s_socket_8h.html#a09655043ea7059cbbbd44a50fbdd5be4a812673c465170c57896a1a8adc85de89">IPAddressType_Any</a></div><div class="ttdeci">@ IPAddressType_Any</div><div class="ttdef"><b>Definition:</b> <a href="_c_s_socket_8h_source.html#l00108">CSSocket.h:108</a></div></div>
-<div class="ttc" id="a_c_s_socket_8h_html_a09655043ea7059cbbbd44a50fbdd5be4a836e81cd2f2de0fb7b5ac409d8675e3c"><div class="ttname"><a href="_c_s_socket_8h.html#a09655043ea7059cbbbd44a50fbdd5be4a836e81cd2f2de0fb7b5ac409d8675e3c">IPAddressType_Broadcast</a></div><div class="ttdeci">@ IPAddressType_Broadcast</div><div class="ttdef"><b>Definition:</b> <a href="_c_s_socket_8h_source.html#l00109">CSSocket.h:109</a></div></div>
-<div class="ttc" id="a_c_s_socket_8h_html_a0c28c156c4b896f91b6f79c323c2b966"><div class="ttname"><a href="_c_s_socket_8h.html#a0c28c156c4b896f91b6f79c323c2b966">CSSocket_Init</a></div><div class="ttdeci">int32_t CSSocket_Init()</div><div class="ttdef"><b>Definition:</b> <a href="_c_s_socket_8h_source.html#l00183">CSSocket.h:183</a></div></div>
-<div class="ttc" id="a_c_s_socket_8h_html_a22e190ead89a54e8e8cb956f550cd80e"><div class="ttname"><a href="_c_s_socket_8h.html#a22e190ead89a54e8e8cb956f550cd80e">IPAddress_Parse</a></div><div class="ttdeci">IPAddress IPAddress_Parse(const char *addrv4_str)</div><div class="ttdef"><b>Definition:</b> <a href="_c_s_socket_8h_source.html#l00133">CSSocket.h:133</a></div></div>
-<div class="ttc" id="a_c_s_socket_8h_html_a23a8cae162db8e985292c8fc5f47d517"><div class="ttname"><a href="_c_s_socket_8h.html#a23a8cae162db8e985292c8fc5f47d517">Socket_Connect</a></div><div class="ttdeci">int32_t Socket_Connect(Socket *s, IPEndPoint ep)</div><div class="ttdef"><b>Definition:</b> <a href="_c_s_socket_8h_source.html#l00378">CSSocket.h:378</a></div></div>
-<div class="ttc" id="a_c_s_socket_8h_html_a30cb691850c602045c5927ffbbca60e8"><div class="ttname"><a href="_c_s_socket_8h.html#a30cb691850c602045c5927ffbbca60e8">SocketType</a></div><div class="ttdeci">enum _cs_socket_type SocketType</div></div>
-<div class="ttc" id="a_c_s_socket_8h_html_a40887767ee504cf6a7eb075db44f0397"><div class="ttname"><a href="_c_s_socket_8h.html#a40887767ee504cf6a7eb075db44f0397">IPAddressType</a></div><div class="ttdeci">enum _cs_ip_address_type IPAddressType</div></div>
-<div class="ttc" id="a_c_s_socket_8h_html_a4e3e16fcdd0e2e477cf53e8baa51fc2c"><div class="ttname"><a href="_c_s_socket_8h.html#a4e3e16fcdd0e2e477cf53e8baa51fc2c">_cs_socket_type</a></div><div class="ttdeci">_cs_socket_type</div><div class="ttdef"><b>Definition:</b> <a href="_c_s_socket_8h_source.html#l00091">CSSocket.h:92</a></div></div>
-<div class="ttc" id="a_c_s_socket_8h_html_a4e3e16fcdd0e2e477cf53e8baa51fc2ca4f9b2fec14dc10d0ef8f256985f346ff"><div class="ttname"><a href="_c_s_socket_8h.html#a4e3e16fcdd0e2e477cf53e8baa51fc2ca4f9b2fec14dc10d0ef8f256985f346ff">SocketType_Dgram</a></div><div class="ttdeci">@ SocketType_Dgram</div><div class="ttdef"><b>Definition:</b> <a href="_c_s_socket_8h_source.html#l00094">CSSocket.h:94</a></div></div>
-<div class="ttc" id="a_c_s_socket_8h_html_a4e3e16fcdd0e2e477cf53e8baa51fc2ca597f2d39cab41ea345ecce43c2bcfba0"><div class="ttname"><a href="_c_s_socket_8h.html#a4e3e16fcdd0e2e477cf53e8baa51fc2ca597f2d39cab41ea345ecce43c2bcfba0">SocketType_Stream</a></div><div class="ttdeci">@ SocketType_Stream</div><div class="ttdef"><b>Definition:</b> <a href="_c_s_socket_8h_source.html#l00093">CSSocket.h:93</a></div></div>
-<div class="ttc" id="a_c_s_socket_8h_html_a4e3e16fcdd0e2e477cf53e8baa51fc2cae01a73b232e60e74db435c6bafc0d8f4"><div class="ttname"><a href="_c_s_socket_8h.html#a4e3e16fcdd0e2e477cf53e8baa51fc2cae01a73b232e60e74db435c6bafc0d8f4">SocketType_Raw</a></div><div class="ttdeci">@ SocketType_Raw</div><div class="ttdef"><b>Definition:</b> <a href="_c_s_socket_8h_source.html#l00096">CSSocket.h:95</a></div></div>
-<div class="ttc" id="a_c_s_socket_8h_html_a51136fde305e77ce91ccc0bb1ec6126b"><div class="ttname"><a href="_c_s_socket_8h.html#a51136fde305e77ce91ccc0bb1ec6126b">Socket_Send</a></div><div class="ttdeci">int32_t Socket_Send(Socket *s, const uint8_t *buffer, const size_t buffer_size, const int32_t flags)</div><div class="ttdef"><b>Definition:</b> <a href="_c_s_socket_8h_source.html#l00451">CSSocket.h:451</a></div></div>
-<div class="ttc" id="a_c_s_socket_8h_html_a54545405bf29373630a51184d32e426b"><div class="ttname"><a href="_c_s_socket_8h.html#a54545405bf29373630a51184d32e426b">AddressFamily</a></div><div class="ttdeci">enum _cs_address_family AddressFamily</div></div>
-<div class="ttc" id="a_c_s_socket_8h_html_a5cd78e96074e475f44e04d8ee207bd2e"><div class="ttname"><a href="_c_s_socket_8h.html#a5cd78e96074e475f44e04d8ee207bd2e">ProtocolType</a></div><div class="ttdeci">enum _cs_protocol_type ProtocolType</div></div>
-<div class="ttc" id="a_c_s_socket_8h_html_a6cf5f12c7215445bb6d42ea859108d72"><div class="ttname"><a href="_c_s_socket_8h.html#a6cf5f12c7215445bb6d42ea859108d72">Socket_Listen</a></div><div class="ttdeci">int32_t Socket_Listen(Socket *s, const size_t max_clients)</div><div class="ttdef"><b>Definition:</b> <a href="_c_s_socket_8h_source.html#l00359">CSSocket.h:359</a></div></div>
-<div class="ttc" id="a_c_s_socket_8h_html_a6d23d3fcddcc623dba59e513656fc6d5"><div class="ttname"><a href="_c_s_socket_8h.html#a6d23d3fcddcc623dba59e513656fc6d5">Socket_New</a></div><div class="ttdeci">Socket * Socket_New(const AddressFamily family, const SocketType stype, const ProtocolType ptype)</div><div class="ttdef"><b>Definition:</b> <a href="_c_s_socket_8h_source.html#l00224">CSSocket.h:224</a></div></div>
-<div class="ttc" id="a_c_s_socket_8h_html_a705c300184955704bc5979436464fb7c"><div class="ttname"><a href="_c_s_socket_8h.html#a705c300184955704bc5979436464fb7c">_cs_g_initialized</a></div><div class="ttdeci">volatile uint8_t _cs_g_initialized</div></div>
-<div class="ttc" id="a_c_s_socket_8h_html_a78b548d31f2434454ee2ceaeefcc9264"><div class="ttname"><a href="_c_s_socket_8h.html#a78b548d31f2434454ee2ceaeefcc9264">Socket_Dispose</a></div><div class="ttdeci">void Socket_Dispose(Socket *s)</div><div class="ttdef"><b>Definition:</b> <a href="_c_s_socket_8h_source.html#l00279">CSSocket.h:279</a></div></div>
-<div class="ttc" id="a_c_s_socket_8h_html_a8afce96e6a388186d62e88c9fa7078e4"><div class="ttname"><a href="_c_s_socket_8h.html#a8afce96e6a388186d62e88c9fa7078e4">Socket_From</a></div><div class="ttdeci">int32_t Socket_From(Socket *s, const AddressFamily family, const SocketType stype, const ProtocolType ptype)</div><div class="ttdef"><b>Definition:</b> <a href="_c_s_socket_8h_source.html#l00252">CSSocket.h:252</a></div></div>
-<div class="ttc" id="a_c_s_socket_8h_html_a9b54c8d01c2031ec04123c4fd7ed9799"><div class="ttname"><a href="_c_s_socket_8h.html#a9b54c8d01c2031ec04123c4fd7ed9799">Socket_Bind</a></div><div class="ttdeci">int32_t Socket_Bind(Socket *s, IPEndPoint ep)</div><div class="ttdef"><b>Definition:</b> <a href="_c_s_socket_8h_source.html#l00320">CSSocket.h:320</a></div></div>
-<div class="ttc" id="a_c_s_socket_8h_html_a9f174cc864995a4e298227459cd9fbdc"><div class="ttname"><a href="_c_s_socket_8h.html#a9f174cc864995a4e298227459cd9fbdc">Socket_Accept</a></div><div class="ttdeci">Socket * Socket_Accept(Socket *s)</div><div class="ttdef"><b>Definition:</b> <a href="_c_s_socket_8h_source.html#l00400">CSSocket.h:400</a></div></div>
-<div class="ttc" id="a_c_s_socket_8h_html_aa53d2f27518f17bfbf93721f08b6f14f"><div class="ttname"><a href="_c_s_socket_8h.html#aa53d2f27518f17bfbf93721f08b6f14f">_cs_address_family</a></div><div class="ttdeci">_cs_address_family</div><div class="ttdef"><b>Definition:</b> <a href="_c_s_socket_8h_source.html#l00085">CSSocket.h:86</a></div></div>
-<div class="ttc" id="a_c_s_socket_8h_html_aa53d2f27518f17bfbf93721f08b6f14fa992232c6dc0edd8354f554a5277a5d8b"><div class="ttname"><a href="_c_s_socket_8h.html#aa53d2f27518f17bfbf93721f08b6f14fa992232c6dc0edd8354f554a5277a5d8b">AddressFamily_InterNetwork</a></div><div class="ttdeci">@ AddressFamily_InterNetwork</div><div class="ttdef"><b>Definition:</b> <a href="_c_s_socket_8h_source.html#l00088">CSSocket.h:87</a></div></div>
-<div class="ttc" id="a_c_s_socket_8h_html_aa8056f23c18bc43be2282b6d3a2c8122"><div class="ttname"><a href="_c_s_socket_8h.html#aa8056f23c18bc43be2282b6d3a2c8122">Socket_Close</a></div><div class="ttdeci">int32_t Socket_Close(Socket *s)</div><div class="ttdef"><b>Definition:</b> <a href="_c_s_socket_8h_source.html#l00305">CSSocket.h:305</a></div></div>
-<div class="ttc" id="a_c_s_socket_8h_html_aba77d2d9056a85a64187f90261e13a8c"><div class="ttname"><a href="_c_s_socket_8h.html#aba77d2d9056a85a64187f90261e13a8c">IPEndPoint_New</a></div><div class="ttdeci">IPEndPoint IPEndPoint_New(const IPAddress address, const AddressFamily family, const uint16_t port)</div><div class="ttdef"><b>Definition:</b> <a href="_c_s_socket_8h_source.html#l00212">CSSocket.h:212</a></div></div>
-<div class="ttc" id="a_c_s_socket_8h_html_ac7ed21ef4c6518326e2c3cea05f505e8"><div class="ttname"><a href="_c_s_socket_8h.html#ac7ed21ef4c6518326e2c3cea05f505e8">CSSocket_Dispose</a></div><div class="ttdeci">int32_t CSSocket_Dispose()</div><div class="ttdef"><b>Definition:</b> <a href="_c_s_socket_8h_source.html#l00201">CSSocket.h:201</a></div></div>
-<div class="ttc" id="a_c_s_socket_8h_html_ad0d31f716b77725cf547078ce5bef2cc"><div class="ttname"><a href="_c_s_socket_8h.html#ad0d31f716b77725cf547078ce5bef2cc">Socket</a></div><div class="ttdeci">struct _cs_socket Socket</div></div>
-<div class="ttc" id="a_c_s_socket_8h_html_ad25ae740142e1206702c1fdec7411710"><div class="ttname"><a href="_c_s_socket_8h.html#ad25ae740142e1206702c1fdec7411710">Socket_Receive</a></div><div class="ttdeci">int32_t Socket_Receive(Socket *s, uint8_t *buffer, const size_t buffer_size, const int32_t flags)</div><div class="ttdef"><b>Definition:</b> <a href="_c_s_socket_8h_source.html#l00431">CSSocket.h:431</a></div></div>
-<div class="ttc" id="a_c_s_socket_8h_html_ad420a9f0a9ef5eab39a6f07b730cf26c"><div class="ttname"><a href="_c_s_socket_8h.html#ad420a9f0a9ef5eab39a6f07b730cf26c">CS_IPV4_MAX</a></div><div class="ttdeci">#define CS_IPV4_MAX</div><div class="ttdef"><b>Definition:</b> <a href="_c_s_socket_8h_source.html#l00024">CSSocket.h:24</a></div></div>
-<div class="ttc" id="a_c_s_socket_8h_html_ae1db2b1de1cd853eb2dfc4eaf1afb654"><div class="ttname"><a href="_c_s_socket_8h.html#ae1db2b1de1cd853eb2dfc4eaf1afb654">_cs_protocol_type</a></div><div class="ttdeci">_cs_protocol_type</div><div class="ttdef"><b>Definition:</b> <a href="_c_s_socket_8h_source.html#l00099">CSSocket.h:100</a></div></div>
-<div class="ttc" id="a_c_s_socket_8h_html_ae1db2b1de1cd853eb2dfc4eaf1afb654a77d93cd0e4dc9a26fdae9a45a804335b"><div class="ttname"><a href="_c_s_socket_8h.html#ae1db2b1de1cd853eb2dfc4eaf1afb654a77d93cd0e4dc9a26fdae9a45a804335b">ProtocolType_Udp</a></div><div class="ttdeci">@ ProtocolType_Udp</div><div class="ttdef"><b>Definition:</b> <a href="_c_s_socket_8h_source.html#l00103">CSSocket.h:102</a></div></div>
-<div class="ttc" id="a_c_s_socket_8h_html_ae1db2b1de1cd853eb2dfc4eaf1afb654aa2a8f5ba14baa478e6e87d679e4bac7b"><div class="ttname"><a href="_c_s_socket_8h.html#ae1db2b1de1cd853eb2dfc4eaf1afb654aa2a8f5ba14baa478e6e87d679e4bac7b">ProtocolType_Tcp</a></div><div class="ttdeci">@ ProtocolType_Tcp</div><div class="ttdef"><b>Definition:</b> <a href="_c_s_socket_8h_source.html#l00101">CSSocket.h:101</a></div></div>
-<div class="ttc" id="a_c_s_socket_8h_html_af53b41884e3089e4f91b377b904d6164"><div class="ttname"><a href="_c_s_socket_8h.html#af53b41884e3089e4f91b377b904d6164">Socket_Shutdown</a></div><div class="ttdeci">int32_t Socket_Shutdown(Socket *s, const int32_t how)</div><div class="ttdef"><b>Definition:</b> <a href="_c_s_socket_8h_source.html#l00294">CSSocket.h:294</a></div></div>
-<div class="ttc" id="a_c_s_socket_8h_html_af7175a265010efbf3a5bff41e0f75135"><div class="ttname"><a href="_c_s_socket_8h.html#af7175a265010efbf3a5bff41e0f75135">Debug</a></div><div class="ttdeci">#define Debug(x)</div><div class="ttdef"><b>Definition:</b> <a href="_c_s_socket_8h_source.html#l00017">CSSocket.h:17</a></div></div>
-<div class="ttc" id="a_c_s_socket_8h_html_af815b4b6653fa749ded52878c65b0b17"><div class="ttname"><a href="_c_s_socket_8h.html#af815b4b6653fa749ded52878c65b0b17">IPEndPoint</a></div><div class="ttdeci">struct _cs_ip_endpoint IPEndPoint</div></div>
-<div class="ttc" id="a_c_s_socket_8h_html_afae3523015eb93c57145b6520e4ecff7"><div class="ttname"><a href="_c_s_socket_8h.html#afae3523015eb93c57145b6520e4ecff7">IPAddress_New</a></div><div class="ttdeci">IPAddress IPAddress_New(const IPAddressType type)</div><div class="ttdef"><b>Definition:</b> <a href="_c_s_socket_8h_source.html#l00125">CSSocket.h:125</a></div></div>
-<div class="ttc" id="astruct__cs__ip__address_html"><div class="ttname"><a href="struct__cs__ip__address.html">_cs_ip_address</a></div><div class="ttdef"><b>Definition:</b> <a href="_c_s_socket_8h_source.html#l00117">CSSocket.h:118</a></div></div>
-<div class="ttc" id="astruct__cs__ip__address_html_a371807f43a0aa5b450bcce33970796da"><div class="ttname"><a href="struct__cs__ip__address.html#a371807f43a0aa5b450bcce33970796da">_cs_ip_address::type</a></div><div class="ttdeci">IPAddressType type</div><div class="ttdef"><b>Definition:</b> <a href="_c_s_socket_8h_source.html#l00119">CSSocket.h:119</a></div></div>
-<div class="ttc" id="astruct__cs__ip__address_html_aa78ddcef3b1f0cca3f480d7ce861c6a4"><div class="ttname"><a href="struct__cs__ip__address.html#aa78ddcef3b1f0cca3f480d7ce861c6a4">_cs_ip_address::ipv4_addr</a></div><div class="ttdeci">struct sockaddr_in ipv4_addr</div><div class="ttdef"><b>Definition:</b> <a href="_c_s_socket_8h_source.html#l00119">CSSocket.h:120</a></div></div>
-<div class="ttc" id="astruct__cs__ip__address_html_aafcb68e4425f83039de271ee3b83a8c7"><div class="ttname"><a href="struct__cs__ip__address.html#aafcb68e4425f83039de271ee3b83a8c7">_cs_ip_address::str</a></div><div class="ttdeci">char str[CS_IPV4_MAX]</div><div class="ttdef"><b>Definition:</b> <a href="_c_s_socket_8h_source.html#l00121">CSSocket.h:121</a></div></div>
-<div class="ttc" id="astruct__cs__ip__endpoint_html"><div class="ttname"><a href="struct__cs__ip__endpoint.html">_cs_ip_endpoint</a></div><div class="ttdef"><b>Definition:</b> <a href="_c_s_socket_8h_source.html#l00150">CSSocket.h:151</a></div></div>
-<div class="ttc" id="astruct__cs__ip__endpoint_html_a8d9eaf332b84f928565d51f791192b89"><div class="ttname"><a href="struct__cs__ip__endpoint.html#a8d9eaf332b84f928565d51f791192b89">_cs_ip_endpoint::address</a></div><div class="ttdeci">IPAddress address</div><div class="ttdef"><b>Definition:</b> <a href="_c_s_socket_8h_source.html#l00152">CSSocket.h:152</a></div></div>
-<div class="ttc" id="astruct__cs__ip__endpoint_html_ac3a8559229c6e601c792fce104e7f2b7"><div class="ttname"><a href="struct__cs__ip__endpoint.html#ac3a8559229c6e601c792fce104e7f2b7">_cs_ip_endpoint::addressFamily</a></div><div class="ttdeci">AddressFamily addressFamily</div><div class="ttdef"><b>Definition:</b> <a href="_c_s_socket_8h_source.html#l00153">CSSocket.h:153</a></div></div>
-<div class="ttc" id="astruct__cs__ip__endpoint_html_ac924b2200ef2255fd6ffb841d47134e1"><div class="ttname"><a href="struct__cs__ip__endpoint.html#ac924b2200ef2255fd6ffb841d47134e1">_cs_ip_endpoint::port</a></div><div class="ttdeci">uint16_t port</div><div class="ttdef"><b>Definition:</b> <a href="_c_s_socket_8h_source.html#l00154">CSSocket.h:154</a></div></div>
-<div class="ttc" id="astruct__cs__socket_html"><div class="ttname"><a href="struct__cs__socket.html">_cs_socket</a></div><div class="ttdef"><b>Definition:</b> <a href="_c_s_socket_8h_source.html#l00166">CSSocket.h:167</a></div></div>
-<div class="ttc" id="astruct__cs__socket_html_a38477244934e6568475d4328c49be0db"><div class="ttname"><a href="struct__cs__socket.html#a38477244934e6568475d4328c49be0db">_cs_socket::local_ep</a></div><div class="ttdeci">IPEndPoint local_ep</div><div class="ttdef"><b>Definition:</b> <a href="_c_s_socket_8h_source.html#l00171">CSSocket.h:171</a></div></div>
-<div class="ttc" id="astruct__cs__socket_html_a4917b11722b09edbcb0c6f631374e68b"><div class="ttname"><a href="struct__cs__socket.html#a4917b11722b09edbcb0c6f631374e68b">_cs_socket::timeout</a></div><div class="ttdeci">uint16_t timeout</div><div class="ttdef"><b>Definition:</b> <a href="_c_s_socket_8h_source.html#l00174">CSSocket.h:174</a></div></div>
-<div class="ttc" id="astruct__cs__socket_html_a6af9dd3f6bde3068ad634cc70c59dc9b"><div class="ttname"><a href="struct__cs__socket.html#a6af9dd3f6bde3068ad634cc70c59dc9b">_cs_socket::_native_handle</a></div><div class="ttdeci">socket_t _native_handle</div><div class="ttdef"><b>Definition:</b> <a href="_c_s_socket_8h_source.html#l00176">CSSocket.h:176</a></div></div>
-<div class="ttc" id="astruct__cs__socket_html_a71ac7d9114af5fcdc8ff84e34d6c2ce1"><div class="ttname"><a href="struct__cs__socket.html#a71ac7d9114af5fcdc8ff84e34d6c2ce1">_cs_socket::family</a></div><div class="ttdeci">AddressFamily family</div><div class="ttdef"><b>Definition:</b> <a href="_c_s_socket_8h_source.html#l00168">CSSocket.h:168</a></div></div>
-<div class="ttc" id="astruct__cs__socket_html_a934162ac9f83250797c6b0bb098f450c"><div class="ttname"><a href="struct__cs__socket.html#a934162ac9f83250797c6b0bb098f450c">_cs_socket::connected</a></div><div class="ttdeci">uint8_t connected</div><div class="ttdef"><b>Definition:</b> <a href="_c_s_socket_8h_source.html#l00173">CSSocket.h:173</a></div></div>
-<div class="ttc" id="astruct__cs__socket_html_aa5e96f190038ee459f085aab4f5fae9f"><div class="ttname"><a href="struct__cs__socket.html#aa5e96f190038ee459f085aab4f5fae9f">_cs_socket::stype</a></div><div class="ttdeci">SocketType stype</div><div class="ttdef"><b>Definition:</b> <a href="_c_s_socket_8h_source.html#l00169">CSSocket.h:169</a></div></div>
-<div class="ttc" id="astruct__cs__socket_html_ad3fb2692e6683a63cd99f23e92b974fd"><div class="ttname"><a href="struct__cs__socket.html#ad3fb2692e6683a63cd99f23e92b974fd">_cs_socket::remote_ep</a></div><div class="ttdeci">IPEndPoint remote_ep</div><div class="ttdef"><b>Definition:</b> <a href="_c_s_socket_8h_source.html#l00172">CSSocket.h:172</a></div></div>
-<div class="ttc" id="astruct__cs__socket_html_ae510de877f46e47eb3f0dd13db11e3f7"><div class="ttname"><a href="struct__cs__socket.html#ae510de877f46e47eb3f0dd13db11e3f7">_cs_socket::ptype</a></div><div class="ttdeci">ProtocolType ptype</div><div class="ttdef"><b>Definition:</b> <a href="_c_s_socket_8h_source.html#l00170">CSSocket.h:170</a></div></div>
+<div class="line"><a name="l00472"></a><span class="lineno">  472</span>&#160;<span class="preprocessor">#</span><span class="preprocessor">endif</span> <span class="comment">// CROSSPLATFORM_SOCKETS_H</span></div>
 </div><!-- fragment --></div><!-- contents -->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>

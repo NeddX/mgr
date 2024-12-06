@@ -1,6 +1,5 @@
 var searchData=
 [
-  ['false_50',['false',['../_c_s_socket_8h.html#a65e9886d74aaee76545e83dd09011727',1,'CSSocket.h']]],
-  ['family_51',['family',['../struct__cs__socket.html#a71ac7d9114af5fcdc8ff84e34d6c2ce1',1,'_cs_socket']]],
-  ['fps_52',['fps',['../struct_camera.html#aa0dd26f1ff80782c679d4554f38c3da9',1,'Camera']]]
+  ['formatter_3c_20pmgrd_3a_3aerr_20_3e_16',['formatter&lt; pmgrd::Err &gt;',['../structfmt_1_1formatter_3_01pmgrd_1_1_err_01_4.html',1,'fmt']]],
+  ['fps_17',['fps',['../structpmgrd_1_1_camera.html#abc2eed0ee10f5e011a04a7f0cb9f3250',1,'pmgrd::Camera']]]
 ];

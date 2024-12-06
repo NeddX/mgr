@@ -5,7 +5,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=9"/>
 <meta name="generator" content="Doxygen 1.9.1"/>
 <meta name="viewport" content="width=device-width, initial-scale=1"/>
-<title>pciemgr: pciemgr/src/Endpoint/Endpoint.cpp Source File</title>
+<title>pciemgr: pciemgrd/src/Endpoint/Endpoint.cpp Source File</title>
 <link href="tabs.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="jquery.js"></script>
 <script type="text/javascript" src="dynsections.js"></script>
@@ -25,7 +25,7 @@
    <div id="projectname">pciemgr
    &#160;<span id="projectnumber">v0.1</span>
    </div>
-   <div id="projectbrief">PCIE Multi-cast RC Manager</div>
+   <div id="projectbrief">PCIE Multi-Cast Manager</div>
   </td>
  </tr>
  </tbody>
@@ -64,7 +64,7 @@ $(function() {
 
 <div id="nav-path" class="navpath">
   <ul>
-<li class="navelem"><a class="el" href="dir_08967f40b0be00b5c118877aacc02e20.html">pciemgr</a></li><li class="navelem"><a class="el" href="dir_a28329a0c4c93a2209232f1cd0b41846.html">src</a></li><li class="navelem"><a class="el" href="dir_8c11d1664f81fc7575aa0358e0ed8a03.html">Endpoint</a></li>  </ul>
+<li class="navelem"><a class="el" href="dir_bfab199149dff6b14186f6a5e523754c.html">pciemgrd</a></li><li class="navelem"><a class="el" href="dir_4246afdf7d096edbfd3e66d14a7c824d.html">src</a></li><li class="navelem"><a class="el" href="dir_bac6a7d632dfadf3d7d1f750c11467b5.html">Endpoint</a></li>  </ul>
 </div>
 </div><!-- top -->
 <div class="header">
@@ -72,33 +72,25 @@ $(function() {
 <div class="title">Endpoint.cpp</div>  </div>
 </div><!--header-->
 <div class="contents">
-<a href="_endpoint_8cpp.html">Go to the documentation of this file.</a><div class="fragment"><div class="line"><a name="l00001"></a><span class="lineno">    1</span>&#160;<span class="preprocessor">#include &quot;<a class="code" href="_endpoint_8h.html">Endpoint.h</a>&quot;</span></div>
+<div class="fragment"><div class="line"><a name="l00001"></a><span class="lineno">    1</span>&#160;<span class="preprocessor">#</span><span class="preprocessor">include</span> <a class="code" href="_endpoint_8h.html">&quot;Endpoint.h&quot;</a></div>
 <div class="line"><a name="l00002"></a><span class="lineno">    2</span>&#160; </div>
-<div class="line"><a name="l00003"></a><span class="lineno">    3</span>&#160;<span class="keyword">namespace </span><a class="code" href="namespacepciemgr.html">mgrd</a> {</div>
-<div class="line"><a name="l00004"></a><span class="lineno"><a class="line" href="structmgrd_1_1_endpoint.html#a5689c6e6ac52a669d530fa32a2b2e376">    4</a></span>&#160;    <a class="code" href="structmgrd_1_1_endpoint.html#a7133a5f10c890bbb7e7c8859f6e56007">Endpoint::Endpoint</a>(<span class="keyword">const</span> u32 <span class="keywordtype">id</span>, <a class="code" href="_c_s_socket_8h.html#ad0d31f716b77725cf547078ce5bef2cc">net::Socket</a>* <span class="keyword">const</span> socket) noexcept</div>
-<div class="line"><a name="l00005"></a><span class="lineno">    5</span>&#160;        : m_Id(<span class="keywordtype">id</span>)</div>
+<div class="line"><a name="l00003"></a><span class="lineno">    3</span>&#160;<span class="keyword">namespace</span> <a class="code" href="namespacepmgrd.html">pmgrd</a> {</div>
+<div class="line"><a name="l00004"></a><span class="lineno">    4</span>&#160;    <a class="code" href="structpmgrd_1_1_endpoint.html">Endpoint</a>::Endpoint(<span class="keyword">const</span> u8 id, <a class="code" href="namespacepmgrd_1_1net.html">net</a>::Socket* <span class="keyword">const</span> socket) <span class="keyword">noexcept</span></div>
+<div class="line"><a name="l00005"></a><span class="lineno">    5</span>&#160;        : m_Id(id)</div>
 <div class="line"><a name="l00006"></a><span class="lineno">    6</span>&#160;        , m_Socket(socket)</div>
 <div class="line"><a name="l00007"></a><span class="lineno">    7</span>&#160;    {</div>
 <div class="line"><a name="l00008"></a><span class="lineno">    8</span>&#160;    }</div>
 <div class="line"><a name="l00009"></a><span class="lineno">    9</span>&#160; </div>
-<div class="line"><a name="l00010"></a><span class="lineno"><a class="line" href="structpicemgr_1_1_endpoint.html#ae0602bd2d8c1b7fc90b750de4bb28a0f">   10</a></span>&#160;    <a class="code" href="structmgrd_1_1_endpoint.html#ae0602bd2d8c1b7fc90b750de4bb28a0f">Endpoint::~Endpoint</a>() noexcept</div>
+<div class="line"><a name="l00010"></a><span class="lineno">   10</span>&#160;    <a class="code" href="structpmgrd_1_1_endpoint.html">Endpoint</a>::~Endpoint() <span class="keyword">noexcept</span></div>
 <div class="line"><a name="l00011"></a><span class="lineno">   11</span>&#160;    {</div>
-<div class="line"><a name="l00012"></a><span class="lineno">   12</span>&#160;        <span class="keywordflow">if</span> (<a class="code" href="structpciemgr_1_1_endpoint.html#a78d2e2cd588e44153fab1ced3647b2a3">m_Socket</a>)</div>
+<div class="line"><a name="l00012"></a><span class="lineno">   12</span>&#160;        <span class="keywordflow">if</span> (m_Socket)</div>
 <div class="line"><a name="l00013"></a><span class="lineno">   13</span>&#160;        {</div>
-<div class="line"><a name="l00014"></a><span class="lineno">   14</span>&#160;            <a class="code" href="_c_s_socket_8h.html#a78b548d31f2434454ee2ceaeefcc9264">Socket_Dispose</a>(<a class="code" href="structpciemgr_1_1_endpoint.html#a78d2e2cd588e44153fab1ced3647b2a3">m_Socket</a>);</div>
-<div class="line"><a name="l00015"></a><span class="lineno">   15</span>&#160;            <a class="code" href="structpciemgr_1_1_endpoint.html#a78d2e2cd588e44153fab1ced3647b2a3">m_Socket</a> = <span class="keyword">nullptr</span>;</div>
+<div class="line"><a name="l00014"></a><span class="lineno">   14</span>&#160;            Socket_Dispose(m_Socket);</div>
+<div class="line"><a name="l00015"></a><span class="lineno">   15</span>&#160;            m_Socket = <span class="keywordtype">nullptr</span>;</div>
 <div class="line"><a name="l00016"></a><span class="lineno">   16</span>&#160;        }</div>
-<div class="line"><a name="l00017"></a><span class="lineno">   17</span>&#160;        <a class="code" href="structpciemgr_1_1_endpoint.html#aa1431dde5b1434327a4f0f84ed2beb0b">m_Id</a> = 0;</div>
+<div class="line"><a name="l00017"></a><span class="lineno">   17</span>&#160;        m_Id = 0;</div>
 <div class="line"><a name="l00018"></a><span class="lineno">   18</span>&#160;    }</div>
-<div class="line"><a name="l00019"></a><span class="lineno">   19</span>&#160;} <span class="comment">// namespace pciemgr</span></div>
-<div class="ttc" id="a_c_s_socket_8h_html_a78b548d31f2434454ee2ceaeefcc9264"><div class="ttname"><a href="_c_s_socket_8h.html#a78b548d31f2434454ee2ceaeefcc9264">Socket_Dispose</a></div><div class="ttdeci">void Socket_Dispose(Socket *s)</div><div class="ttdef"><b>Definition:</b> <a href="_c_s_socket_8h_source.html#l00279">CSSocket.h:279</a></div></div>
-<div class="ttc" id="a_c_s_socket_8h_html_ad0d31f716b77725cf547078ce5bef2cc"><div class="ttname"><a href="_c_s_socket_8h.html#ad0d31f716b77725cf547078ce5bef2cc">Socket</a></div><div class="ttdeci">struct _cs_socket Socket</div></div>
-<div class="ttc" id="a_endpoint_8h_html"><div class="ttname"><a href="_endpoint_8h.html">Endpoint.h</a></div></div>
-<div class="ttc" id="anamespacepciemgr_html"><div class="ttname"><a href="namespacemgrd.html">mgrd</a></div><div class="ttdef"><b>Definition:</b> <a href="_application_8cpp_source.html#l00015">Application.cpp:15</a></div></div>
-<div class="ttc" id="astructpciemgr_1_1_endpoint_html_a7133a5f10c890bbb7e7c8859f6e56007"><div class="ttname"><a href="structmgrd_1_1_endpoint.html#a7133a5f10c890bbb7e7c8859f6e56007">mgrd::Endpoint::Endpoint</a></div><div class="ttdeci">Endpoint() noexcept=default</div></div>
-<div class="ttc" id="astructmgrd_1_1_endpoint_html_a78d2e2cd588e44153fab1ced3647b2a3"><div class="ttname"><a href="structmgrd_1_1_endpoint.html#a78d2e2cd588e44153fab1ced3647b2a3">mgrd::Endpoint::m_Socket</a></div><div class="ttdeci">net::Socket * m_Socket</div><div class="ttdef"><b>Definition:</b> <a href="_endpoint_8h_source.html#l00015">Endpoint.h:15</a></div></div>
-<div class="ttc" id="astructmgrd_1_1_endpoint_html_aa1431dde5b1434327a4f0f84ed2beb0b"><div class="ttname"><a href="structmgrd_1_1_endpoint.html#aa1431dde5b1434327a4f0f84ed2beb0b">mgrd::Endpoint::m_Id</a></div><div class="ttdeci">u32 m_Id</div><div class="ttdef"><b>Definition:</b> <a href="_endpoint_8h_source.html#l00014">Endpoint.h:14</a></div></div>
-<div class="ttc" id="astructmgrd_1_1_endpoint_html_ae0602bd2d8c1b7fc90b750de4bb28a0f"><div class="ttname"><a href="structmgrd_1_1_endpoint.html#ae0602bd2d8c1b7fc90b750de4bb28a0f">mgrd::Endpoint::~Endpoint</a></div><div class="ttdeci">~Endpoint() noexcept</div><div class="ttdef"><b>Definition:</b> <a href="_endpoint_8cpp_source.html#l00010">Endpoint.cpp:10</a></div></div>
+<div class="line"><a name="l00019"></a><span class="lineno">   19</span>&#160;} <span class="comment">// namespace pmgrd</span></div>
 </div><!-- fragment --></div><!-- contents -->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>

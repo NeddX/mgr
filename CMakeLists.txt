@@ -30,4 +30,4 @@ add_custom_command(
 else()
 endif()
 
-add_subdirectory("pciemgr/")
+add_subdirectory("pciemgrd/")

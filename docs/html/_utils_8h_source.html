@@ -5,7 +5,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=9"/>
 <meta name="generator" content="Doxygen 1.9.1"/>
 <meta name="viewport" content="width=device-width, initial-scale=1"/>
-<title>pciemgr: pciemgr/src/Utils/Utils.h Source File</title>
+<title>pciemgr: pciemgrd/src/Utils/Utils.h Source File</title>
 <link href="tabs.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="jquery.js"></script>
 <script type="text/javascript" src="dynsections.js"></script>
@@ -25,7 +25,7 @@
    <div id="projectname">pciemgr
    &#160;<span id="projectnumber">v0.1</span>
    </div>
-   <div id="projectbrief">PCIE Multi-cast RC Manager</div>
+   <div id="projectbrief">PCIE Multi-Cast Manager</div>
   </td>
  </tr>
  </tbody>
@@ -64,7 +64,7 @@ $(function() {
 
 <div id="nav-path" class="navpath">
   <ul>
-<li class="navelem"><a class="el" href="dir_08967f40b0be00b5c118877aacc02e20.html">pciemgr</a></li><li class="navelem"><a class="el" href="dir_a28329a0c4c93a2209232f1cd0b41846.html">src</a></li><li class="navelem"><a class="el" href="dir_eb5df8cd6790e214bfcfe6d5ecd913c8.html">Utils</a></li>  </ul>
+<li class="navelem"><a class="el" href="dir_bfab199149dff6b14186f6a5e523754c.html">pciemgrd</a></li><li class="navelem"><a class="el" href="dir_4246afdf7d096edbfd3e66d14a7c824d.html">src</a></li><li class="navelem"><a class="el" href="dir_a95a91cd39b90992cbb947dee7c46213.html">Utils</a></li>  </ul>
 </div>
 </div><!-- top -->
 <div class="header">
@@ -72,27 +72,30 @@ $(function() {
 <div class="title">Utils.h</div>  </div>
 </div><!--header-->
 <div class="contents">
-<a href="_utils_8h.html">Go to the documentation of this file.</a><div class="fragment"><div class="line"><a name="l00001"></a><span class="lineno">    1</span>&#160;<span class="preprocessor">#pragma once</span></div>
+<div class="fragment"><div class="line"><a name="l00001"></a><span class="lineno">    1</span>&#160;<span class="preprocessor">#</span><span class="preprocessor">pragma</span> <span class="preprocessor">once</span></div>
 <div class="line"><a name="l00002"></a><span class="lineno">    2</span>&#160; </div>
-<div class="line"><a name="l00003"></a><span class="lineno">    3</span>&#160;<span class="preprocessor">#include &lt;string&gt;</span></div>
-<div class="line"><a name="l00004"></a><span class="lineno">    4</span>&#160;<span class="preprocessor">#include &lt;string_view&gt;</span></div>
-<div class="line"><a name="l00005"></a><span class="lineno">    5</span>&#160;<span class="preprocessor">#include &lt;vector&gt;</span></div>
+<div class="line"><a name="l00003"></a><span class="lineno">    3</span>&#160;<span class="preprocessor">#</span><span class="preprocessor">include</span> <span class="preprocessor">&lt;</span><span class="preprocessor">string</span><span class="preprocessor">&gt;</span></div>
+<div class="line"><a name="l00004"></a><span class="lineno">    4</span>&#160;<span class="preprocessor">#</span><span class="preprocessor">include</span> <span class="preprocessor">&lt;</span><span class="preprocessor">string_view</span><span class="preprocessor">&gt;</span></div>
+<div class="line"><a name="l00005"></a><span class="lineno">    5</span>&#160;<span class="preprocessor">#</span><span class="preprocessor">include</span> <span class="preprocessor">&lt;</span><span class="preprocessor">vector</span><span class="preprocessor">&gt;</span></div>
 <div class="line"><a name="l00006"></a><span class="lineno">    6</span>&#160; </div>
-<div class="line"><a name="l00007"></a><span class="lineno">    7</span>&#160;<span class="keyword">namespace </span><a class="code" href="namespacepciemgr_1_1utils.html">mgrd::utils</a> {</div>
-<div class="line"><a name="l00008"></a><span class="lineno">    8</span>&#160;    [[nodiscard]] std::vector&lt;std::string&gt;      <a class="code" href="namespacemgrd_1_1utils.html#a5af072e562e1e77d50cd66cc6f2216d3">StrSplit</a>(<span class="keyword">const</span> std::string&amp; str, <span class="keyword">const</span> <span class="keywordtype">char</span> delim = <span class="charliteral">&#39; &#39;</span>) noexcept;</div>
-<div class="line"><a name="l00009"></a><span class="lineno">    9</span>&#160;    [[nodiscard]] std::vector&lt;std::string_view&gt; <a class="code" href="namespacemgrd_1_1utils.html#a5af072e562e1e77d50cd66cc6f2216d3">StrSplit</a>(const std::string_view str, const <span class="keywordtype">char</span> delim = &#39; &#39;) noexcept;</div>
-<div class="line"><a name="l00010"></a><span class="lineno">   10</span>&#160;    [[nodiscard]] std::<span class="keywordtype">string</span>                   <a class="code" href="namespacepicemgr_1_1utils.html#ad1b5816afc89ccf1a852936077c43f28">StrLower</a>(const std::string_view str) noexcept;</div>
-<div class="line"><a name="l00011"></a><span class="lineno">   11</span>&#160; </div>
-<div class="line"><a name="l00012"></a><span class="lineno">   12</span>&#160;    template &lt;typename Fn&gt;</div>
-<div class="line"><a name="l00013"></a><span class="lineno"><a class="line" href="namespacemgrd_1_1utils.html#ae8f436e42790e29b8789c43869e86f99">   13</a></span>&#160;    constexpr auto <a class="code" href="namespacemgrd_1_1utils.html#ae8f436e42790e29b8789c43869e86f99">BindDelegate</a>(auto* self, Fn delegate)</div>
-<div class="line"><a name="l00014"></a><span class="lineno">   14</span>&#160;    {</div>
-<div class="line"><a name="l00015"></a><span class="lineno">   15</span>&#160;        <span class="keywordflow">return</span> [<span class="keyword">self</span>, delegate](<span class="keyword">auto</span>&amp;&amp;... args) { <span class="keywordflow">return</span> (self-&gt;*delegate)(std::forward&lt;decltype(args)&gt;(args)...); };</div>
-<div class="line"><a name="l00016"></a><span class="lineno">   16</span>&#160;    }</div>
-<div class="line"><a name="l00017"></a><span class="lineno">   17</span>&#160;} <span class="comment">// namespace pciemgr::utils</span></div>
-<div class="ttc" id="anamespacepciemgr_1_1utils_html"><div class="ttname"><a href="namespacemgrd_1_1utils.html">mgrd::utils</a></div><div class="ttdef"><b>Definition:</b> <a href="_utils_8cpp_source.html#l00008">Utils.cpp:8</a></div></div>
-<div class="ttc" id="anamespacemgrd_1_1utils_html_a5af072e562e1e77d50cd66cc6f2216d3"><div class="ttname"><a href="namespacemgrd_1_1utils.html#a5af072e562e1e77d50cd66cc6f2216d3">mgrd::utils::StrSplit</a></div><div class="ttdeci">std::vector&lt; std::string &gt; StrSplit(const std::string &amp;str, const char delim) noexcept</div><div class="ttdef"><b>Definition:</b> <a href="_utils_8cpp_source.html#l00009">Utils.cpp:9</a></div></div>
-<div class="ttc" id="anamespacemgrd_1_1utils_html_ad1b5816afc89ccf1a852936077c43f28"><div class="ttname"><a href="namespacemgrd_1_1utils.html#ad1b5816afc89ccf1a852936077c43f28">mgrd::utils::StrLower</a></div><div class="ttdeci">std::string StrLower(const std::string_view str) noexcept</div><div class="ttdef"><b>Definition:</b> <a href="_utils_8cpp_source.html#l00036">Utils.cpp:36</a></div></div>
-<div class="ttc" id="anamespacemgrd_1_1utils_html_ae8f436e42790e29b8789c43869e86f99"><div class="ttname"><a href="namespacemgrd_1_1utils.html#ae8f436e42790e29b8789c43869e86f99">mgrd::utils::BindDelegate</a></div><div class="ttdeci">constexpr auto BindDelegate(auto *self, Fn delegate)</div><div class="ttdef"><b>Definition:</b> <a href="_utils_8h_source.html#l00013">Utils.h:13</a></div></div>
+<div class="line"><a name="l00007"></a><span class="lineno">    7</span>&#160;<span class="preprocessor">#</span><span class="preprocessor">include</span> <span class="preprocessor">&lt;</span><span class="preprocessor">Core</span><span class="preprocessor">/</span><span class="preprocessor">Error</span><span class="preprocessor">.</span><span class="preprocessor">h</span><span class="preprocessor">&gt;</span></div>
+<div class="line"><a name="l00008"></a><span class="lineno">    8</span>&#160;<span class="preprocessor">#</span><span class="preprocessor">include</span> <span class="preprocessor">&lt;</span><span class="preprocessor">Core</span><span class="preprocessor">/</span><span class="preprocessor">Result</span><span class="preprocessor">.</span><span class="preprocessor">h</span><span class="preprocessor">&gt;</span></div>
+<div class="line"><a name="l00009"></a><span class="lineno">    9</span>&#160; </div>
+<div class="line"><a name="l00010"></a><span class="lineno">   10</span>&#160;<span class="keyword">namespace</span> <a class="code" href="namespacepmgrd.html">pmgrd</a>::utils {</div>
+<div class="line"><a name="l00011"></a><span class="lineno">   11</span>&#160;    [[nodiscard]] std::vector&lt;std::string&gt;      StrSplit(<span class="keyword">const</span> std::string&amp; str, <span class="keyword">const</span> <span class="keywordtype">char</span> delim = <span class="stringliteral">&#39; &#39;</span>) <span class="keyword">noexcept</span>;</div>
+<div class="line"><a name="l00012"></a><span class="lineno">   12</span>&#160;    [[nodiscard]] std::vector&lt;std::string_view&gt; StrSplit(<span class="keyword">const</span> std::string_view str, <span class="keyword">const</span> <span class="keywordtype">char</span> delim = <span class="stringliteral">&#39; &#39;</span>) <span class="keyword">noexcept</span>;</div>
+<div class="line"><a name="l00013"></a><span class="lineno">   13</span>&#160;    [[nodiscard]] std::string                   StrLower(<span class="keyword">const</span> std::string_view str) <span class="keyword">noexcept</span>;</div>
+<div class="line"><a name="l00014"></a><span class="lineno">   14</span>&#160; </div>
+<div class="line"><a name="l00015"></a><span class="lineno">   15</span>&#160;    <span class="keyword">namespace</span> fs {</div>
+<div class="line"><a name="l00016"></a><span class="lineno">   16</span>&#160;        [[nodiscard]] <a class="code" href="structpmgrd_1_1_valued_result.html">ValuedResult</a>&lt;std::string, <a class="code" href="structpmgrd_1_1_err.html">Err</a>&gt; ReadToString(<span class="keyword">const</span> std::string&amp; path) <span class="keyword">noexcept</span>;</div>
+<div class="line"><a name="l00017"></a><span class="lineno">   17</span>&#160;    } <span class="comment">// namespace fs</span></div>
+<div class="line"><a name="l00018"></a><span class="lineno">   18</span>&#160; </div>
+<div class="line"><a name="l00019"></a><span class="lineno">   19</span>&#160;    <span class="keyword">template</span> &lt;<span class="keyword">typename</span> Fn&gt;</div>
+<div class="line"><a name="l00020"></a><span class="lineno">   20</span>&#160;    <span class="keyword">constexpr</span> <span class="keyword">auto</span> BindDelegate(<span class="keyword">auto</span>* self, Fn delegate)</div>
+<div class="line"><a name="l00021"></a><span class="lineno">   21</span>&#160;    {</div>
+<div class="line"><a name="l00022"></a><span class="lineno">   22</span>&#160;        <span class="keywordflow">return</span> [self, delegate](<span class="keyword">auto</span>&amp;&amp;... args) { <span class="keywordflow">return</span> (self-&gt;*delegate)(std::forward&lt;<span class="keyword">decltype</span>(args)&gt;(args)...); };</div>
+<div class="line"><a name="l00023"></a><span class="lineno">   23</span>&#160;    }</div>
+<div class="line"><a name="l00024"></a><span class="lineno">   24</span>&#160;} <span class="comment">// namespace pmgrd::utils</span></div>
 </div><!-- fragment --></div><!-- contents -->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>

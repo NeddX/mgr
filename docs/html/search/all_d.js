@@ -1,5 +1,4 @@
 var searchData=
 [
-  ['operator_3c_3c_104',['operator&lt;&lt;',['../structmgrd_1_1net_1_1_packet.html#a8d52355ae0aab59fc9104b91f622ba0d',1,'mgrd::net::Packet::operator&lt;&lt;(const std::vector&lt; u8 &gt; &amp;data) noexcept'],['../structmgrd_1_1net_1_1_packet.html#ab026dc0a7b3adb23857ed40aad8f7b4a',1,'mgrd::net::Packet::operator&lt;&lt;(const std::string &amp;data) noexcept'],['../structmgrd_1_1net_1_1_packet.html#acc47ccecda4068f87102463f20b2bdfc',1,'mgrd::net::Packet::operator&lt;&lt;(const std::string_view &amp;data) noexcept']]],
-  ['operator_3e_3e_105',['operator&gt;&gt;',['../structmgrd_1_1net_1_1_packet.html#a5a09088f6b7c51e1d3a3ebcba7a72c1b',1,'mgrd::net::Packet::operator&gt;&gt;(std::vector&lt; u8 &gt; &amp;data) noexcept'],['../structmgrd_1_1net_1_1_packet.html#a63d0d199b70d50669f632051e0cfe79e',1,'mgrd::net::Packet::operator&gt;&gt;(std::string &amp;data) noexcept']]]
+  ['ok_33',['Ok',['../structpmgrd_1_1net_1_1_packet.html#a9c35088f5ec4b904402497ab8fe5b5b4',1,'pmgrd::net::Packet::Ok()'],['../namespacepmgrd_1_1net.html#a6e1af2b71648acb3bf5e863392415f03aa60852f204ed8028c1c58808b746d115',1,'pmgrd::net::Ok()'],['../structpmgrd_1_1types_1_1_ok.html',1,'pmgrd::types::Ok']]]
 ];

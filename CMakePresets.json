@@ -7,7 +7,6 @@
             "generator": "Unix Makefiles",
             "binaryDir": "${sourceDir}/builds/${presetName}",
             "cacheVariables": {
-                "CMAKE_PRESET_NAME": "${presetName}"
             },
             "condition": {
                 "type": "equals",

@@ -1,6 +1,4 @@
 var searchData=
 [
-  ['getbinaryname_197',['GetBinaryName',['../classpciemgr_1_1_application.html#a7a35fde75f3b740644962258e1015631',1,'mgrd::Application']]],
-  ['getid_198',['GetID',['../structpciemgr_1_1_endpoint.html#a980a06faf64664c435b69053b941892a',1,'mgrd::Endpoint']]],
-  ['getsocket_199',['GetSocket',['../structpciemgr_1_1_endpoint.html#ace2ba824db8992222c8335f0bb8016fa',1,'mgrd::Endpoint']]]
+  ['ok_77',['Ok',['../structpmgrd_1_1net_1_1_packet.html#a9c35088f5ec4b904402497ab8fe5b5b4',1,'pmgrd::net::Packet']]]
 ];

@@ -1,8 +1,6 @@
 var searchData=
 [
-  ['beginpacketdispatch_24',['BeginPacketDispatch',['../classpciemgr_1_1_application.html#ad31e8c293429fc12cc7c43f06d82ecff',1,'mgrd::Application']]],
-  ['beginreceive_25',['BeginReceive',['../namespacepciemgr_1_1net.html#a103009932c54da750ead52207be13db3',1,'mgrd::net']]],
-  ['beginsend_26',['BeginSend',['../namespacepciemgr_1_1net.html#ae9ab81602f337c69c1f72cef4581e01f',1,'mgrd::net']]],
-  ['binddelegate_27',['BindDelegate',['../namespacepciemgr_1_1utils.html#ae8f436e42790e29b8789c43869e86f99',1,'mgrd::utils']]],
-  ['buffer_5fcount_28',['buffer_count',['../struct_camera.html#a759127d8d5726e5a64cd8fd133fdc17c',1,'Camera']]]
+  ['beginreceive_4',['BeginReceive',['../namespacepmgrd_1_1net.html#a7c292e373f6093fe6a001f92ef860eaf',1,'pmgrd::net']]],
+  ['beginsend_5',['BeginSend',['../namespacepmgrd_1_1net.html#a678c1aadb2da1eceb4f6fc82971d06bd',1,'pmgrd::net']]],
+  ['buffercount_6',['bufferCount',['../structpmgrd_1_1_camera.html#a82cf6629ccd375863d3ec45865474025',1,'pmgrd::Camera']]]
 ];
