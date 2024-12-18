@@ -1,6 +1,0 @@
-[submodule "mgr/vendor/Logex"]
-	path = pciemgr/vendor/Logex
-	url = https://github.com/NeddX/Logex
-[submodule "mgr/vendor/json"]
-	path = pciemgr/vendor/json
-	url = https://github.com/nlohmann/json
