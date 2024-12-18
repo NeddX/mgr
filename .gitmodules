@@ -1,0 +1,6 @@
+[submodule "pciemgrd/vendor/Logex"]
+	path = pciemgrd/vendor/Logex
+	url = https://github.com/NeddX/Logex
+[submodule "pciemgrd/vendor/json"]
+	path = pciemgrd/vendor/json
+	url = https://github.com/nlohmann/json
