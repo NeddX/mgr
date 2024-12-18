@@ -41,13 +41,16 @@ namespace pmgrd {
         NetListenFailure,
         NetWriteFailure,
         NetReadFailure,
-        NetInitConFailure,
+        NetReadyFailure,
 
         // Camera releated
         InvalidCameraConfiguration,
 
         // I/O releated errors
-        IOError
+        IOError,
+
+        // System
+        ForkFailed
     };
 
     [[nodiscard]] const char* ErrTypeToStr(const ErrType type) noexcept;

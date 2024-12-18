@@ -25,8 +25,9 @@ namespace pmgrd {
         u32         bufferCount; ///< The buffer count.
         std::string comprFmt;    ///< Idk
         std::string videoFmt;    ///< The video format which the camera supports.
+        u8          videoDev;
 
-        NLOHMANN_DEFINE_TYPE_INTRUSIVE(Camera, id, groupId, width, height, fps, depth, bufferCount, comprFmt, videoFmt)
+        NLOHMANN_DEFINE_TYPE_INTRUSIVE(Camera, id, width, height, fps, depth, bufferCount, comprFmt, videoFmt, videoDev)
 
     public:
         /**

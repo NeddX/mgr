@@ -33,7 +33,10 @@ namespace pmgrd {
         "InvalidCameraConfiguration",
 
         // I/O releated errors
-        "IOError"
+        "IOError",
+
+        // System
+        "ForkFailed"
         };
         /* clang-format on */
         return err_str_arr[static_cast<u8>(type)];

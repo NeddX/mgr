@@ -91,6 +91,9 @@ Public Member Functions</h2></td></tr>
 <tr class="memitem:a767cade3761c685bfc9bf66dc5c7a303"><td class="memItemLeft" align="right" valign="top"><a class="el" href="structpmgrd_1_1_valued_result.html">Result</a>&lt; <a class="el" href="structpmgrd_1_1_err.html">Err</a> &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classpmgrd_1_1_application.html#a767cade3761c685bfc9bf66dc5c7a303">Run</a> () noexcept</td></tr>
 <tr class="memdesc:a767cade3761c685bfc9bf66dc5c7a303"><td class="mdescLeft">&#160;</td><td class="mdescRight">Starts listening for Endpoints.  <a href="classpmgrd_1_1_application.html#a767cade3761c685bfc9bf66dc5c7a303">More...</a><br /></td></tr>
 <tr class="separator:a767cade3761c685bfc9bf66dc5c7a303"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a8008def2b247e97ce6062dc03a48a6d6"><td class="memItemLeft" align="right" valign="top"><a class="el" href="structpmgrd_1_1_valued_result.html">Result</a>&lt; <a class="el" href="structpmgrd_1_1_err.html">Err</a> &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classpmgrd_1_1_application.html#a8008def2b247e97ce6062dc03a48a6d6">LoadCameraConfig</a> () noexcept</td></tr>
+<tr class="memdesc:a8008def2b247e97ce6062dc03a48a6d6"><td class="mdescLeft">&#160;</td><td class="mdescRight">Loads the camera configuration from m_CameraConfigPath.  <a href="classpmgrd_1_1_application.html#a8008def2b247e97ce6062dc03a48a6d6">More...</a><br /></td></tr>
+<tr class="separator:a8008def2b247e97ce6062dc03a48a6d6"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a4dccd23e4d4a1e308c75a74b25ff99e3"><td class="memItemLeft" align="right" valign="top"><a class="el" href="structpmgrd_1_1_valued_result.html">Result</a>&lt; <a class="el" href="structpmgrd_1_1_err.html">Err</a> &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classpmgrd_1_1_application.html#a4dccd23e4d4a1e308c75a74b25ff99e3">ConnectToRC</a> () noexcept</td></tr>
 <tr class="memdesc:a4dccd23e4d4a1e308c75a74b25ff99e3"><td class="mdescLeft">&#160;</td><td class="mdescRight">Tries to connect to the RC server.  <a href="classpmgrd_1_1_application.html#a4dccd23e4d4a1e308c75a74b25ff99e3">More...</a><br /></td></tr>
 <tr class="separator:a4dccd23e4d4a1e308c75a74b25ff99e3"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -114,7 +117,7 @@ Static Public Member Functions</h2></td></tr>
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-static-attribs"></a>
 Static Public Attributes</h2></td></tr>
 <tr class="memitem:ad4e1f602bb264d8767287392168a9573"><td class="memItemLeft" align="right" valign="top"><a id="ad4e1f602bb264d8767287392168a9573"></a>
-static constexpr auto&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classpmgrd_1_1_application.html#ad4e1f602bb264d8767287392168a9573">RootServerPort</a> = 7777</td></tr>
+static constexpr auto&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classpmgrd_1_1_application.html#ad4e1f602bb264d8767287392168a9573">RootServerPort</a> = 7779</td></tr>
 <tr class="memdesc:ad4e1f602bb264d8767287392168a9573"><td class="mdescLeft">&#160;</td><td class="mdescRight">The pre-defined RC daemon's server port. <br /></td></tr>
 <tr class="separator:ad4e1f602bb264d8767287392168a9573"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a49f3cffdec75c60ac809c51425fccebf"><td class="memItemLeft" align="right" valign="top"><a id="a49f3cffdec75c60ac809c51425fccebf"></a>
@@ -159,7 +162,7 @@ static constexpr auto&#160;</td><td class="memItemRight" valign="bottom"><a clas
 <p>After successfully connecting, this method sends a net::PacketType::InitCon packet which contains its ID from /etc/vlink.conf to the RC to register itself as an <a class="el" href="structpmgrd_1_1_endpoint.html">Endpoint</a> on the RC side. Afterwards it sends a net::PacketType::GetConfig where the RC tries to match it with a Crew Station and then responds with a json object containing its <a class="el" href="structpmgrd_1_1_camera.html">Camera</a>.</p>
 <dl class="section return"><dt>Returns</dt><dd>Result of <a class="el" href="structpmgrd_1_1_err.html">Err</a> where <a class="el" href="structpmgrd_1_1_err.html">Err</a> indicates an error has occured. </dd></dl>
 
-<p class="definition">Definition at line <a class="el" href="_application_8cpp_source.html#l00168">168</a> of file <a class="el" href="_application_8cpp_source.html">Application.cpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="_application_8cpp_source.html#l00218">218</a> of file <a class="el" href="_application_8cpp_source.html">Application.cpp</a>.</p>
 
 </div>
 </div>
@@ -195,7 +198,7 @@ static constexpr auto&#160;</td><td class="memItemRight" valign="bottom"><a clas
 </dl>
 <dl class="section return"><dt>Returns</dt><dd>Reference to the current <a class="el" href="classpmgrd_1_1_application.html">Application</a> instance. </dd></dl>
 
-<p class="definition">Definition at line <a class="el" href="_application_8cpp_source.html#l00586">586</a> of file <a class="el" href="_application_8cpp_source.html">Application.cpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="_application_8cpp_source.html#l00678">678</a> of file <a class="el" href="_application_8cpp_source.html">Application.cpp</a>.</p>
 
 </div>
 </div>
@@ -225,7 +228,7 @@ static constexpr auto&#160;</td><td class="memItemRight" valign="bottom"><a clas
 <p>Returnss the current binary name. </p>
 <p>@retrun The binary name as std::string_view </p>
 
-<p class="definition">Definition at line <a class="el" href="_application_8h_source.html#l00116">116</a> of file <a class="el" href="_application_8h_source.html">Application.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="_application_8h_source.html#l00125">125</a> of file <a class="el" href="_application_8h_source.html">Application.h</a>.</p>
 
 </div>
 </div>
@@ -255,7 +258,37 @@ static constexpr auto&#160;</td><td class="memItemRight" valign="bottom"><a clas
 <p>Initialises and parses the <a class="el" href="classpmgrd_1_1_c_l_i.html">CLI</a> arguments. </p>
 <dl class="section return"><dt>Returns</dt><dd>Result of <a class="el" href="structpmgrd_1_1_err.html">Err</a> where <a class="el" href="structpmgrd_1_1_err.html">Err</a> indicates an error has occured. </dd></dl>
 
-<p class="definition">Definition at line <a class="el" href="_application_8cpp_source.html#l00124">124</a> of file <a class="el" href="_application_8cpp_source.html">Application.cpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="_application_8cpp_source.html#l00129">129</a> of file <a class="el" href="_application_8cpp_source.html">Application.cpp</a>.</p>
+
+</div>
+</div>
+<a id="a8008def2b247e97ce6062dc03a48a6d6"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a8008def2b247e97ce6062dc03a48a6d6">&#9670;&nbsp;</a></span>LoadCameraConfig()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="structpmgrd_1_1_valued_result.html">Result</a>&lt; <a class="el" href="structpmgrd_1_1_err.html">Err</a> &gt; pmgrd::Application::LoadCameraConfig </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">noexcept</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Loads the camera configuration from m_CameraConfigPath. </p>
+<dl class="section return"><dt>Returns</dt><dd>Result of <a class="el" href="structpmgrd_1_1_err.html">Err</a> where <a class="el" href="structpmgrd_1_1_err.html">Err</a> indicates an error has occured. </dd></dl>
+
+<p class="definition">Definition at line <a class="el" href="_application_8cpp_source.html#l00173">173</a> of file <a class="el" href="_application_8cpp_source.html">Application.cpp</a>.</p>
 
 </div>
 </div>
@@ -298,7 +331,7 @@ static constexpr auto&#160;</td><td class="memItemRight" valign="bottom"><a clas
 </dl>
 <dl class="section return"><dt>Returns</dt><dd>Reference to the newly created <a class="el" href="classpmgrd_1_1_application.html">Application</a> instance. </dd></dl>
 
-<p class="definition">Definition at line <a class="el" href="_application_8cpp_source.html#l00576">576</a> of file <a class="el" href="_application_8cpp_source.html">Application.cpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="_application_8cpp_source.html#l00668">668</a> of file <a class="el" href="_application_8cpp_source.html">Application.cpp</a>.</p>
 
 </div>
 </div>
@@ -347,7 +380,7 @@ template&lt;typename... TArgs&gt; </div>
   </dd>
 </dl>
 
-<p class="definition">Definition at line <a class="el" href="_application_8h_source.html#l00125">125</a> of file <a class="el" href="_application_8h_source.html">Application.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="_application_8h_source.html#l00134">134</a> of file <a class="el" href="_application_8h_source.html">Application.h</a>.</p>
 
 </div>
 </div>
@@ -377,7 +410,7 @@ template&lt;typename... TArgs&gt; </div>
 <p>Starts listening for Endpoints. </p>
 <dl class="section return"><dt>Returns</dt><dd>Result of <a class="el" href="structpmgrd_1_1_err.html">Err</a> where <a class="el" href="structpmgrd_1_1_err.html">Err</a> indicates an error has occured. </dd></dl>
 
-<p class="definition">Definition at line <a class="el" href="_application_8cpp_source.html#l00153">153</a> of file <a class="el" href="_application_8cpp_source.html">Application.cpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="_application_8cpp_source.html#l00158">158</a> of file <a class="el" href="_application_8cpp_source.html">Application.cpp</a>.</p>
 
 </div>
 </div>

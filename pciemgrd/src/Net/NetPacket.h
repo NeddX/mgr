@@ -95,8 +95,8 @@ namespace pmgrd::net {
             header.type = PacketType::Err;
 
             // Allocate space for ErrType.
-            header.dataLen = sizeof(Err);
-            data.resize(sizeof(Err));
+            header.dataLen = sizeof(Err::m_Type);
+            data.resize(sizeof(Err::m_Type));
 
             // Write the ErrType.
             *(reinterpret_cast<ErrType*>(data.data())) = err.Type();

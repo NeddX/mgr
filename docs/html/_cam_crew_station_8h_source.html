@@ -99,34 +99,35 @@ $(function() {
 <div class="line"><a name="l00025"></a><span class="lineno"><a class="line" href="structpmgrd_1_1_camera.html#a82cf6629ccd375863d3ec45865474025">   25</a></span>&#160;        <a class="code" href="structpmgrd_1_1_camera.html#a82cf6629ccd375863d3ec45865474025">u32</a>         <a class="code" href="structpmgrd_1_1_camera.html#a82cf6629ccd375863d3ec45865474025">bufferCount</a>; <span class="comment">///&lt; The buffer count.</span></div>
 <div class="line"><a name="l00026"></a><span class="lineno"><a class="line" href="structpmgrd_1_1_camera.html#aac0e294a75d1e85ea7ad07d5b6e07bd6">   26</a></span>&#160;        std::string <a class="code" href="structpmgrd_1_1_camera.html#aac0e294a75d1e85ea7ad07d5b6e07bd6">comprFmt</a>;    <span class="comment">///&lt; Idk</span></div>
 <div class="line"><a name="l00027"></a><span class="lineno"><a class="line" href="structpmgrd_1_1_camera.html#a20d31527afb63033b602039cf996d53c">   27</a></span>&#160;        std::string <a class="code" href="structpmgrd_1_1_camera.html#a20d31527afb63033b602039cf996d53c">videoFmt</a>;    <span class="comment">///&lt; The video format which the camera supports.</span></div>
-<div class="line"><a name="l00028"></a><span class="lineno">   28</span>&#160; </div>
-<div class="line"><a name="l00029"></a><span class="lineno">   29</span>&#160;        NLOHMANN_DEFINE_TYPE_INTRUSIVE(Camera, id, groupId, width, height, fps, depth, bufferCount, comprFmt, videoFmt)</div>
-<div class="line"><a name="l00030"></a><span class="lineno">   30</span>&#160; </div>
-<div class="line"><a name="l00031"></a><span class="lineno">   31</span>&#160;    <span class="keyword">public</span>:</div>
-<div class="line"><a name="l00032"></a><span class="lineno">   32</span>&#160;        <span class="comment">/**</span></div>
-<div class="line"><a name="l00033"></a><span class="lineno">   33</span>&#160;<span class="comment">         * @brief Validates the @ref Camera s properties.</span></div>
-<div class="line"><a name="l00034"></a><span class="lineno">   34</span>&#160;<span class="comment">         *</span></div>
-<div class="line"><a name="l00035"></a><span class="lineno">   35</span>&#160;<span class="comment">         * @return A @ref Result of @see Err.</span></div>
-<div class="line"><a name="l00036"></a><span class="lineno">   36</span>&#160;<span class="comment">         * */</span></div>
-<div class="line"><a name="l00037"></a><span class="lineno"><a class="line" href="structpmgrd_1_1_camera.html#a7f8ea582cec68e42824232224c332835">   37</a></span>&#160;        [[<a class="code" href="structpmgrd_1_1_camera.html">nodiscard</a>]] <span class="keyword">constexpr</span> <a class="code" href="structpmgrd_1_1_camera.html">Result</a>&lt;<a class="code" href="structpmgrd_1_1_camera.html">Err</a>&gt; <a class="code" href="structpmgrd_1_1_camera.html">Validate</a>() <span class="keyword">const</span> <span class="keyword">noexcept</span></div>
-<div class="line"><a name="l00038"></a><span class="lineno">   38</span>&#160;        {</div>
-<div class="line"><a name="l00039"></a><span class="lineno">   39</span>&#160;            <span class="keywordflow">if</span> (<a class="code" href="structpmgrd_1_1_camera.html">id</a> &gt; 16 || <a class="code" href="structpmgrd_1_1_camera.html">fps</a> &gt; 30 || <a class="code" href="structpmgrd_1_1_camera.html">width</a> &gt; 1920 || <a class="code" href="structpmgrd_1_1_camera.html">height</a> &gt; 1080 || <a class="code" href="structpmgrd_1_1_camera.html">width</a> &lt; 640 || <a class="code" href="structpmgrd_1_1_camera.html">height</a> &lt; 480)</div>
-<div class="line"><a name="l00040"></a><span class="lineno">   40</span>&#160;                <span class="keywordflow">return</span> <a class="code" href="structpmgrd_1_1_camera.html">Err</a>{ <a class="code" href="structpmgrd_1_1_camera.html">ErrType</a>::<a class="code" href="structpmgrd_1_1_camera.html">InvalidCameraConfiguration</a> };</div>
-<div class="line"><a name="l00041"></a><span class="lineno">   41</span>&#160;            <span class="keywordflow">return</span> <a class="code" href="structpmgrd_1_1_camera.html">Ok</a>();</div>
-<div class="line"><a name="l00042"></a><span class="lineno">   42</span>&#160;        }</div>
-<div class="line"><a name="l00043"></a><span class="lineno">   43</span>&#160;    };</div>
-<div class="line"><a name="l00044"></a><span class="lineno">   44</span>&#160; </div>
-<div class="line"><a name="l00045"></a><span class="lineno">   45</span>&#160;    <span class="comment">/**</span></div>
-<div class="line"><a name="l00046"></a><span class="lineno">   46</span>&#160;<span class="comment">     * @brief Represents a crew station.</span></div>
-<div class="line"><a name="l00047"></a><span class="lineno">   47</span>&#160;<span class="comment">     * */</span></div>
-<div class="line"><a name="l00048"></a><span class="lineno"><a class="line" href="structpmgrd_1_1_crew_station.html">   48</a></span>&#160;    <span class="keyword">struct</span> <a class="code" href="structpmgrd_1_1_crew_station.html">CrewStation</a></div>
-<div class="line"><a name="l00049"></a><span class="lineno">   49</span>&#160;    {</div>
-<div class="line"><a name="l00050"></a><span class="lineno"><a class="line" href="structpmgrd_1_1_crew_station.html#a2d1c121e56025ab15b3a60f3dc53de46">   50</a></span>&#160;        <a class="code" href="structpmgrd_1_1_crew_station.html#a2d1c121e56025ab15b3a60f3dc53de46">u8</a>              <a class="code" href="structpmgrd_1_1_crew_station.html#a2d1c121e56025ab15b3a60f3dc53de46">nodeId</a>; <span class="comment">///&lt; The id of the endpoint.</span></div>
-<div class="line"><a name="l00051"></a><span class="lineno"><a class="line" href="structpmgrd_1_1_crew_station.html#af468c5640ee0e100ca4fdb8294438c97">   51</a></span>&#160;        <a class="code" href="structpmgrd_1_1_crew_station.html#af468c5640ee0e100ca4fdb8294438c97">std</a>::<a class="code" href="structpmgrd_1_1_crew_station.html#af468c5640ee0e100ca4fdb8294438c97">vector</a>&lt;<a class="code" href="structpmgrd_1_1_crew_station.html#af468c5640ee0e100ca4fdb8294438c97">u8</a>&gt; <a class="code" href="structpmgrd_1_1_crew_station.html#af468c5640ee0e100ca4fdb8294438c97">groups</a>; <span class="comment">///&lt; The groups which belong to this node.</span></div>
-<div class="line"><a name="l00052"></a><span class="lineno">   52</span>&#160; </div>
-<div class="line"><a name="l00053"></a><span class="lineno">   53</span>&#160;        NLOHMANN_DEFINE_TYPE_INTRUSIVE(CrewStation, nodeId, groups)</div>
-<div class="line"><a name="l00054"></a><span class="lineno">   54</span>&#160;    };</div>
-<div class="line"><a name="l00055"></a><span class="lineno">   55</span>&#160;} <span class="comment">// namespace pmgrd</span></div>
+<div class="line"><a name="l00028"></a><span class="lineno">   28</span>&#160;        u8          videoDev;</div>
+<div class="line"><a name="l00029"></a><span class="lineno">   29</span>&#160; </div>
+<div class="line"><a name="l00030"></a><span class="lineno">   30</span>&#160;        NLOHMANN_DEFINE_TYPE_INTRUSIVE(Camera, id, width, height, fps, depth, bufferCount, comprFmt, videoFmt, videoDev)</div>
+<div class="line"><a name="l00031"></a><span class="lineno">   31</span>&#160; </div>
+<div class="line"><a name="l00032"></a><span class="lineno">   32</span>&#160;    <span class="keyword">public</span>:</div>
+<div class="line"><a name="l00033"></a><span class="lineno">   33</span>&#160;        <span class="comment">/**</span></div>
+<div class="line"><a name="l00034"></a><span class="lineno">   34</span>&#160;<span class="comment">         * @brief Validates the @ref Camera s properties.</span></div>
+<div class="line"><a name="l00035"></a><span class="lineno">   35</span>&#160;<span class="comment">         *</span></div>
+<div class="line"><a name="l00036"></a><span class="lineno">   36</span>&#160;<span class="comment">         * @return A @ref Result of @see Err.</span></div>
+<div class="line"><a name="l00037"></a><span class="lineno">   37</span>&#160;<span class="comment">         * */</span></div>
+<div class="line"><a name="l00038"></a><span class="lineno"><a class="line" href="structpmgrd_1_1_camera.html#a7f8ea582cec68e42824232224c332835">   38</a></span>&#160;        [[<a class="code" href="structpmgrd_1_1_camera.html">nodiscard</a>]] <span class="keyword">constexpr</span> <a class="code" href="structpmgrd_1_1_camera.html">Result</a>&lt;<a class="code" href="structpmgrd_1_1_camera.html">Err</a>&gt; <a class="code" href="structpmgrd_1_1_camera.html">Validate</a>() <span class="keyword">const</span> <span class="keyword">noexcept</span></div>
+<div class="line"><a name="l00039"></a><span class="lineno">   39</span>&#160;        {</div>
+<div class="line"><a name="l00040"></a><span class="lineno">   40</span>&#160;            <span class="keywordflow">if</span> (<a class="code" href="structpmgrd_1_1_camera.html">id</a> &gt; 16 || <a class="code" href="structpmgrd_1_1_camera.html">fps</a> &gt; 30 || <a class="code" href="structpmgrd_1_1_camera.html">width</a> &gt; 1920 || <a class="code" href="structpmgrd_1_1_camera.html">height</a> &gt; 1080 || <a class="code" href="structpmgrd_1_1_camera.html">width</a> &lt; 640 || <a class="code" href="structpmgrd_1_1_camera.html">height</a> &lt; 480)</div>
+<div class="line"><a name="l00041"></a><span class="lineno">   41</span>&#160;                <span class="keywordflow">return</span> <a class="code" href="structpmgrd_1_1_camera.html">Err</a>{ <a class="code" href="structpmgrd_1_1_camera.html">ErrType</a>::<a class="code" href="structpmgrd_1_1_camera.html">InvalidCameraConfiguration</a> };</div>
+<div class="line"><a name="l00042"></a><span class="lineno">   42</span>&#160;            <span class="keywordflow">return</span> <a class="code" href="structpmgrd_1_1_camera.html">Ok</a>();</div>
+<div class="line"><a name="l00043"></a><span class="lineno">   43</span>&#160;        }</div>
+<div class="line"><a name="l00044"></a><span class="lineno">   44</span>&#160;    };</div>
+<div class="line"><a name="l00045"></a><span class="lineno">   45</span>&#160; </div>
+<div class="line"><a name="l00046"></a><span class="lineno">   46</span>&#160;    <span class="comment">/**</span></div>
+<div class="line"><a name="l00047"></a><span class="lineno">   47</span>&#160;<span class="comment">     * @brief Represents a crew station.</span></div>
+<div class="line"><a name="l00048"></a><span class="lineno">   48</span>&#160;<span class="comment">     * */</span></div>
+<div class="line"><a name="l00049"></a><span class="lineno"><a class="line" href="structpmgrd_1_1_crew_station.html">   49</a></span>&#160;    <span class="keyword">struct</span> <a class="code" href="structpmgrd_1_1_crew_station.html">CrewStation</a></div>
+<div class="line"><a name="l00050"></a><span class="lineno">   50</span>&#160;    {</div>
+<div class="line"><a name="l00051"></a><span class="lineno"><a class="line" href="structpmgrd_1_1_crew_station.html#a2d1c121e56025ab15b3a60f3dc53de46">   51</a></span>&#160;        <a class="code" href="structpmgrd_1_1_crew_station.html#a2d1c121e56025ab15b3a60f3dc53de46">u8</a>              <a class="code" href="structpmgrd_1_1_crew_station.html#a2d1c121e56025ab15b3a60f3dc53de46">nodeId</a>; <span class="comment">///&lt; The id of the endpoint.</span></div>
+<div class="line"><a name="l00052"></a><span class="lineno"><a class="line" href="structpmgrd_1_1_crew_station.html#af468c5640ee0e100ca4fdb8294438c97">   52</a></span>&#160;        <a class="code" href="structpmgrd_1_1_crew_station.html#af468c5640ee0e100ca4fdb8294438c97">std</a>::<a class="code" href="structpmgrd_1_1_crew_station.html#af468c5640ee0e100ca4fdb8294438c97">vector</a>&lt;<a class="code" href="structpmgrd_1_1_crew_station.html#af468c5640ee0e100ca4fdb8294438c97">u8</a>&gt; <a class="code" href="structpmgrd_1_1_crew_station.html#af468c5640ee0e100ca4fdb8294438c97">groups</a>; <span class="comment">///&lt; The groups which belong to this node.</span></div>
+<div class="line"><a name="l00053"></a><span class="lineno">   53</span>&#160; </div>
+<div class="line"><a name="l00054"></a><span class="lineno">   54</span>&#160;        NLOHMANN_DEFINE_TYPE_INTRUSIVE(CrewStation, nodeId, groups)</div>
+<div class="line"><a name="l00055"></a><span class="lineno">   55</span>&#160;    };</div>
+<div class="line"><a name="l00056"></a><span class="lineno">   56</span>&#160;} <span class="comment">// namespace pmgrd</span></div>
 </div><!-- fragment --></div><!-- contents -->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>

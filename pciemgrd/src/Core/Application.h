@@ -39,7 +39,7 @@ namespace pmgrd {
         /**
          * @brief The pre-defined RC daemon's server port.
          * */
-        static constexpr auto RootServerPort = 7777;
+        static constexpr auto RootServerPort = 7779;
         /**
          * @brief The pre-defined RC daemon's server IP.
          * */
@@ -70,6 +70,8 @@ namespace pmgrd {
         std::array<std::list<u8>, 63>        m_Groups;
         std::list<Camera>                    m_Cameras;
         std::list<CrewStation>               m_CrewStations;
+        CrewStation                          m_CurrentCrewConfig;
+        Camera                               m_CurrentConcentratorConfig;
 
     private:
         static std::unique_ptr<Application> s_Instance;
@@ -94,6 +96,13 @@ namespace pmgrd {
          *  @returns @ref Result of @ref Err where @ref Err indicates an error has occured.
          *  */
         Result<Err> Run() noexcept;
+
+        /**
+         *  @brief Loads the camera configuration from @ref m_CameraConfigPath.
+         *
+         *  @returns @ref Result of @ref Err where @ref Err indicates an error has occured.
+         *  */
+        Result<Err> LoadCameraConfig() noexcept;
 
         /**
          *  @brief Tries to connect to the RC server.
@@ -140,6 +149,7 @@ namespace pmgrd {
         [[nodiscard]] Result<Err> Arg_RCCommandHandler(std::vector<std::string_view> args) noexcept;
         [[nodiscard]] Result<Err> Arg_CrewStationHandler(std::vector<std::string_view> args) noexcept;
         [[nodiscard]] Result<Err> Arg_ConcentratorHandler(std::vector<std::string_view> args) noexcept;
+        [[nodiscard]] Result<Err> Arg_GSTHandler(std::vector<std::string_view> args) noexcept;
 
     private:
         [[nodiscard]] Result<Err> Net_StringHandler(Endpoint& ep, net::Packet&& packet) noexcept;

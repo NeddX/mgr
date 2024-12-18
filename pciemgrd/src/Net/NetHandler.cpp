@@ -95,9 +95,9 @@ namespace pmgrd::net {
                                              // Send the error to the client.
                                              net::BeginSend(owner.GetSocket(), err);
                                          }
-                                         else
-                                             // Tell the client that everything went well.
-                                             net::BeginSend(owner.GetSocket(), net::Packet::Ok());
+                                         // else
+                                         //  Tell the client that everything went well.
+                                         //  net::BeginSend(owner.GetSocket(), net::Packet::Ok());
                                      }
                                      else
                                          m_Logger.Log(__func__, lgx::Level::Info, "Dropped {} packet.",

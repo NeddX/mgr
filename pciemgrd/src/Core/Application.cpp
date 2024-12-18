@@ -8,6 +8,7 @@
 #include <fcntl.h>
 #include <sys/reboot.h>
 #include <sys/stat.h>
+#include <sys/wait.h>
 #include <unistd.h>
 
 #include <nlohmann/json.hpp>
@@ -53,7 +54,7 @@ namespace pmgrd {
                              "Execute as a daemon.",
                              CLI::ArgType::Option,
                              utils::BindDelegate(this, &Application::Arg_DaemonHandler) });
-        m_CLI->AddArgument({ { "--rc", "-r" },
+        m_CLI->AddArgument({ { "--rootcomplex", "-r" },
                              "Execute as the Root Complex.",
                              CLI::ArgType::Option,
                              utils::BindDelegate(this, &Application::Arg_RCHandler) });
@@ -69,10 +70,6 @@ namespace pmgrd {
                              "Load the specified camera configuration file.",
                              CLI::ArgType::Option,
                              utils::BindDelegate(this, &Application::Arg_CamconfHandler) });
-        m_CLI->AddArgument({ { "--join", "-j" },
-                             "Join a multicast group.",
-                             CLI::ArgType::Option,
-                             utils::BindDelegate(this, &Application::Arg_JoinHandler) });
 
         // FIXME: Options do not consume arguments that are appropriate to them.
         // e.g., -j 0 (0 does gets parsed an argument and fails).
@@ -81,6 +78,10 @@ namespace pmgrd {
                              "Leave from a multicast group.",
                              CLI::ArgType::SubCommand,
                              utils::BindDelegate(this, &Application::Arg_LeaveHandler) });
+        m_CLI->AddArgument({ { "--join", "-j" },
+                             "Join a multicast group.",
+                             CLI::ArgType::SubCommand,
+                             utils::BindDelegate(this, &Application::Arg_JoinHandler) });
         m_CLI->AddArgument({ { "--sendstr", "-s" },
                              "Send a string to the RC.",
                              CLI::ArgType::SubCommand,
@@ -89,6 +90,10 @@ namespace pmgrd {
                              "Communicate with the RC.",
                              CLI::ArgType::SubCommand,
                              utils::BindDelegate(this, &Application::Arg_RCCommandHandler) });
+        m_CLI->AddArgument({ { "gst" },
+                             "Invoke GStreamer based on configuration sent by the RC.",
+                             CLI::ArgType::SubCommand,
+                             utils::BindDelegate(this, &Application::Arg_GSTHandler) });
 
         m_NetHandler = std::make_unique<net::NetHandler>(*m_Logger, m_Socket);
 
@@ -142,7 +147,7 @@ namespace pmgrd {
         m_Logger->Info("Daemon mode: {}", m_DaemonMode);
         m_Logger->Info("Root Complex: {}", m_RootComplex);
 
-        if (m_CameraConfigPath.empty())
+        if (m_CameraConfigPath.empty() && m_RootComplex)
             m_Logger->Log(lgx::Level::Warn, "Camera configuration file not specified.");
 
         m_Started.store(true);
@@ -161,6 +166,51 @@ namespace pmgrd {
             if (auto result = m_NetHandler->BeginAccept(); !result)
                 return result;
         }
+
+        return Ok();
+    }
+
+    Result<Err> Application::LoadCameraConfig() noexcept
+    {
+        m_Logger->Log(lgx::Level::Info, "Loading '{}'...", m_CameraConfigPath);
+        std::ifstream fs{ m_CameraConfigPath };
+        if (fs.is_open())
+        {
+            std::string content = std::string((std::istreambuf_iterator<char>(fs)), (std::istreambuf_iterator<char>()));
+            nlohmann::json j    = nlohmann::json::parse(content);
+
+            if (j.contains("crewStations"))
+                m_CrewStations = j["crewStations"].get<std::list<CrewStation>>();
+            else
+                return Err{ ErrType::InvalidCameraConfiguration };
+
+            if (j.contains("concentrators"))
+            {
+                for (const auto& e : j["concentrators"])
+                {
+                    const auto node_id = e["nodeId"];
+
+                    Camera cam_obj;
+                    if (e.contains("cameras"))
+                    {
+                        for (const auto& cam : e["cameras"])
+                        {
+                            cam_obj        = cam.get<Camera>();
+                            cam_obj.nodeId = node_id;
+                            m_Cameras.push_back(std::move(cam_obj));
+                        }
+                    }
+                    else
+                        return Err{ ErrType::InvalidCameraConfiguration };
+                }
+            }
+            else
+                return Err{ ErrType::InvalidCameraConfiguration };
+
+            m_Logger->Log(lgx::Level::Info, "Successfully loaded {} camera configuration(s)", m_Cameras.size());
+        }
+        else
+            return Err{ ErrType::JsonParseError, "Failed to load camera configuration file: {}", m_CameraConfigPath };
 
         return Ok();
     }
@@ -190,9 +240,9 @@ namespace pmgrd {
         initconn << m_NodeID;
         TRY_UNWRAP(net::BeginSend(m_Socket, std::move(initconn)));
 
-        // Wait for InitCon acknowledgement.
+        // Wait for Ready acknowledgement.
         if (const auto result = net::BeginReceive(m_Socket); !result || result.Unwrap().Type() != net::PacketType::Ok)
-            return Err{ ErrType::NetInitConFailure };
+            return Err{ ErrType::NetReadyFailure };
 
         // Request for configuration.
         if (m_CrewStation)
@@ -230,11 +280,11 @@ namespace pmgrd {
             result.Unwrap() >> jsonstr;
 
             // Convert to json and deserialise it from json to vector of cameras.
-            nlohmann::json      j       = nlohmann::json::parse(jsonstr);
-            std::vector<Camera> cameras = j["cameras"].get<std::vector<Camera>>();
+            nlohmann::json j = nlohmann::json::parse(jsonstr);
+            m_Cameras        = j["cameras"].get<std::list<Camera>>();
 
             // Validate cameras.
-            for (const auto& e : cameras)
+            for (const auto& e : m_Cameras)
                 TRY_UNWRAP(e.Validate());
 
             m_Logger->Log(__func__, lgx::Level::Info, "Crew config: {}", jsonstr);
@@ -321,47 +371,8 @@ namespace pmgrd {
     [[nodiscard]] Result<Err> Application::Arg_CamconfHandler(std::vector<std::string_view> args) noexcept
     {
         m_CameraConfigPath = utils::StrSplit(args[0], '=')[1];
-        m_Logger->Log(lgx::Level::Info, "Loading '{}'...", m_CameraConfigPath);
-        std::ifstream fs{ m_CameraConfigPath };
-        if (fs.is_open())
-        {
-            std::string content = std::string((std::istreambuf_iterator<char>(fs)), (std::istreambuf_iterator<char>()));
-            nlohmann::json j    = nlohmann::json::parse(content);
 
-            if (j.contains("crewStations"))
-                m_CrewStations = j["crewStations"].get<std::list<CrewStation>>();
-            else
-                return Err{ ErrType::InvalidCameraConfiguration };
-
-            if (j.contains("concentrators"))
-            {
-                for (const auto& e : j["concentrators"])
-                {
-                    const auto node_id = e["nodeId"];
-
-                    Camera cam_obj;
-                    if (e.contains("cameras"))
-                    {
-                        for (const auto& cam : e["cameras"])
-                        {
-                            cam_obj        = cam.get<Camera>();
-                            cam_obj.nodeId = node_id;
-                            m_Cameras.push_back(std::move(cam_obj));
-                        }
-                    }
-                    else
-                        return Err{ ErrType::InvalidCameraConfiguration };
-                }
-            }
-            else
-                return Err{ ErrType::InvalidCameraConfiguration };
-
-            m_Logger->Log(lgx::Level::Info, "Successfully loaded {} camera configuration(s)", m_Cameras.size());
-        }
-        else
-            return Err{ ErrType::JsonParseError, "Failed to load camera configuration file: {}", m_CameraConfigPath };
-
-        return Ok();
+        return LoadCameraConfig();
     }
 
     [[nodiscard]] Result<Err> Application::Arg_SendStrHandler(std::vector<std::string_view> args) noexcept
@@ -472,6 +483,7 @@ namespace pmgrd {
         std::string msg;
         packet >> msg;
         m_Logger->Log(lgx::Level::Info, "Ep sent a string: {}", msg);
+        ep.Send(Ok());
         return Ok();
     }
 
@@ -497,7 +509,6 @@ namespace pmgrd {
     [[nodiscard]] Result<Err> Application::Net_JoinHandler(Endpoint& ep, [[maybe_unused]] net::Packet&& packet) noexcept
     {
         m_Logger->Log(__func__, lgx::Level::Info, "Node#{} requested to join.", ep.GetID());
-        return Err{ ErrType::InvalidOperation };
 
         u8 group_id;
         packet >> group_id;
@@ -507,6 +518,8 @@ namespace pmgrd {
         else
             return Err{ ErrType::InvalidOperation, "Already in group {}.", group_id };
 
+        ep.Send(Ok());
+
         return Ok();
     }
 
@@ -514,7 +527,6 @@ namespace pmgrd {
                                                             [[maybe_unused]] net::Packet&& packet) noexcept
     {
         m_Logger->Log(__func__, lgx::Level::Info, "Node#{} requested to leave.", ep.GetID());
-        return Err{ ErrType::InvalidOperation };
 
         u8 group_id;
         packet >> group_id;
@@ -524,6 +536,8 @@ namespace pmgrd {
         else
             return Err{ ErrType::InvalidOperation, "Not in group {}. Join first.", group_id };
 
+        ep.Send(Ok());
+
         return Ok();
     }
 
@@ -531,6 +545,9 @@ namespace pmgrd {
                                                                     [[maybe_unused]] net::Packet&& packet) noexcept
     {
         const auto ep_id = ep.GetID();
+
+        LoadCameraConfig();
+
         m_Logger->Info("EP#{} requested for crew configuration.", ep_id);
 
         auto it = std::find_if(m_CrewStations.begin(), m_CrewStations.end(),
@@ -550,6 +567,9 @@ namespace pmgrd {
     {
         const auto ep_id = ep.GetID();
         m_Logger->Info("EP#{} requested for concentrator configuration.", ep_id);
+
+        LoadCameraConfig();
+
         nlohmann::json j;
         auto           crew_it = std::find_if(m_CrewStations.begin(), m_CrewStations.end(),
                                               [ep_id](const auto& crew) { return crew.nodeId == ep_id; });
@@ -560,7 +580,7 @@ namespace pmgrd {
             for (const auto group_id : crew_it->groups)
             {
                 auto cam_it = std::find_if(m_Cameras.begin(), m_Cameras.end(),
-                                           [group_id](const auto& cam) { return cam.groupId == group_id; });
+                                           [group_id](const auto& cam) { return cam.id == group_id; });
                 if (cam_it != m_Cameras.end())
                     j["cameras"].push_back(*cam_it);
             }
@@ -569,6 +589,79 @@ namespace pmgrd {
             return Err{ ErrType::InvalidOperation, "Ep# {} did not match any crew stations.", ep_id };
 
         ep.Send(net::Packet{ j.dump(4) });
+        return Ok();
+    }
+
+    [[nodiscard]] Result<Err> Application::Arg_GSTHandler(std::vector<std::string_view> args) noexcept
+    {
+        if (auto result = ConnectToRC(); !result)
+            return result;
+
+        std::vector<pid_t> pids;
+        pids.reserve(m_Cameras.size());
+
+        for (const auto& cam : m_Cameras)
+        {
+            const auto str = std::vector<std::string>{
+                "gst-launch-1.0",
+                "nvv4l2camerasrc",
+                fmt::format("device=/dev/video{}", cam.videoDev),
+                "!",
+                "'video/x-raw(memory:NVMM)',",
+                fmt::format("width={},", cam.width),
+                fmt::format("height={},", cam.height),
+                fmt::format("framerate={}/1,", cam.fps),
+                fmt::format("'format=(string){}", cam.videoFmt),
+                "!",
+                "nvvidconv",
+                "flip-method=0",
+                "!",
+                "videoconvert",
+                "!",
+                "video/x-raw,",
+                fmt::format("width={},", cam.width),
+                fmt::format("height={},", cam.height),
+                fmt::format("framerate={}/1,", cam.fps),
+                fmt::format("'format=(string){}", cam.videoFmt),
+                "!",
+                "ttmcastsink",
+                "camera-id=1",
+                fmt::format("device=/dev/video{}", cam.videoDev),
+            };
+            auto pargs = std::vector<char*>{};
+            for (auto& e : str)
+                pargs.push_back(const_cast<char*>(e.data()));
+            pargs.push_back(nullptr);
+
+            pid_t pid = fork();
+
+            switch (pid)
+            {
+                case 0: {
+                    execvp("gst-launch-1.0", pargs.data());
+                    Panic("Failed to launch gst-launch-1.0");
+                    break;
+                }
+                case -1: return Err{ ErrType::ForkFailed };
+                default: break;
+            }
+
+            pids.push_back(pid);
+            std::ostringstream os;
+            for (const auto& e : str)
+                os << e;
+
+            m_Logger->Log(lgx::Info, "GST ({}) Arguments: {}", pid, os.str());
+        }
+
+        // TODO: Wait for each process asynchronously via threads?
+        for (const auto& p : pids)
+        {
+            i32 status;
+            waitpid(p, &status, 0);
+            m_Logger->Log(lgx::Info, "PID {} exited with status code: {}.", p, status);
+        }
+
         return Ok();
     }
 

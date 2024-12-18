@@ -169,8 +169,8 @@ $(function() {
 <div class="line"><a name="l00095"></a><span class="lineno">   95</span>&#160;            header.type = PacketType::Err;</div>
 <div class="line"><a name="l00096"></a><span class="lineno">   96</span>&#160; </div>
 <div class="line"><a name="l00097"></a><span class="lineno">   97</span>&#160;            <span class="comment">// Allocate space for ErrType.</span></div>
-<div class="line"><a name="l00098"></a><span class="lineno">   98</span>&#160;            header.dataLen = <span class="keyword">sizeof</span>(Err);</div>
-<div class="line"><a name="l00099"></a><span class="lineno">   99</span>&#160;            data.resize(<span class="keyword">sizeof</span>(Err));</div>
+<div class="line"><a name="l00098"></a><span class="lineno">   98</span>&#160;            header.dataLen = <span class="keyword">sizeof</span>(Err::m_Type);</div>
+<div class="line"><a name="l00099"></a><span class="lineno">   99</span>&#160;            data.resize(<span class="keyword">sizeof</span>(Err::m_Type));</div>
 <div class="line"><a name="l00100"></a><span class="lineno">  100</span>&#160; </div>
 <div class="line"><a name="l00101"></a><span class="lineno">  101</span>&#160;            <span class="comment">// Write the ErrType.</span></div>
 <div class="line"><a name="l00102"></a><span class="lineno">  102</span>&#160;            *(<span class="keyword">reinterpret_cast</span>&lt;ErrType*&gt;(data.data())) = err.Type();</div>

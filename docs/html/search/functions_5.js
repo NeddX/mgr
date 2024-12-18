@@ -1,4 +1,4 @@
 var searchData=
 [
-  ['ok_77',['Ok',['../structpmgrd_1_1net_1_1_packet.html#a9c35088f5ec4b904402497ab8fe5b5b4',1,'pmgrd::net::Packet']]]
+  ['new_78',['New',['../classpmgrd_1_1_application.html#a4f46e861c8f1f2c384651efc9d6f5750',1,'pmgrd::Application']]]
 ];
