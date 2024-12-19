@@ -1,4 +1,0 @@
-<map id="pmgrd::net::Packet" name="pmgrd::net::Packet">
-<area shape="rect" id="node1" title="The packet iself. Contains the packet header (." alt="" coords="29,95,172,121"/>
-<area shape="rect" id="node2" href="$structpmgrd_1_1net_1_1_packet_header.html" title="The packet header. Contains the type and length of the incoming payload." alt="" coords="5,5,196,32"/>
-</map>

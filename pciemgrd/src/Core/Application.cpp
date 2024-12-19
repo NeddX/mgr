@@ -592,7 +592,7 @@ namespace pmgrd {
         return Ok();
     }
 
-    [[nodiscard]] Result<Err> Application::Arg_GSTHandler(std::vector<std::string_view> args) noexcept
+    [[nodiscard]] Result<Err> Application::Arg_GSTHandler([[maybe_unused]] std::vector<std::string_view> args) noexcept
     {
         if (auto result = ConnectToRC(); !result)
             return result;
